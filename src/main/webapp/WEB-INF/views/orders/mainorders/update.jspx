@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<div class="gallery"
+		style="background:#${background_subpage}; opacity:${subpage_opacity}; padding: 20px">
+		<spring:message arguments="Main Order" code="entity_update"
+			var="title_msg" htmlEscape="false" />
+		<legend>${title_msg}</legend>
+		<table>
+			<tbody>
+				<tr>
+					<td align="center" style="width: 350px;"><c:if
+							test="${not empty Update_ErrorMessage}">
+							<div style="color: red">${Update_ErrorMessage}</div>
+						</c:if> <!-- <form:update id="fu_com_stgo_taostyle_domain_MainOrder" modelAttribute="mainOrder" path="/mainorders" versionField="Version" z="7xKQzsmvzbpiCMCSOqYDerK2Hb0=">
+		        <field:checkbox field="colorProportionReceived" id="c_com_stgo_taostyle_domain_MainOrder_colorProportionReceived" z="zuOY1wCa6NlYXDILBLEfsgi7pq0="/>
+		        <field:datetime dateTimePattern="${mainOrder_delieverdate_date_format}" field="delieverdate" id="c_com_stgo_taostyle_domain_MainOrder_delieverdate" z="R5Qsw+j6NoLDk+WqvKvE007fw4k="/>
+		    </form:update> --> <spring:url value="/mainorders" var="form_url" />
+						<springform:form modelAttribute="mainOrder" action="${form_url}"
+							method="POST">
+							<input type="hidden" value="PUT" name="_method" />
+							<!-- this is the secret to change the mothed of Form from POST to PUT -->
+							<input type="hidden" name="id" value="${mainOrder['id']}" />
+							<table>
+								<tr>
+									<td>Client :</td>
+									<td><springform:select path="client" name="client"
+											style="width:164px">
+											<c:forEach items="${clients}" var="item">
+												<springform:option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</springform:option>
+											</c:forEach>
+										</springform:select></td>
+								</tr>
+								<tr>
+									<td>clientSideOrderNumber :</td>
+									<td><input id="clientSideOrderNumber"
+										name="clientSideOrderNumber" style="width: 150px" type="text"
+										value="${mainOrder['clientSideOrderNumber']}" /></td>
+								</tr>
+								<tr>
+									<td>clientSideModelNumber :</td>
+									<td><input id="clientSideModelNumber"
+										name="clientSideModelNumber" style="width: 150px" type="text"
+										value="${mainOrder['clientSideModelNumber']}" /></td>
+								</tr>
+								<tr>
+									<td>Model :</td>
+									<td><input id="model" name="model" style="width: 150px"
+										type="text" value="${mainOrder['model']}" /></td>
+								</tr>
+								<tr>
+									<td>productName :</td>
+									<td><input id="productName" name="productName"
+										style="width: 150px" type="text"
+										value="${mainOrder['productName']}" /></td>
+								</tr>
+								<tr>
+									<td>contactPerson :</td>
+									<td><springform:select path="contactPerson"
+											name="contactPerson" style="width:164px">
+											<c:forEach items="${useraccounts}" var="item">
+												<springform:option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</springform:option>
+											</c:forEach>
+										</springform:select></td>
+								</tr>
+
+								<tr>
+									<td>quantity :</td>
+									<td><input id="quantity" name="quantity"
+										style="width: 150px" type="text"
+										value="${mainOrder['quantity']}" /></td>
+								</tr>
+								<tr>
+									<td>payCondition :</td>
+									<td><input id="payCondition" name="payCondition"
+										style="width: 150px" type="text"
+										value="${mainOrder['payCondition']}" /></td>
+								</tr>
+
+								<c:if
+									test="${user_role eq '[ROLE_EMPLOYEE]' or user_role eq '[ROLE_ADMIN]'}">
+								</c:if>
+								<tr>
+									<td style="width: 200px;">ColorProportionReceived :</td>
+									<td><input id="colorProportionReceived"
+										name="colorProportionReceived" style="width: 150px"
+										type="text" value="${mainOrder['colorProportionReceived']}" /></td>
+								</tr>
+								<tr>
+									<td>delieverdate :</td>
+									<td><input id="delieverdate" name="delieverdate"
+										style="width: 150px" type="text" value="${deliverdate}" /></td>
+								</tr>
+								<script>
+						$(function(){
+							$('#delieverdate').datepicker();
+						});
+					</script>
+
+
+								<tr>
+									<td>sizeTable :</td>
+									<td><input id="sizeTable" name="sizeTable"
+										style="width: 150px" type="text"
+										value="${mainOrder['sizeTable']}" /></td>
+								</tr>
+								<tr>
+									<td>colorCard :</td>
+									<td><input id="colorCard" name="colorCard"
+										style="width: 150px" type="text"
+										value="${mainOrder['colorCard']}" /></td>
+								</tr>
+								<tr>
+									<td>testRequirement :</td>
+									<td><input id="testRequirement" name="testRequirement"
+										style="width: 150px" type="text"
+										value="${mainOrder['testRequirement']}" /></td>
+								</tr>
+								<tr>
+									<td>sampleRequirement :</td>
+									<td><input id="sampleRequirement" name="sampleRequirement"
+										style="width: 150px" type="text"
+										value="${mainOrder['sampleRequirement']}" /></td>
+								</tr>
+								<tr>
+									<td>Remark :</td>
+									<td><input id="remark" name="remark" style="width: 150px"
+										type="text" value="${mainOrder['remark']}" /></td>
+								</tr>
+
+								<tr>
+									<td colspan="2"><hr /></td>
+								</tr>
+								<tr>
+									<td align="center" colspan="2">
+										<spring:message code="button_submit" htmlEscape="false"
+											var="submit_label" /> <input
+										class="btn btn-sm col-sm-4 btn btn-primary move-right"
+										id="proceed" type="submit"
+										value="${fn:escapeXml(submit_label)}" /></td>
+								</tr>
+							</table>
+						</springform:form></td>
+					<td width="550px" valign="top">
+						<TABLE style="width: 100%; height: 100%;">
+							<tr>
+								<td align="center"><spring:url
+										value="/sizeproportions?mainOrder=${mainOrder['id']}"
+										var="sizeproportions_url" /> <a href="${sizeproportions_url}"><input
+										class="btn btn-sm col-sm-4 btn btn-danger move-right"
+										id="proceed" type="submit" value="Color Proportion" /></a></td>
+								<td align="center"><spring:url
+										value="/materials?mainOrder=${mainOrder['id']}"
+										var="materials_url" /> <a href="${materials_url}"><input
+										class="btn btn-sm col-sm-4 btn btn-warning move-right"
+										id="proceed" type="submit" value="Matiarial" /></a></td>
+								<td align="center"><spring:url
+										value="/taxonomymaterials?mainOrder=${mainOrder['id']}"
+										var="taxonomymaterials_url" /> <a
+									href="${taxonomymaterials_url}"><input
+										class="btn btn-sm col-sm-4 btn btn-info move-right"
+										id="proceed" type="submit" value="Toxi" /></a></td>
+								<td align="center"><spring:url
+										value="/packagestyles?mainOrder=${mainOrder['id']}"
+										var="packagestyles_url" /> <a href="${packagestyles_url}"><input
+										class="btn btn-sm col-sm-4 btn btn-success move-right"
+										id="proceed" type="submit" value="Package " /></a></td>
+								<td align="center"><spring:url
+										value="/shipmentstyles?mainOrder=${mainOrder['id']}"
+										var="shipmentstyles_url" /> <a href="${shipmentstyles_url}"><input
+										class="btn btn-sm col-sm-4 btn btn-inverse move-right"
+										id="proceed" type="submit" value="Shipment " /></a></td>
+							</tr>
+							<tr>
+								<td align="center" width="100%" colspan="5"
+									style="height: 530px"><img
+									src="getImage/model_${mainOrder['model']}" alt="image" />
+								<util:changeImg position="model_${mainOrder['model']}"
+										returnPath="redirect:/mainorders/${mainOrder['id']}?form"
+										allowedLevel="[ROLE_EMPLOYEE]" /></td>
+							</tr>
+						</TABLE>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

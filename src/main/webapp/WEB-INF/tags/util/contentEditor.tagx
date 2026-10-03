@@ -1,0 +1,199 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<!-- plain text editor -->
+	<div class="modal fade" style="display: none" id="displayChangeTextBox"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">x</button>
+					<h4 class="modal-title" id="myModalLabel">Please change the
+						text to display in this area, then click 'Save change' button to
+						submit.</h4>
+				</div>
+				<spring:url value="changeText" var="form_url" />
+				<form action="${fn:escapeXml(form_url)}" method="POST">
+					<div class="modal-body">
+						<textarea cols="400" style="width: 515px; height: 200px"
+							name="content" id="content">${replacingContent}</textarea>
+						<input name="position" type="hidden" value="${position}" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<!-- rich text editor 
+	<div class="modal fade" style="display:none" id="displayChangeContentBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	        <h4 class="modal-title" id="myModalLabel">Please edit the text to display in this area, then click 'Save change' button to submit.</h4>
+	      </div>
+    	  <spring:url value="changeText" var="form_url" />
+    	  <form action="${fn:escapeXml(form_url)}" method="POST">
+		      <div class="modal-body">
+		        <textarea cols="400" style="width: 515px;height: 200px" name="content" id="content">${replacingContent}</textarea>
+				<input name="position" type="hidden" value="${position}"/>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary">Save changes</button>
+		      </div>
+		   </form>
+	    </div>
+	  </div>
+	</div>-->
+
+	<!-- change image -->
+	<div class="modal fade" style="display: none" id="displayChangeImgBox"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">x</button>
+					<h4 class="modal-title" id="myModalLabel">
+						Please click the <b>'Browse...'</b> to select an image
+						file from disk! <br />
+					</h4>
+				</div>
+				<!-- <spring:url value="/changeImg" var="form_url" />
+	      <form  name="upform" action="${fn:escapeXml(form_url)}" method="POST" enctype="multipart/form-data"> 
+			  <div class="modal-body col-xs-4 padding-top-5px" style="vertical-align: middle;">
+				<input type ="file" name="file1" accept="image/png" />
+				<input type="hidden" name="position" value="${position}" />
+			  </div>
+			  <div class="modal-footer">
+				<button  class="btn btn-primary" type="submit">Upload</button>
+			  </div>
+	     </form>  -->
+				<spring:url value="/${form_url_img}" var="form_url" />
+				<springform:form action="${form_url}" method="POST"
+					modelAttribute="mediaUpload" enctype="multipart/form-data">
+					<div class="modal-body col-xs-4 padding-top-5px"
+						style="vertical-align: middle;">
+						<input type="file" name="content" multiple="true"/> 
+						<input type="hidden" name="position" value="${position}" /> 
+						<input type="hidden" name="imageIndex" value="${imageIndex}" /> 
+						<input type="hidden" name="operation" value="${operation}" /> 
+						<input type="hidden" name="returnPath" value="${returnPath}" />
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" type="submit">Upload</button>
+					</div>
+				</springform:form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<!-- register comfirmation -->
+	<div class="modal fade" style="display: none"
+		id="displayRegistComfirmation" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header content"
+					style="margin: 0px; border: 0px; border-radius: 5px; color: #fff;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">x</button>
+					<div>
+						<p>Thank your for your application!</p>
+						<p>We've send the confirm email to ${email}.</p>
+						<p>If you can not find it in Inbox, please double check your
+							junk box.</p>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+
+	<!-- to check if there's any modal dialog need to be shown -->
+	<script type="text/javascript">
+		var isRichText  =  ${isRichText eq 'true'}
+		var showTextArea = ${replacingContent ne null};	//@NOTE: when it's changing picture, must make sure that contnet is null!
+		var showFileChooser = ${position ne null};
+		var showRegistComfirmation = ${email ne null};
+		
+		$(function() {
+			//if(isRichText == true)
+			//	$('#displayChangeContentBox').modal('show');
+			//else 
+			if(showTextArea == true)			//first check if it's modifying text.
+			    $('#displayChangeTextBox').modal('show');
+			else if(showFileChooser == true)	//if not modifying text, then check if it's modifying pictures.
+			    $('#displayChangeImgBox').modal('show');
+			else if(showRegistComfirmation == true)
+				$('#displayRegistComfirmation').modal('show');
+		});
+		
+		/*function displayChangeTextBox() {
+			$('#displayChangeTextBox').modal('show');
+		}		
+		
+		function displayChangeImgBox() {
+			$('#displayChangeImgBox').modal('show');
+		}*/
+		
+		function initToolbarBootstrapBindings() {
+		 /*  var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+				'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+				'Times New Roman', 'Verdana'],
+				fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+		    	$.each(fonts, function (idx, fontName) {
+				  fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+			    });
+		  $('a[title]').tooltip({container:'body'});
+			$('.dropdown-menu input').click(function() {return false;})
+				.change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+			.keydown('esc', function () {this.value='';$(this).change();});
+
+		  $('[data-role=magic-overlay]').each(function () {
+			var overlay = $(this), target = $(overlay.data('target'));
+			overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+		  });
+		  if ("onwebkitspeechchange"  in document.createElement("input")) {
+			var editorOffset = $('#editor').offset();
+			$('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+		  } else {
+			$('#voiceBtn').hide();
+		  }*/
+		};
+		function showErrorAlert (reason, detail) {
+		/*	var msg='';
+			if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+			else {
+				console.log("error uploading file", reason, detail);
+			}
+			$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">s</button>'+
+			 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');  */
+		};
+		
+	</script>
+</jsp:root>

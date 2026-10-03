@@ -1,0 +1,87 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<!-- don't display by default -->
+	<c:set value=" col-xs-12 col-sm-12 col-md-12 col-lg-12" var="span" />
+	<c:set value="0px" var="leftmargin" />
+	<!-- if have menu, then display -->
+	<c:if test="${not empty subMenu}">
+		<c:set value=" col-xs-12 col-sm-8 col-md-9 col-lg-9" var="span" />
+		<c:set value="0px" var="leftmargin" />
+	</c:if>
+	
+	<!-- Main Content -->
+	<c:if test="${not empty transaction}">
+		<h1>Please Review Before Paying</h1>
+	    <form action="execute_payment" method="post">
+	    <table>
+	        <tr>
+	            <td colspan="2"><b>Transaction Details:</b></td>
+	            <td>
+	                <input type="hidden" name="paymentId" value="${param.paymentId}" />
+	                <input type="hidden" name="PayerID" value="${param.PayerID}" />
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>Description:</td>
+	            <td>${transaction.description}</td>
+	        </tr>
+	        <tr>
+	            <td>Subtotal:</td>
+	            <td>${transaction.amount.details.subtotal} USD</td>
+	        </tr>
+	        <tr>
+	            <td>Shipping:</td>
+	            <td>${transaction.amount.details.shipping} USD</td>
+	        </tr>
+	        <tr>
+	            <td>Tax:</td>
+	            <td>${transaction.amount.details.tax} USD</td>
+	        </tr>
+	        <tr>
+	            <td>Total:</td>
+	            <td>${transaction.amount.total} USD</td>
+	        </tr>
+	        <tr><td><br/></td></tr>
+	        <tr>
+	            <td colspan="2"><b>Payer Information:</b></td>
+	        </tr>
+	        <tr>
+	            <td>First Name:</td>
+	            <td>${payer.firstName}</td>
+	        </tr>
+	        <tr>
+	            <td>Last Name:</td>
+	            <td>${payer.lastName}</td>
+	        </tr>
+	        <tr>
+	            <td>Email:</td>
+	            <td>${payer.email}</td>
+	        </tr>
+	        <tr><td><br/></td></tr>
+	        
+	        <tr>
+	            <td colspan="2" align="center">
+	                <input type="submit" value="Pay Now" />
+	            </td>
+	        </tr>    
+	    </table>
+	    </form>
+	</c:if>
+	
+	<div class="content ${span}" style="color:#${background_foot}; margin-left:${leftmargin}; padding:20px; 
+	background:#${background_subpage}; opacity:${subpage_opacity}; float:right">
+		<img src="getImage/html_${menuIdx}" width="100%" />
+		<util:changeImg position="html_${menuIdx}" />
+		<div>${subpageContent}</div>
+		<util:edit position="html_${menuIdx}_content" content="${subpageContent}"
+			richText="true" />
+	</div>
+	
+	
+	
+</div>

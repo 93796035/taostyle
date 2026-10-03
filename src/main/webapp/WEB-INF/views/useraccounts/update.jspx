@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<spring:message code="security_login_title" htmlEscape="false"
+		var="title" />
+	<util:panel id="title" title="${title}">
+		<table style="margin-left: auto; margin-right: auto">
+			<tbody>
+				<tr>
+					<td align="center" style="padding: 10px" width="940px"><c:if
+							test="${not empty Update_ErrorMessage}">
+							<div style="color: red">${Update_ErrorMessage}</div>
+							<hr />
+						</c:if> <spring:url value="/updateUserInfo" var="form_url" />
+						<form action="${fn:escapeXml(form_url)}" method="POST" name="f">
+							<input type="hidden" name="id" value="${userAccount['id']}" />
+							<table>
+								<tr>
+									<td>Name* :</td>
+									<c:set var="position" value="${fn:indexOf(userAccount['loginname'], '*')}" /> 
+									<td><input id="j_username" name="loginname"
+										style="width: 150px" type="text"
+										value="${fn:substring(userAccount['loginname'], 0, position)}" /> 
+										<spring:message
+											code="security_login_form_name_message" htmlEscape="false"
+											var="name_msg" /> </td>
+								</tr>
+								<tr>
+									<td>Password*:</td>
+									<td><input id="j_password" name="password"
+										style="width: 150px" type="password"
+										value="${userAccount['password']}" /> <spring:message
+											code="security_login_form_password_message"
+											htmlEscape="false" var="pwd_msg" /> </td>
+								</tr>
+								<tr>
+									<td>Tel :</td>
+									<td><input id="j_tel" name="tel" style="width: 150px"
+										type="text" value="${userAccount['tel']}" /></td>
+								</tr>
+								<tr>
+									<td>Email :</td>
+									<td><input id="j_email" name="email" style="width: 150px"
+										type="text" value="${userAccount['email']}" /></td>
+								</tr>
+
+								<c:if
+									test="${user_role eq '[ROLE_EMPLOYEE]' or user_role eq '[ROLE_ADMIN]'}">
+									<tr>
+										<td>Fax :</td>
+										<td><input id="fax" name="fax" style="width: 150px"
+											type="text" value="${userAccount['fax']}" /></td>
+									</tr>
+									<tr>
+										<td>Organization Name :</td>
+										<td><input id="companyname" name="companyname"
+											style="width: 150px" type="text"
+											value="${userAccount['companyname']}" /></td>
+									</tr>
+									<tr>
+										<td>Cel :</td>
+										<td><input id="cel" name="cel" style="width: 150px"
+											type="text" value="${userAccount['cel']}" /></td>
+									</tr>
+									<tr>
+										<td>Address :</td>
+										<td><input id="address" name="address"
+											style="width: 150px" type="text"
+											value="${userAccount['address']}" /></td>
+									</tr>
+									<tr>
+										<td>City :</td>
+										<td><input id="city" name="city" style="width: 150px"
+											type="text" value="${userAccount['city']}" /></td>
+									</tr>
+									<tr>
+										<td>Post Code :</td>
+										<td><input id="postcode" name="postcode"
+											style="width: 150px" type="text"
+											value="${userAccount['postcode']}" /></td>
+									</tr>
+									<tr>
+										<td>Credit :</td>
+										<td><input id="credit" name="credit" style="width: 150px"
+											type="text" value="${userAccount['credit']}" /></td>
+									</tr>
+									<tr>
+										<td>Balance :</td>
+										<td><input id="balance" name="balance"
+											style="width: 150px" type="text"
+											value="${userAccount['balance']}" /></td>
+									</tr>
+									<tr>
+										<td>Comment :</td>
+										<td><input id="description" name="description"
+											style="width: 150px" type="text"
+											value="${userAccount['description']}" /></td>
+									</tr>
+								</c:if>
+
+								<c:if test="${user_role eq '[ROLE_ADMIN]'}">
+									<tr>
+										<td>Account Type :</td>
+										<td><input id="securitylevel" name="securitylevel"
+											style="width: 150px" type="text"
+											value="${userAccount['securitylevel']}" /></td>
+									</tr>
+								</c:if>
+
+								<tr>
+									<td colspan="2"><hr /></td>
+								</tr>
+								<tr>
+									<td align="center" colspan="2">
+										<spring:message code="button_submit" htmlEscape="false" var="submit_label" />
+										<input class="btn btn-sm col-sm-4 btn-black move-right" id="proceed" type="submit" value="${fn:escapeXml(submit_label)}" />
+									</td>
+								</tr>
+							</table>
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</util:panel>
+	<script type="text/javascript">
+	    /* if it doesn't work, might because there's some thing stopped the document from fully load. then try to use 
+	    window.onload = function(){playit();$('.carousel').carousel({interval: 5000})}; Please remember to call the 
+	    "playit();", because it's for the promotion swicher, and was difined in external js file, in JSP, if we define a 
+	    window.onload in html file, looks like it can replace the window.onload in external js file.*/   
+	    $(document).ready(
+	    		function(){
+	    			document.getElementById('j_username').focus()
+	    		}
+	    );
+	</script>
+</div>

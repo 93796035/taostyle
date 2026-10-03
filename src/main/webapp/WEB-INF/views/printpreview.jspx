@@ -1,0 +1,186 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+		
+	<spring:url value="/resources/css/blueimp-gallery.min.css" var="blueimp_gallery" />
+	<link rel="stylesheet" href="${blueimp_gallery}" />
+
+	<!-- left menu -->
+	<c:set value="span12" var="span" />
+	<c:set value="0px" var="leftmargin" />
+
+	<c:set value="${user_role != '[ROLE_PRINTER]'}" var="isNotPrinter" />
+	<c:set value="${user_role == '[ROLE_EMPLOYEE]' || user_role == '[ROLE_MANAGER]'}" var="isEmployee" />
+	<c:if test="${isNotPrinter}">
+		<c:if test="${not empty materials}">
+			<div id="printPreview" class="${span}" align="center" style="margin-left:${leftmargin}">
+				<!-- Material list -->
+				<page:BigList id="pl_com_stgo_taostyle_domain_material" label="${targetTime} ( ${sizeTable}${contactPhone} )" items="${materials}"
+				 mainOrderID="${mainOrderID}" recordStatus="${recordStatus}" render="${fn:length(materials) gt 0}">
+					<table:BigSortable data="${materials}" id="l_com_stgo_taostyle_domain_material" path="/materials" showdetail="false" create="false" 
+					update="true"  delete="${isEmployee}" showHeader="${isNotPrinter}" total="${isNotPrinter? total : null}" tax="${tax}"  endPrice="${endPrice}">
+						<table:column id="c_com_stgo_taostyle_domain_material_portionname" label="Name" property="color"/>
+						<c:if test="${isNotPrinter}">
+							<table:column id="c_com_stgo_taostyle_domain_material_endSubTotal" label="Price" property="subTotalInYuan"/>
+						</c:if>
+						<c:if test="${auto_combine_print}">
+							<table:column id="c_com_stgo_taostyle_domain_material_recordStatus" label="Number" property="quantity"/>
+						</c:if>
+						<table:column id="c_com_stgo_taostyle_domain_material_remark" label="Note" property="remark"/>
+					</table:BigSortable>
+					<c:if test="${not empty address}">
+						Addr:${address} 
+						<br/>
+					</c:if>
+					<c:if test="${not empty contactPhone}">
+						Tel:${contactPhone}
+					</c:if>
+				</page:BigList>
+			</div>
+			
+			<!-- hidden places for each printer  it's not used now, because the printer we are using need only the a plain string as content.-->
+			<div id="hiddenDivs" class="gallery modal hide fade in col-xs-12 col-sm-10 col-md-8 col-lg-6"
+			aria-hidden="true" aria-labelledby="windowTitleLabel" role="dialog" tabindex="-1"
+			style="background:#${background_pop}; opacity:${pop_opacity};">
+			
+				<input id="mainOrderID" type="hidden" value="${mainOrderID}" /> 
+				<!-- when debugging, modifiy the mainOrderID to mainOrderID_, to make the ajax call fail, so record will not be updated.  -->
+				<c:forEach var="i" begin="1" end="${fn:length(printers)}" step="1">
+					<c:if test="${not empty materialsForPrinters[i-1]}">
+						<div id="forPrinter${i}" name="${printers[i-1]}" class="${span}" align="left" style="margin-left:${leftmargin}">
+							<p align="center"> ${targetTime}  ( ${sizeTable}${contactPhone} ) </p>
+							<div id="${printers[i]}">
+								<c:forEach var="j" begin="1" end="${fn:length(materialsForPrinters [i-1])}" step="1">
+									<div id="${printers[i]}_dish_${j}">
+										<p>${j}) ${materialsForPrinters [i-1][j-1]['portionName']}</p>
+										<p align="right">${materialsForPrinters [i-1][j-1]['remark']}</p>
+									</div>
+								</c:forEach>
+							</div>
+							<c:if test="${'recept' eq printStyle}">
+								--${address}--${contactPhone}-- <br/>
+								Total:${total} + Tax:${tax} = $${endPrice}
+							</c:if>
+							
+							<input id="forPrinter${i}_printStyle" type="hidden" value="${printStyle}"/>
+							<!-- The style of Print, it could be all(print all item) or each(print each item in one bill.  -->
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+			<a id="showHiddenDivs" class="hide" href="#hiddenDivs" data-toggle="modal" />
+		</c:if>
+	</c:if>
+	<c:if test="${user_role == '[ROLE_PRINTER]'}"> <!-- is not used for now, because it asks an extra computer on site. -->
+		<c:if test="${pageContext['request'].userPrincipal != null and (not empty materials)}">
+			<div id="plainTextForReceip" class="${span}" align="left" style="margin-left:${leftmargin}">
+				<p align="center"> ${targetTime}  ( ${sizeTable}${contactPhone} ) </p>
+				<div id="dishesArea">
+					<c:forEach var="i" begin="1" end="${fn:length(materials)}" step="1">
+						<div id="dish_${i}">
+							<p>${i}) ${materials[i-1]['portionName']}</p>
+							<p align="right">${materials[i-1]['remark']}</p>
+						</div>
+					</c:forEach>
+				</div>
+				<c:if test="${'recept' eq printStyle}">
+					--${address}--${contactPhone}-- <br/>
+					Total:${total} + Tax:${tax} = $${endPrice}
+				</c:if>
+				<input id="mainOrderID" type="hidden" value="${mainOrderID}" /> 
+				<input id="printStyle" type="hidden" value="${printStyle}"/>
+		<!-- when debugging, modifiy the mainOrderID to mainOrderID_, to make the ajax call fail, so record will not be updated.  -->
+		<!-- The style of Print, it could be all(print all item) or each(print each item in one bill.  -->
+			</div>
+		</c:if>
+		<script type="text/javascript">
+			//<![CDATA[
+			    function printByEach(printContents, elementId, i){
+			    	document.body.innerHTML = printContents;
+			    	var item = document.getElementById("dish_"+i);
+		    		if(item == null){
+		    			return;
+		    		}
+		    		document.getElementById("dishesArea").innerHTML = item.innerHTML;
+			     	window.print();
+			     	
+			     	setTimeout("printByEach('" + printContents + "','" + elementId + "',"+ (i+1)+")", ${5 * 1000});
+			    }
+			    function processPrint(elementId){
+			    	var printStyle = document.getElementById("printStyle").value;
+			    	if(printStyle=='each'){
+
+					    var printContents = document.getElementById(elementId).outerHTML;
+				    	printByEach(printContents, elementId, 1);
+			    		
+/*					    var html = '<HTML>\n<HEAD>\n';
+					    if (document.getElementsByTagName("head") != null){
+						    var headTags = document.getElementsByTagName("head");
+						    if (headTags.length > 0)
+						    	html += headTags[0].innerHTML;
+					    }
+			
+					    html += '\n</HE' + 'AD>\n<BODY>\n';
+					    var printReadyElem = document.getElementById(elementId);
+				
+					    html += printReadyElem.innerHTML;
+			
+					    html += '\n</BO' + 'DY>\n</HT' + 'ML>';
+					    //alert("html:"+html);
+					    var printWin = window.open("","processPrint");
+					    printWin.document.open();
+					    printWin.document.write(html);
+					    printWin.document.close();
+				
+					    printWin.print();
+					    //alert("print end!");
+*/
+			    	}else{
+					    var printContents = document.getElementById(elementId).innerHTML;
+				     	document.body.innerHTML = printContents;
+				       	//alert(document.body.outerHTML);
+				     	window.print();
+			    	}
+			    }
+			//]]>
+		
+		    function printDiv() {
+		    	if(document.getElementById("plainTextForReceip")){
+			     	processPrint("plainTextForReceip");
+
+			     	var mainOrderID = document.getElementById("mainOrderID").value;
+					//alert("mainOrderID:"+mainOrderID);
+					 $.ajax({
+					    	headers: "Accept=application/json",
+					        type: "POST",
+					        url: "updateAnOrderStatus/"+mainOrderID,
+					        data: "recordStatus=20",
+					        async:true,
+					        success:function(textContent){
+					        	//ask for next printable order.(which status is 10)
+					        	if(textContent == null || textContent.length == 0){
+					        	}else{
+					        		alert( "Please check the connection of internet or cotact the admin.");
+					        	}
+					        }
+					 });
+
+				 }
+
+			  	 setTimeout('fetchPrintableOrder()', ${(20+refresh_time) * 1000});
+		    }
+			
+		    function fetchPrintableOrder(){
+		    	window.location = "../taostyle/dashboard";
+		    }
+			printDiv();
+		</script>
+	</c:if>
+</div>

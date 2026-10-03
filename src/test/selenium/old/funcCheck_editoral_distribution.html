@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/taostyle" />
+<title>funcCheck_EditoralMode_distribution</title>
+</head>
+<body>
+	<table cellpadding="1" cellspacing="1" border="1">
+		<thead>
+			<tr>
+				<td rowspan="1" colspan="3">funcCheck_EditoralMode_distribution</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div[2]</td>
+				<td>My Documents:No Documents found.FilepathTypeFilesizeSubmit
+					TimeStatus upload new documents</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_UserAccount_email_id &gt;
+					dd</td>
+				<td>GE@gmail.com</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[7]</td>
+				<td>new submit</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[7]</td>
+				<td>new submit</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Show Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>select</td>
+				<td>id=_audient_id</td>
+				<td>label=seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=button.btn.btn-primary</td>
+				<td>Download</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[1]/td[6]</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[1]/td[7]</td>
+				<td>waiting for review</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[1]/td[2]</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<!-----distributed humanstudy to reviseruser-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_filepath_id</td>
+				<td>seleniumNormalUser_HumanStudy is super good!</td>
+			</tr>
+			<tr>
+				<td>select</td>
+				<td>id=_audient_id</td>
+				<td>label=SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_HumanStudy is super good!</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td[2]</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>selectWindow</td>
+				<td>null</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[7]</td>
+				<td>reviewed</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Media Upload'])[1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_HumanStudy is super good!</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td[2]</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[7]</td>
+				<td>reviewed</td>
+			</tr>
+			<!-----added a comment for human study and distribute back to General Editor-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Update Media Upload'])[1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>select</td>
+				<td>id=_audient_id</td>
+				<td>label=seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_filepath_id</td>
+				<td>seleniumNormalUser_HumanStudy need to be revised by some
+					another editor.</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_HumanStudy need to be revised by some
+					another editor.</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[2]/td</td>
+				<td>seleniumNormalUser_HumanStudy is super good!</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[7]</td>
+				<td>new submit</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<!--distribut human study to reviserUser again and added an other comment.-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Update Media Upload'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[1]/td[7]</td>
+				<td>waiting for review</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[1]/td[6]</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[7]</td>
+				<td>new submit</td>
+			</tr>
+			<!--update ScienceResearch, change nothing, to check no comments should be generated. but no relevant script added.-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Update Media Upload'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>select</td>
+				<td>id=_audient_id</td>
+				<td>label=seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[6]</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[7]</td>
+				<td>waiting for review</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+			<!--distributed science research also to reviserUser-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[6]</td>
+				<td>waiting for review</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[6]</td>
+				<td>waiting for review</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Media Upload'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=button.btn.btn-primary</td>
+				<td>Download</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Media Upload'])[1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_HumanStudy need to be revised by some
+					another editor.</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[2]/td</td>
+				<td>seleniumNormalUser_HumanStudy is super good!</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td[2]</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[2]/td[2]</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<!--login with ReviserUser, check all status.-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_filepath_id</td>
+				<td>seleniumNormalUser_HumanStudy to me is perfect!</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[1]/td</td>
+				<td>seleniumNormalUser_HumanStudy to me is perfect!</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Text Content'])[1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_TextContent_content_id
+					&gt; dd</td>
+				<td>seleniumNormalUser_HumanStudy to me is perfect!</td>
+			</tr>
+			<!--reviser added comment for humanstudy.-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=Upload a revised vdersion</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>name=content</td>
+				<td>C:\workspace\taostyle\src\test\selenium\seleniumNormalUser_ScienceRresearch_V20.docx</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=button.btn.btn-primary</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div[2]/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_ScienceRresearch_V1</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div[2]/table/tbody/tr/td[3]</td>
+				<td>49580</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div[2]/table/tbody/tr/td[5]</td>
+				<td>new submit</td>
+			</tr>
+			<!--reviser uploaded a file of modified scienceResearch.docx-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_filepath_id</td>
+				<td>seleniumNormalUser_ScienceRresearch is all good except some
+					revise which I've submitted.</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[1]/td</td>
+				<td>seleniumNormalUser_ScienceRresearch is all good except some
+					revise which I've submitted.</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_ScienceRresearch_V1</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[5]</td>
+				<td>new submit</td>
+			</tr>
+			<!--reviserUser added a comment for science Research-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumNormalUser</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Media Upload'])[1]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_HumanStudy to me is perfect!</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td[2]</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[2]/td</td>
+				<td>seleniumNormalUser_HumanStudy need to be revised by some
+					another editor.</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[2]/td[2]</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[3]/td</td>
+				<td>seleniumNormalUser_HumanStudy is super good!</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[3]/td[2]</td>
+				<td>SeleniumGeneralEditor</td>
+			</tr>
+			<!--nomal user logged in and check the comment log of humanstudy.-->
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Media Upload'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_ScienceRresearch is all good except some
+					revise which I've submitted.</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td[2]</td>
+				<td>seleniumReviserUser</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[5]</td>
+				<td>reviewed</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[5]</td>
+				<td>reviewed</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumGeneralEditor</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch_V1</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[7]</td>
+				<td>new submit</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumNormalUser_HumanStudy</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[7]</td>
+				<td>reviewed</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[3]/td[2]</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[3]/td[7]</td>
+				<td>reviewed</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[3]/td[6]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[4]</td>
+				<td>49580</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[2]/td[4]</td>
+				<td>49580</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr[3]/td[4]</td>
+				<td>49580</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Show Media Upload'])[3]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr[1]/td</td>
+				<td>seleniumNormalUser_ScienceRresearch is all good except some
+					revise which I've submitted.</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>//input[@value='Delete Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertConfirmation</td>
+				<td>Are you sure want to delete this item?</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>//input[@value='Delete Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertConfirmation</td>
+				<td>Are you sure want to delete this item?</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>//input[@value='Delete Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertConfirmation</td>
+				<td>Are you sure want to delete this item?</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

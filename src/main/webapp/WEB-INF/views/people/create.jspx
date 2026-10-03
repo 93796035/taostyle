@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_com_stgo_taostyle_domain_Person" modelAttribute="person" path="/people" render="${empty dependencies}" z="user-managed">
+        <input name="id" type="hidden" value="${person['id']}"/>
+        <input name="name" type="hidden" value="${person['name']}"/>
+        <field:input disabled="true" field="name" id="c_com_stgo_taostyle_domain_Person_name" z="user-managed"/>
+        <field:input field="password" id="c_com_stgo_taostyle_domain_Person_password" z="jve7NTa61h6PFO5yv707v57R5IA="/>
+    </form:create>
+    <c:if test="${not empty luckyPrizeRecords}">
+        <div style="margin:30px auto 0; max-width:780px;">
+            <h3 style="margin-bottom:16px;">Prize History</h3>
+            <table class="table table-striped table-bordered" style="background:#fff;">
+                <thead>
+                    <tr>
+                        <th style="width:220px;">Time</th>
+                        <th>Prize</th>
+                        <th style="width:180px;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="record" items="${luckyPrizeRecords}">
+                        <tr>
+                            <td><fmt:formatDate value="${record.createdAt}" pattern="yyyy-MM-dd HH:mm"/></td>
+                            <td>${record.prizeName}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${record.status eq 'WON'}">Waiting to claim</c:when>
+                                    <c:when test="${record.status eq 'EXPIRED'}">Expired</c:when>
+                                    <c:when test="${record.status eq 'CLAIMED'}">Claimed</c:when>
+                                    <c:otherwise>${record.status}</c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:if>
+    <form:dependency dependencies="${dependencies}" id="d_com_stgo_taostyle_domain_Person" render="${not empty dependencies}" z="user-managed"/>
+
+	<c:if test="${client != null and client.name eq 'stgo'}">
+	  <input id="generateQRCode" type="submit" class="btn btn-primary" onclick="javascript:resetQRCode()" value="Generate QRCode" />
+	  
+	  <div id="gridview" class="gallery ${span}" align="center"
+		style="margin-left:${leftmargin}; padding:20px; background:#${background_subpage}; opacity:${subpage_opacity};">
+		
+		<div class="row" style="margin-left:${service_margin_left}px; margin-right: ${service_margin_right}px; margin-top: ${show_4_Object}px; margin-bottom: ${show_4_Object}px">
+			<c:choose>
+			  <c:when test="${not empty limit_customer}">
+			  	  <c:forEach var="i" begin="${start_table}" end="${limit_table}" step="1">
+			  	  	<c:forEach var="j" begin="${start_customer}" end="${limit_customer}" step="1">
+						<div class="col-xs-${service_number_xs} col-sm-${service_number_sm} col-md-${service_number_md} col-lg-${service_number_lg}" style="text-align: center;">
+							<img src="getImage/QRCode_temp_${i}_${j}" alt="QRCode" />
+					        <div align="center">${i}_${j}</div> 
+						</div>
+					 </c:forEach>
+				  </c:forEach>
+			  </c:when>
+			  <c:otherwise>
+				  <c:forEach var="i" begin="${start_table}" end="${limit_table}" step="1">
+					<div class="col-xs-${service_number_xs} col-sm-${service_number_sm} col-md-${service_number_md} col-lg-${service_number_lg}" style="text-align: center;">
+						<img src="getImage/QRCode_temp_${i}" alt="QRCode" />
+				        <div align="center">${i}</div> 
+					</div>
+				  </c:forEach>
+			  </c:otherwise>
+			</c:choose>
+		</div>
+	  </div>
+	</c:if>
+	
+	<script type="text/javascript">
+	    /* if it doesn't work, might because there's some thing stopped the document from fully load. then try to use 
+	    window.onload = function(){playit();$('.carousel').carousel({interval: 5000})}; Please remember to call the 
+	    "playit();", because it's for the promotion swicher, and was difined in external js file, in JSP, if we define a 
+	    window.onload in html file, looks like it can replace the window.onload in external js file.   
+	    $(document).ready(
+	    		function(){
+	    			document.getElementById('j_username').focus()
+	    		}
+	    );*/
+	    
+
+		function resetQRCode() {
+	    	alert("have you adjusted logo, start, limit, webaddress and deault_feature?");
+			$.ajax({
+		    	headers: "Accept=application/json",
+		        type: "POST",
+		        url: "generateQRCodes/",
+		        async:false,
+		        success:function(textContent){
+		        	if(textContent == null || textContent.length == 0){
+		        	}else{
+		        		alert( "Please check the connection of internet or cotact the admin. detailed information:" + textContent);
+		        	}
+		        	window.location = "./dashboard";
+		        }
+		    });
+		}
+	</script>
+</div>

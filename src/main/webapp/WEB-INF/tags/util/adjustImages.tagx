@@ -1,0 +1,80 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="position" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="Indicate where the contents will be pu onto" />
+	<jsp:directive.attribute name="horizontal" type="java.lang.String"
+		required="false" rtexprvalue="false"
+		description="Indicate the element layout vertically or horizontally" />
+	<jsp:directive.attribute name="imageIdx" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="Indicate where will return to when uploading image finished" />
+	<jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="if not null then the role will also be allowed to modify." />
+
+	<c:if test="${empty render or render}">
+		<c:if test="${user_role == '[ROLE_ADMIN]' or (not empty allowedLevel and user_role eq allowedLevel)}">
+			<div class="col-xs-${service_number_xs} col-sm-${service_number_sm} col-md-${service_number_md} col-lg-${service_number_lg}" 
+				style="text-align: center; display: inline-block; vertical-align: buttom;">
+				<!--  position: absolute; top:0px -->
+				<spring:url value="/changeImgForm" var="form_url">
+					<spring:param name="returnPath" value="${imageIdx}" />
+				</spring:url>
+				<form action="${fn:escapeXml(form_url)}" method="POST" enctype="multipart/form-data">
+					<br/>
+					<br/>
+					<div style="text-align: left;">
+						<input type="hidden" name="position" value="${position}" />
+						At:
+						<input type='text' name='imageIndex' value="${imageIdx}" style="width: 50px; height: 20px" />
+						<c:if test="${empty horizontal or horizontal eq false}"><br/></c:if>
+						<br/>
+						<input type="radio" name="operation" value="append" checked="true" id="insert"/>
+						<label for="insert">Insert (after entered position)</label>
+						<br/>
+						<input type="radio" name="operation" value="overwrite" id="replace"/>
+						<label for="replace">Replace</label>
+						<br/>
+						<input type="radio" name="operation" value="append_same"/>
+						<label for="append_same">Append (keep existing, same position)</label>
+					</div>
+					<c:if test="${empty horizontal or horizontal eq false}"><br/></c:if>
+					<button type="submit" style="padding:0; border:0; background:transparent; line-height:1; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+						<spring:url value="/resources/images/changeImg.png" var="content_img_url" />
+						<img src="${content_img_url}" style="display:block;" title="click me to modify the Image of this area." />
+					</button>
+					&#160;&#160;
+					<a onclick="javascript:addNewService('${position}')" 
+						style="font-size: 24px; padding:3px; color:#${color_operator}; border-radius:${statusbar_border_radius}px; background:#${background_leftbar}">&#160;+&#160;</a>
+				</form>
+			</div>
+			
+			<script type="text/javascript">
+		  		//the featureId could be feature.id or the index of the feature.
+				function addNewService(imageKey) {
+					//if logged in as Manager or admin, then ajax to back end.
+				    $.ajax({
+				    	headers: "Accept=application/json",
+				        type: "POST",
+				        url: "addNewService/"+imageKey,
+				        data: "featureId=" + imageKey,
+				        async:false,
+				        success:function(textContent){
+				        	location.reload();
+				        }
+				    });
+				}
+		      </script>
+		</c:if>
+	</c:if>
+
+</jsp:root>
+

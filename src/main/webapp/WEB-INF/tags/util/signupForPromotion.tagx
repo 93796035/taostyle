@@ -1,0 +1,65 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="returnPath" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="Indicate where the contents will be pu onto" />
+
+	<c:if test="${empty render or render}">
+	  <script src="https://www.google.com/recaptcha/api.js" defer="defer"><!--google reCAPTHA--></script>
+	  <div class="g-recaptcha" data-sitekey="6Le8xgArAAAAAI1jgDYukZk_EuJ1GIvKJ6aKY881" data-callback="onCaptchaSuccess"><!--google reCAPTHA--></div>
+	  <div id="secure-form-container">
+		<spring:url value="${returnPath}" var="form_url" />
+		<form name="f" action="${fn:escapeXml(form_url)}" method="POST" >
+			<div align="left" style="margin-left: ${margin_left}px">
+				<input id="j_username" type="search" name='loginname' value=""
+					placeholder="Name"
+					style="border: 1px solid #bebdaa; border-radius: 5px; color: #86856f; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 4px; margin: 10px; margin-left: 0px; transition: all 0.7s ease 0s; width: 240px;" />
+				<br />
+				<input id="j_email" type="email" name='email'
+					required="required" placeholder="Email*"
+					style="border: 1px solid #bebdaa; border-radius: 5px; color: #86856f; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 4px; margin: 10px; margin-left: 0px; transition: all 0.7s ease 0s; width: 240px;" />
+				<br />
+				<c:if test="${empty hideTelAsk}">
+					<input id="j_tel" type="tel" name='tel'
+						placeholder="Telephone number"
+						style="border: 1px solid #bebdaa; border-radius: 5px; color: #86856f; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 4px; margin: 10px; margin-left: 0px; transition: all 0.7s ease 0s; width: 240px;" />
+					<br />
+				</c:if>
+				<c:if test="${empty hideAddress}">
+					<input id="j_tel" type="Address" name='address'
+						placeholder="Delievery address"
+						style="border: 1px solid #bebdaa; border-radius: 5px; color: #86856f; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 4px; margin: 10px; margin-left: 0px; transition: all 0.7s ease 0s; width: 240px;" />
+					<br />
+				</c:if>
+				<c:if test="${empty hideCommentAsk}">
+					<textarea id="j_commenets" type="commenets" name='commenets' placeholder="Questions or comments"
+					 rows="10" cols="43" style="overflow:auto; border: 1px solid #bebdaa; border-radius: 5px; color: #86856f; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 4px; margin: 10px; margin-left: 0px; transition: all 0.7s ease 0s; width: 240px;"><!--  --></textarea>
+					 
+					<br />
+				</c:if>
+				<input id="proceed" type="submit" value="Submit"
+					style="border: 1px solid #bebdaa; border-radius: 5px; color: #222222; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 4px; margin: 10px; margin-left: 140px; transition: all 0.7s ease 0s; width: 100px;" />
+			</div>
+		</form>
+	  </div>
+		<style>
+			#secure-form-container {
+				display: none; /* 默认隐藏表单 */
+			}
+		</style>
+
+		<script>
+			function onCaptchaSuccess(token) {
+				document.getElementById("secure-form-container").style.display = "block";
+			}
+		</script>
+	</c:if>
+</jsp:root>
+

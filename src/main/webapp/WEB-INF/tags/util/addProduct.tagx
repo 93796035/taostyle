@@ -1,0 +1,31 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="position" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="Indicate where the contents will be pu onto" />
+
+	<c:if test="${empty render or render}">
+		<c:if
+			test="${user_role == '[ROLE_ADMIN]' or user_role == '[ROLE_EMPLOYEE]'}">
+			<div class="span1">
+				<spring:url value="/products" var="form_url">
+					<spring:param name="position" value="${position}" />
+				</spring:url>
+				<form action="${fn:escapeXml(form_url)}" method="POST">
+					<button type="submit" style="width: 10px; height:  10px">
+						<spring:url value="/resources/images/add.png" var="add_img_url" />
+						<img src="${add_img_url}"
+							title="click me to modify the text of this area." />
+					</button>
+				</form>
+			</div>
+		</c:if>
+	</c:if>
+</jsp:root>

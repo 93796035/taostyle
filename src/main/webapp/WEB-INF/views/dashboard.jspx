@@ -1,0 +1,380 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/css/blueimp-gallery.min.css"
+		var="blueimp_gallery" />
+	<link rel="stylesheet" href="${blueimp_gallery}" />
+
+	<!-- left menu -->
+	<c:set value="span12" var="span" />
+	<c:set value="0px" var="leftmargin" />
+
+	<!-- if it's General Editor mode, display the list view. -->
+	<c:if
+		test="${pageContext['request'].userPrincipal != null and (not empty todoList or not empty infoList or not empty mainOrderList)}">
+		<div id="todoAndMyDocListview" class="${span}" align="center" style="margin-left:${leftmargin}">
+
+			<!-- the todo list means GE distributed some document to you for adding comments or modifying directly on the document. -->
+			<!-- if you see this list, then you can see/add the comments for it, you can download and upload again with you modification directly on it.-->
+			<!-- if you are the GE, then you have an extra button for distribute the document -->
+			<page:list id="pl_com_stgo_taostyle_domain_MediaUpload" label="Todo"
+				labelPlural="Inbox:" items="${todoList}"
+				render="${fn:length(todoList) gt 0}" z="user-managed">
+				
+				<c:set var="name_db" value="${fn:toLowerCase(pageContext['request'].userPrincipal.name)}"/>
+				<c:set var="position" value="${fn:indexOf(name_db, '*')}" /> 
+				<c:set var="name_db" value="${fn:substring(name_db, 0, position)}"/>
+				<table:BigSortable data="${todoList}"
+					id="l_com_stgo_taostyle_domain_MediaUpload" path="/mediauploads"
+					z="user-managed" create="false"
+					delete="${name_db eq fn:toLowerCase(app_ContentManager)}">
+					<table:column id="c_com_stgo_taostyle_domain_MediaUpload_filepath"
+						property="filepath" z="user-managed" />
+					<table:column
+						id="c_com_stgo_taostyle_domain_MediaUpload_contentType"
+						label="Type" property="contentType" z="user-managed" />
+					<table:column id="c_com_stgo_taostyle_domain_MediaUpload_filesize"
+						property="filesize" z="user-managed" />
+					<table:column
+						id="c_com_stgo_taostyle_domain_MediaUpload_contentType"
+						label="Submit Time" property="submitDate" z="user-managed" />
+					<c:if test="${user_role eq '[ROLE_MANAGER]'}">
+						<!-- if it's employee(only the GE are employee when in GE mode, then display all fields -->
+						<table:column id="c_com_stgo_taostyle_domain_MediaUpload_audient"
+							label="reviser" property="audient" z="user-managed" />
+					</c:if>
+					<table:column
+						id="c_com_stgo_taostyle_domain_MediaUpload_contentType"
+						label="Status" property="status" z="user-managed" />
+				</table:BigSortable>
+			</page:list>
+
+			<br />
+			<!-- the document user uploaded to the cloud, if the app_ContentManager mode is on, these file can be viewed by GE, and distributed to others. -->
+			<!-- user can open the details of a document, and view/add comments to it.-->
+			<!-- added a check might because some client might need to check the resume she/he uploaded. -->
+			<c:if
+				test="${not empty infoList and (user_role ne '[ROLE_CLIENT]' or 'true' eq show_myDocs_toClient)}">
+				<page:list id="pl_com_stgo_taostyle_domain_MediaUpload"
+					label="Documents" labelPlural="My Documents:" items="${infoList}"
+					z="user-managed">
+					<table:BigSortable data="${infoList}" create="false" delete="false"
+						id="l_com_stgo_taostyle_domain_MediaUpload" path="/mediauploads"
+						z="user-managed">
+						<table:column id="c_com_stgo_taostyle_domain_MediaUpload_filepath"
+							property="filepath" z="user-managed" />
+						<table:column
+							id="c_com_stgo_taostyle_domain_MediaUpload_contentType"
+							label="Type" property="contentType" z="user-managed" />
+						<table:column id="c_com_stgo_taostyle_domain_MediaUpload_filesize"
+							property="filesize" z="user-managed" />
+						<table:column
+							id="c_com_stgo_taostyle_domain_MediaUpload_contentType"
+							label="Submit Time" property="submitDate" z="user-managed" />
+						<table:column
+							id="c_com_stgo_taostyle_domain_MediaUpload_contentType"
+							label="Status" property="status" z="user-managed" />
+					</table:BigSortable>
+				</page:list>
+			</c:if>
+			
+			<br />
+			<c:if test="${not empty mainOrderList}">
+				<!-- MainOrder list -->
+				<page:list id="pl_com_stgo_taostyle_domain_MainOrder" label="Order" labelPlural="" items="${mainOrderList}" render="${fn:length(mainOrderList) gt 0}" z="user-managed">
+					<!-- 
+					<c:set var="name_db" value="${fn:toLowerCase(pageContext['request'].userPrincipal.name)}"/>
+					<c:set var="position" value="${fn:indexOf(name_db, '*')}" /> 
+					<c:set var="name_db" value="${fn:substring(name_db, 0, position)}"/>
+					 -->
+					<c:set var="selectable" value="${user_role eq '[ROLE_EMPLOYEE]' ? 'true' : 'false'}"/>
+					<table:BigSortable data="${mainOrderList}" id="l_com_stgo_taostyle_domain_MainOrder" path="/showDetailOrder" 
+					selectable="${selectable}" create="false" update="false"  delete="false">
+						<table:column id="c_com_stgo_taostyle_domain_mainorder_delieverdate" date="true" dateTimePattern="HH:mm:ss" label="Time" property="delieverdate"/>
+						<table:column id="c_com_stgo_taostyle_domain_mainorder_id" label="ID" property="id"/>
+						<table:column id="c_com_stgo_taostyle_domain_mainorder_sizetable" label="From" property="sizeTable"/>
+						<table:column id="c_com_stgo_taostyle_domain_mainorder_recordStatus" label="Status" property="recordStatusText"/>
+						<table:column id="c_com_stgo_taostyle_domain_mainorder_paycondition" label="Total" property="totalInYuan"/>
+						<table:column id="c_com_stgo_taostyle_domain_mainorder_note" label="Note" property="remark"/>
+					</table:BigSortable>
+					<c:if test="${user_role eq '[ROLE_MANAGER]'}">
+						<input id="OrderClean" type="submit" class="btn btn-primary" onclick="javascript:cleanHistoricalMainOrder()" value="Clean" />
+					</c:if>
+					
+					<c:if test="${user_role eq '[ROLE_EMPLOYEE]'}">
+						<spring:url value="/resources/images/link.png" var="link_img_url" />
+						<img alt="Merge" src="${link_img_url}" title="Merge into an other order." onclick="javascript:combineMainOrder()" style="cursor:pointer"/>
+						 | 
+						<spring:url value="/resources/images/clean.png" var="clean_img_url" />
+						<img alt="Merge" src="${clean_img_url}" title="Clean the order from the list" onclick="javascript:cleanOrders()" style="cursor:pointer"/>
+					</c:if>
+				</page:list>
+			
+				
+			</c:if>
+		</div>
+	</c:if>
+
+	<!-- personal info -->
+	<page:show id="ps_com_stgo_taostyle_domain_UserAccount" label="or modify personal Info?"
+		object="${useraccount}" delete="false" create="false" list="false"
+		path="/useraccounts" z="user-managed">
+		<!--
+		<field:display field="loginname"
+			id="s_com_stgo_taostyle_domain_UserAccount_loginname"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="tel"
+			id="s_com_stgo_taostyle_domain_UserAccount_tel"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="email"
+			id="s_com_stgo_taostyle_domain_UserAccount_email"
+			object="${useraccount}" z="user-managed" />
+		-->
+	</page:show>
+	
+	<c:if test="${user_role eq '[ROLE_MANAGER]'}">
+		<legend style="padding-left: 20px; margin-bottom: 0px">Add or modify the available notes?</legend><br/>
+		<c:forEach var="i" begin="1" end="${support_note_max}" step="1">
+			<c:if test="${not empty quick_note[i-1]}">
+				<div align="center">
+					${quick_note[i-1]}
+					<util:changeText position="quick_note_${i}" content="${quick_note[i-1]}" allowedLevel="[ROLE_MANAGER]"/>
+				</div>
+			</c:if>
+		</c:forEach>
+		<c:if test="${support_note_max > fn:length(quick_note)}">
+			<div align="center">
+				<util:changeText position="quick_note_${fn:length(quick_note)+1}" content="" allowedLevel="[ROLE_MANAGER]" />
+			</div>
+		</c:if>
+		<script type="text/javascript">
+			//manager clean history of mainorders.
+			function cleanHistoricalMainOrder() {
+				var confirmed = confirm("Are you sure to remove all historical orders?");
+				if(confirmed){
+					$.ajax({
+				    	headers: "Accept=application/json",
+				        type: "POST",
+				        url: "cleanHistoricalMainOrder/",
+				        async:false,
+				        success:function(textContent){
+				        	if(textContent == null || textContent.length == 0){
+				        	}else{
+				        		alert( "Please check the connection of internet or cotact the admin.");
+				        	}
+				        	window.location = "./dashboard";
+				        }
+				    });
+				}
+			}
+		</script>
+	</c:if>
+
+	<c:if test="${user_role eq '[ROLE_EMPLOYEE]'}">
+		<script type="text/javascript">
+		  <c:if test="${style_refresh eq 'ajax'}">
+			setTimeout('update()', ${(20+refresh_time) * 1000});
+		  </c:if>
+		  <c:if test="${style_refresh ne 'ajax'}">
+			<![CDATA[
+		        "use strict";
+		        var Chat = {};
+		        Chat.socket = null;
+		        Chat.connect = (function(host) {
+		            if ('WebSocket' in window) {
+		                Chat.socket = new WebSocket(host);
+		            } else if ('MozWebSocket' in window) {
+		                Chat.socket = new MozWebSocket(host);
+		            } else {
+		                return;
+		            }
+		            Chat.socket.onopen = function () {};
+		            Chat.socket.onclose = function () {};
+					
+		            //beep when message come.
+		            Chat.socket.onmessage = function (message) {
+		            	//if you have another AudioContext class use that one, as some browsers have a limit
+				        var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
+		            	
+		            	var notice_sound_duration = 500;
+		            	if('${notice_sound_duration}' != ''){
+		            		notice_sound_duration = '${notice_sound_duration}';
+		            	}
+		            	var notice_sound_freq = 640;
+		            	if('${notice_sound_freq}' != ''){
+		            		notice_sound_freq = '${notice_sound_freq}';
+		            	}
+		            	var notice_sound_type = 'sine';
+		            	if('${notice_sound_type}' != ''){
+		            		notice_sound_type = '${notice_sound_type}';
+		            	}
+		            	
+		            	beep(audioCtx, notice_sound_duration, notice_sound_freq, 1, notice_sound_type, update);
+		            };
+		        });
+
+		        //All arguments are optional:
+		        //duration of the tone in milliseconds. Default is 500
+		        //frequency of the tone in hertz. default is 440
+		        //volume of the tone. Default is 1, off is 0.
+		        //type of tone. Possible values are sine, square, sawtooth, triangle, and custom. Default is sine.
+		        //callback to use on end of tone
+		        function beep(audioCtx, duration, frequency, volume, type, callback) {
+		            var oscillator = audioCtx.createOscillator();
+		            var gainNode = audioCtx.createGain();
+
+		            oscillator.connect(gainNode);
+		            gainNode.connect(audioCtx.destination);
+
+		            if (volume){gainNode.gain.value = volume;};
+		            if (frequency){oscillator.frequency.value = frequency;}
+		            if (type){oscillator.type = type;}
+		            if (callback){oscillator.onended = callback;}
+
+		            oscillator.start();
+		            setTimeout(function(){oscillator.stop()}, (duration ? duration : 500));
+		        };
+
+		        Chat.initialize = function() {
+		            if (window.location.protocol == 'http:') {
+		            	if(window.location.host == 'localhost'){
+			                Chat.connect('ws://' + window.location.host + '/taostyle/websocket/refreshNotice');
+		            	}else{
+			                Chat.connect('ws://' + window.location.host + '/websocket/refreshNotice');
+		            	}
+		            } else {
+		            	if(window.location.host == 'localhost'){
+			                Chat.connect('wss://' + window.location.host + '/taostyle/websocket/refreshNotice');
+		            	}else{
+		                	Chat.connect('wss://' + window.location.host + '/websocket/refreshNotice');
+		            	}
+		            }
+		        };
+
+		        Chat.sendMessage = (function() {
+		            Chat.socket.send("test");
+		            document.getElementById('chat').value = '';
+		        });
+
+		        Chat.initialize();
+		      ]]>
+			</c:if>
+			
+			//self refresh.
+			function update(){
+				window.location = "./dashboard";
+			}
+			
+			//replace the deliever time to "minuts passed"
+		  updateOrderTime();
+		  function updateOrderTime() {
+			  if (${dsp_pendingTime}) {
+				  var currentDate = new Date();
+				  var currentHour = currentDate.getHours();
+				  var currentMinute = currentDate.getMinutes();
+				  var currentSeconds = currentDate.getSeconds();
+
+				  var table = document.getElementById('l_com_stgo_taostyle_domain_MainOrder');
+				  for (var r = 1, n = table.rows.length - 1; r &lt; n; r++) {
+					  if (table.rows[r].cells[1].innerHTML) {
+						  var orderTime = table.rows[r].cells[1].innerHTML;
+						  var orderTimeArray = orderTime.split(':');
+						  var start = parseInt(orderTimeArray[0]) * 3600 + parseInt(orderTimeArray[1]) * 60 + parseInt(orderTimeArray[2]);
+						  var end = currentHour * 3600 + currentMinute * 60 + currentSeconds;
+						  var elapseSec = end - start;
+						  var resultMin = Math.ceil(elapseSec / 60);
+
+						  var displayText = "";
+
+						  if (Math.abs(resultMin) >= 60) {
+							  var absMinutes = Math.abs(resultMin);
+							  var hours = Math.floor(absMinutes / 60);
+							  var minutes = absMinutes % 60;
+							  if (resultMin &lt; 0) {
+								  displayText = "-" + hours + " h " + minutes + " m";
+							  } else {
+								  displayText = hours + " h " + minutes + " m";
+							  }
+						  } else {
+							  displayText = resultMin + " m";
+						  }
+
+						  table.rows[r].cells[1].innerHTML = displayText;
+					  }
+				  }
+			  }
+		  }
+
+		  //manully combine selected main orders.
+			function combineMainOrder() {
+				var chkBoxes = $('#l_com_stgo_taostyle_domain_MainOrder').find('input:checked');
+		        if (chkBoxes.length != 2) {
+		        	alert("Please select 2 rows to merge. You have selected " + chkBoxes.length);
+		            return;
+		        }
+		        
+		        var ids = [ ];
+		        $(chkBoxes).each(function() {
+		            ids.push($(this).attr('id'));
+		        }); 
+
+		        $.ajax({
+			    	headers: "Accept=application/json",
+			        type: "POST",
+			        url: "/services/combineAnOrder/"+ids[1],
+			        data: "targetOrder="+ids[0],
+			        async:false,
+			        success:function(textContent){
+			        	if(textContent == null || textContent.length == 0){
+			        	}else{
+			        		alert( "Please check the connection of internet or cotact the admin.");
+			        	}
+			        	window.location = "./dashboard";
+			        }
+			    });
+			}
+			
+			//Employee clean order from dashboeard
+			function cleanOrders(){
+				var chkBoxes = $('#l_com_stgo_taostyle_domain_MainOrder').find('input:checked');
+
+		        if (chkBoxes.length == 0) {
+		        	alert("Please select at least 1 row to do batch clean.");
+		            return;
+		        }
+		        
+		        var confirmed = confirm("Are you sure to remove all selected rows? Currently selected " + chkBoxes.length + " rows.");
+		        if(confirmed){
+			        var ids = [ ];
+			        $(chkBoxes).each(function() {
+			            ids.push($(this).attr('id'));
+			        }); 
+		
+					$.ajax({
+				    	headers: "Accept=application/json",
+				        type: "POST",
+				        url: "updateAnOrderStatus/"+ids,
+				        data: "recordStatus=-1",
+				        async:false,
+				        success:function(textContent){
+				        	if(textContent == null || textContent.length == 0){
+				        	}else{
+				        		alert( "Please check the connection of internet or cotact the admin.");
+				        	}
+				        	window.location = "./dashboard";
+				        }
+				    });
+		        }
+			}
+		</script>
+	</c:if>
+
+</div>

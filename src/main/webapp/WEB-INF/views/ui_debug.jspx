@@ -1,0 +1,152 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<spring:message code="security_login_title" var="title" htmlEscape="false" />
+	<div class="gallery_small row" style="background:#${background_subpage}; opacity:${subpage_opacity}">
+		<c:if test="${not empty param.login_error}">
+			<div class="errors">
+				<p>
+					<b>
+						<spring:message code="security_login_unsuccessful" />
+						<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /> .
+					</b>
+				</p>
+			</div>
+		</c:if>
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+			<spring:url value="/resources/j_spring_security_check" var="form_url" />
+			<form id="debugLoginForm" action="/resources/j_spring_security_check" method="POST">
+				<div>
+					<label for="j_username">
+						<spring:message code="security_login_form_name" />
+					</label>
+					<br />
+					<input id="j_username" type='text' name='j_username' style="width: 150px" />
+					<spring:message code="security_login_form_name_message" var="name_msg" htmlEscape="false" />
+				</div>
+				<br />
+				<div>
+					<label for="j_password">
+						<spring:message code="security_login_form_password" />
+					</label>
+					<br />
+					<input id="j_password" type='password' name='j_password' style="width: 150px" />
+					<spring:message code="security_login_form_password_message" var="pwd_msg" htmlEscape="false" />
+				</div>
+				<br />
+				<div class="Row" align="Right">
+					<spring:message code="button_login" var="submit_label" htmlEscape="false" />
+					<div class="Row" align="Right">
+						<spring:message code="button_login" var="submit_label" htmlEscape="false" />
+						<button type="submit" class="btn btn-sm btn-taostyle" id="proceed" style="margin-left: 0px;">
+							${fn:escapeXml(submit_label)}
+						</button>
+					</div>
+				</div>
+				<button type="submit" onclick="console.log('Button clicked'); alert('Button clicked');">
+					Debug Submit
+				</button>
+			</form>
+		</div>
+		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+			<spring:message code="button_signup" var="signup_label" htmlEscape="false" />
+			<spring:url value="/signup" var="signUp_Url" />
+			<c:choose>
+				<c:when test="${empty param.login_error}">
+					<div>
+						<spring:message code="security_login_message1" />
+					</div>
+					<div>
+						<spring:message code="security_login_message2" />
+					</div>
+					<br />
+					<div>
+						<b><spring:message code="security_login_message3" /></b>
+					</div>
+					<div>
+						<a class="btn btn-sm btn-taostyle" href="${signUp_Url}">${fn:escapeXml(signup_label)}</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div>
+						<spring:message code="security_login_message3" />
+					</div>
+					<div>
+						<a class="btn btn-sm btn-taostyle" href="${signUp_Url}">${fn:escapeXml(signup_label)}</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+
+	<script type='text/javascript'>
+		/* if it doesn't work, might because there's some thing stopped the document from fully load. then try to use
+        window.onload = function(){playit();$('.carousel').carousel({interval: 5000})}; Please remember to call the
+        "playit();", because it's for the promotion swicher, and was difined in external js file, in JSP, if we define a
+        window.onload in html file, looks like it can replace the window.onload in external js file.*/
+		$(document).ready(
+				function(){
+					document.getElementById('j_username').focus()
+				}
+		);
+	</script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

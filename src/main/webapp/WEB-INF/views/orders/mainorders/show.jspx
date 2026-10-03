@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:show id="ps_com_stgo_taostyle_domain_MainOrder"
+		object="${mainorder}" path="/mainorders"
+		z="WRx65CfMSyb/V4lySe2ndsbxbZM=">
+		<field:display field="client"
+			id="s_com_stgo_taostyle_domain_MainOrder_client"
+			object="${mainorder}" z="cHYe2E/cTA6pJQYFSXfac4LVCUE=" />
+		<field:display field="clientSideOrderNumber"
+			id="s_com_stgo_taostyle_domain_MainOrder_clientSideOrderNumber"
+			object="${mainorder}" z="9RwDSnI5OaSD+ANNZNBmJ+foSc0=" />
+		<field:display field="clientSideModelNumber"
+			id="s_com_stgo_taostyle_domain_MainOrder_clientSideModelNumber"
+			object="${mainorder}" z="tu4qv2YDMMYX3TnQfALhwhgWhBc=" />
+		<field:display field="model"
+			id="s_com_stgo_taostyle_domain_MainOrder_model" object="${mainorder}"
+			z="cPqr2M/UEgBq9T99aaAyrHC5N+U=" />
+		<field:display field="picture"
+			id="s_com_stgo_taostyle_domain_MainOrder_picture"
+			object="${mainorder}" z="brCq7LqujhfG7KkTHxkL71J2n80=" />
+		<field:display field="productName"
+			id="s_com_stgo_taostyle_domain_MainOrder_productName"
+			object="${mainorder}" z="9CRYp/gxMrlwKR0qHEx6Zl6sljg=" />
+		<field:display field="contactPerson"
+			id="s_com_stgo_taostyle_domain_MainOrder_contactPerson"
+			object="${mainorder}" z="4LaL/Dqzu3AOvwMj//DMfFztYOY=" />
+		<field:display field="quantity"
+			id="s_com_stgo_taostyle_domain_MainOrder_quantity"
+			object="${mainorder}" z="eif1R/PnPfzxE7I2wE3276dyJcg=" />
+		<field:display field="payCondition"
+			id="s_com_stgo_taostyle_domain_MainOrder_payCondition"
+			object="${mainorder}" z="wbOGDAr1h8tu0+NyWODgAMujl0k=" />
+		<field:display field="colorProportionReceived"
+			id="s_com_stgo_taostyle_domain_MainOrder_colorProportionReceived"
+			object="${mainorder}" z="Ice3lORD7BBq3pZI5CMc+g5qY78=" />
+		<field:display date="true"
+			dateTimePattern="${mainOrder_delieverdate_date_format}"
+			field="delieverdate"
+			id="s_com_stgo_taostyle_domain_MainOrder_delieverdate"
+			object="${mainorder}" z="47DexcnBaeexIdfaLbMDfrxfFN4=" />
+		<field:display field="sizeTable"
+			id="s_com_stgo_taostyle_domain_MainOrder_sizeTable"
+			object="${mainorder}" z="esPD9qRpGxRvWOu2q3RaTmXro/s=" />
+		<field:display field="colorCard"
+			id="s_com_stgo_taostyle_domain_MainOrder_colorCard"
+			object="${mainorder}" z="14UtihvLI9pnKqWxuGWrEcjFDYM=" />
+		<field:display field="testRequirement"
+			id="s_com_stgo_taostyle_domain_MainOrder_testRequirement"
+			object="${mainorder}" z="phf8UnQzyFApur+9SckTRev3qCM=" />
+		<field:display field="sampleRequirement"
+			id="s_com_stgo_taostyle_domain_MainOrder_sampleRequirement"
+			object="${mainorder}" z="32gBRRDxbCXLJYdCUaeGsho4xUc=" />
+		<field:display field="remark"
+			id="s_com_stgo_taostyle_domain_MainOrder_Remark"
+			object="${mainorder}" z="aIxa2aYfcQlJqNtX2xkY1SvAEZ8=" />
+	</page:show>
+</div>

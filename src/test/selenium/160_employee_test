@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="040_030_employee_register.html">040_030_employee_register</a></td></tr>
+<tr><td><a href="020_011_login_as_new_client.html">020_011_login_as_new_client</a></td></tr>
+<tr><td><a href="040_040_give_employee_authentication.html">040_040_give_employee_authentication</a></td></tr>
+<tr><td><a href="020_100_logout_as_new_client.html">020_100_logout_as_new_client</a></td></tr>
+<tr><td><a href="040_050_login_as_employee.html">040_050_login_as_employee</a></td></tr>
+<tr><td><a href="040_060_logout_as_employee.html">040_060_logout_as_employee</a></td></tr>
+</tbody></table>
+</body>
+</html>

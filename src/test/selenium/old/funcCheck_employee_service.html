@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/taostyle" />
+<title>funcCheck_employee_service</title>
+</head>
+<body>
+	<table cellpadding="1" cellspacing="1" border="1">
+		<thead>
+			<tr>
+				<td rowspan="1" colspan="3">funcCheck_employee_service</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumEmployee</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='Listview']/div/table/tbody/tr/td[3]</td>
+				<td>exact:used to test when pop up contains a image, will it be
+					able to chang again?</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//img[@alt='Update Service']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>id=swithview</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]</td>
+				<td>exact:used to test when pop up contains a image, will it be
+					able to chang again?</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;image&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img.btn.btn-success</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_name_id</td>
+				<td>seleniumTestService</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_description_id</td>
+				<td>This is a Test.</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_description_id</td>
+				<td>This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumTestService</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//img[@alt='Services']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//img[@alt='Create New Service']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='Listview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumTestService</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='Listview']/div/table/tbody/tr[2]/td[3]</td>
+				<td>This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>id=swithview</td>
+				<td>Preview</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>xpath=(//img[@alt='Update Service'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_name_id</td>
+				<td>seleniumTestService_modified</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_description_id</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=button[type=&quot;submit&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>css=input[name=&quot;content&quot;]</td>
+				<td>C:\Users\admin\Pictures\head.jpg</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=#mediaUpload &gt; div.modal-footer &gt;
+					button.btn.btn-primary</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>id=swithview</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>xpath=(//img[@alt='image'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td[2]/table/tbody/tr/td[2]</td>
+				<td>This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.This is a Test.This is a Test.This is a
+					Test.This is a Test.</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>xpath=(//input[@value='Delete Service'])[2]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertConfirmation</td>
+				<td>Are you sure want to delete this item?</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertTextNotPresent</td>
+				<td>//div[@id='Listview']/div/table/tbody/tr[2]/td[2]</td>
+				<td>seleniumTestService</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

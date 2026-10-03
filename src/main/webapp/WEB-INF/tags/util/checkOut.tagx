@@ -1,0 +1,344 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <jsp:directive.attribute name="render" type="java.lang.Boolean"
+                             required="false" rtexprvalue="true"
+                             description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')"/>
+    <jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+                             required="false" rtexprvalue="true"
+                             description="if not null then the role will also be allowed to modify."/>
+
+    <c:if test="${'true' == show_status_area}">
+        <c:if test="${user_role != '[ROLE_PRINTER]'}">
+            <div id="bellArea">
+                <c:set var="topOrBottom" value="${dsp_status_OnTop ? 'top' : 'bottom'}"/>
+                <c:set var="gap" value="${not empty itemNumber and not empty show_status_message ? 0 : 20 }"/>
+                <c:set var="resolvedBellY" value="${empty y_bell ? y_status + 30 : y_bell}"/>
+
+                <div id="noticeArea" align="right" style="height: 50px; position: fixed;
+		  padding-top:${gap}px; padding-right:5px; padding-left:5px;
+		  border-radius:${statusbar_border_radius}px; z-index: 1000; ${topOrBottom}: ${y_status}px; right:0px; color:#${foreground_leftbar};
+		  background:#${background_leftbar}; opacity:${statusbar_opacity};">
+                    <c:set var="visibility" value="${'true' == show_status_total ? 'visible' : 'hidden'}"/>
+                    <c:if test="${visibility == 'visible'}">
+                        <span id="totalSelectedQt"
+                              style="width: ${statusItemWidth}px; border-style:none; background:none; visibility:${visibility}; font-size: ${statusFontSize}px">${itemNumber}</span>
+                        <span style="visibility:${visibility}; font-size: ${statusFontSize}px">${ItemAndTotalStr}</span>
+                        <fmt:formatNumber value="${totalPrice}" type="number" minFractionDigits="2"
+                                          maxFractionDigits="2" var="formattedTotalPrice"/>
+                        <span id="totalPrice"
+                              style="width: ${statusPriceWidth}px; border-style:none; background:none; visibility:${visibility}; font-size: ${statusFontSize}px">${formattedTotalPrice}</span>
+                    </c:if>
+                    <c:if test="${not empty itemNumber and not empty show_status_message}">
+                        <br/>
+                    </c:if>
+                    <c:if test="${not empty show_status_message and 'true' != show_status_bell}">
+                        <c:if test="${'true' == show_status_bell}">
+                            <spring:url value="/showSelection" var="showSelection"/>
+                            <a href="${showSelection}">
+                                ${show_status_message}
+                            </a>
+                        </c:if>
+                        <c:if test="${'true' == show_status_submit}">
+                            <a style="font-weight: bold"
+                               onclick="javascript:cleanItemsAndSubmit('${tableID}', '${contact_phone}', '${MAP_POS_X2}', '${MAP_POS_Y2}', '${limit_location_diff}', '${isAboveEmployee}','${form1}')">
+                                ${show_status_message}
+                            </a>
+                        </c:if>
+                    </c:if>
+                </div>
+                <!--for service or feature page -->
+                <c:if test="${'true' == show_status_bell}">
+                    <div style="position: fixed; z-index: 1001; ${topOrBottom}: ${resolvedBellY}px; right: 55px; cursor:pointer;">
+                        <!-- 购物车图片 -->
+                        <spring:url value="/showSelection" var="showSelection"/>
+                        <a href="${showSelection}">
+                            <span class="glyphicon glyphicon-shopping-cart"
+                                  title="Show selections and submit."
+                                  style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; background:#${background_leftbar}; color:#${foreground_leftbar}; border:2px solid #${foreground_leftbar}; font-size:20px;"></span>
+                        </a>
+                        <util:changeImg position="bell"/>
+                    </div>
+                </c:if>
+                <!-- for selection page-->
+                <c:if test="${'true' == show_status_submit}">
+                    <div style="position: fixed; z-index: 1002; ${topOrBottom}: ${y_status}px; right: 5px; cursor:pointer">
+                        <a style="font-weight: bold"
+                           onclick="javascript:cleanItemsAndSubmit('${tableID}', '${contact_phone}', '${MAP_POS_X2}', '${MAP_POS_Y2}', '${limit_location_diff}', '${isAboveEmployee}','/services/createAnOrderFromForm')">
+                            <img alt="hide unchecked items" src="getImage/Submit" title="Submit."/>
+                        </a>
+                        <util:changeImg position="Submit"/>
+                    </div>
+                </c:if>
+            </div>
+
+            <c:if test="${not empty show_status_category}">
+                <c:if test="${empty status_category_y}">
+                    <c:set var="status_category_y" value="${y_status}"/>
+                </c:if>
+                <div style="position: fixed; z-index: 2000; ${topOrBottom}: ${status_category_y + 20}px;
+			 left:15px; cursor:pointer; color:#${foreground_leftbar}; visibility:hidden" id="menu_on_status_bar"
+                     ontouchend="javascript:switchHanderToBarDiv()">
+                    ${show_status_category}
+                </div>
+            </c:if>
+
+            <input id="user_role" type="hidden" value="${user_role}"/>
+            <input id="latitude" type="hidden" value="${latitude}"/>
+            <input id="longitude" type="hidden" value="${longitude}"/>
+            <script type="text/javascript">
+                //for location
+                if ('true' == '${need_geo_check}' &amp; (latitude.value == '' || longitude.value == '') &amp; (user_role.value == '' || '[ROLE_CLIENT]' == user_role.value)) {
+                    //init the location
+                    if (navigator.geolocation) {	//if geolocation is supported by the browser.
+                        // timeout at 60000 milliseconds (60 seconds)
+                        var options = {timeout: 15000};
+                        geoLoc = navigator.geolocation;
+                        watchID = geoLoc.watchPosition(showPosition, errorHandler, options);
+                    }
+                }
+
+                function showPosition(position) {
+
+                    if (latitude.value == '' || longitude.value == '') {
+                        var urlStr = "updateGeo/" + position.coords.latitude;
+                        $.ajax({
+                            headers: "Accept=application/json",
+                            type: "POST",
+                            url: urlStr,
+                            data: "longitude=" + position.coords.longitude,
+                            async: true,
+                            success: function (textContent) {
+                            }
+                        });
+
+                        latitude.value = position.coords.latitude;
+                        longitude.value = position.coords.longitude;
+                    }
+                    geoLoc.clearWatch(watchID);
+                }
+
+                function errorHandler(err) {
+                    if (err.code == 1) {
+                        //alert("Error: Access is denied!");
+                    } else if (err.code == 2) {
+                        //alert("Error: Position is unavailable!");
+                    }
+                }
+
+                /** markup because now we allow cross page selection. //build string of selected producs/services.
+                 function cleanUnselectedItems(){
+                 for (var j=100; j>=0; j--) {
+                 var curGridView = document.getElementById(j + "-gridview");
+                 if(curGridView != null){
+                 for (var i=100; i>=0; i--) {
+                 //if first time click in an area, then all uncheck element in above area should be dark up.
+                 var obj = document.getElementById("img-" + j + "-" + i);
+                 var checkBox = document.getElementById("check-" + j + "-" + i);
+                 if(obj != null){
+                 if(checkBox.checked){
+                 var id = obj.href.substr(31);//javascript:showDetail('service_3_3_0_3')
+                 id = id.substr(0, id.length-2);
+                 orderedItems = orderedItems + "," + id;
+                 }
+                 }
+                 }
+                 }
+                 }
+                 //selected nothing? notice and return. while employee has reason to do it.
+                 if((orderedItems.length &lt; 1) &amp; ((isAboveEmployee == 'false') || (tableID.length &lt; 1))){
+                 alert("Nothing selected, please touch the button under the image, then click me to order.");
+                 return;
+                 }
+
+                 //clean the screen first, left only selected ones.
+                 for (var j=100; j>=0; j--) {
+                 var curGridView = document.getElementById(j + "-gridview");
+                 if(curGridView != null){
+                 for (var i=100; i>=0; i--) {
+                 //if first time click in an area, then all uncheck element in above area should be dark up.
+                 var obj = document.getElementById("check-" + j + "-" + i);
+                 if(obj != null){
+                 if( !obj.checked ){
+                 obj.parentNode.removeChild(obj);
+                 var obj = document.getElementById("img-" + j + "-" + i);
+                 obj.parentNode.removeChild(obj);
+                 obj = document.getElementById("des-" + j + "-" + i);
+                 obj.parentNode.removeChild(obj);
+                 }
+                 }
+                 }
+                 }
+                 }
+                 }
+                 */
+
+                function cleanItemsAndSubmit(tableID, contact_phone, MAP_POS_X2, MAP_POS_Y2, limit_location_diff, isAboveEmployee, formPage) {
+                    if (formPage.length > 0) {
+                        var form = document.createElement("form");
+                        form.method = "POST";
+                        form.action = formPage;
+                        // 将表单添加到页面并提交
+                        document.body.appendChild(form);
+                        form.submit();
+
+                        fetch('/services/createAnOrderFromForm', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: ``
+                        })
+                    } else {
+                        var orderedItems = "";
+
+                        //we suppouse user selected something, then if it's from outside, collect user information.
+                        var phoneNumber = "n";
+                        var address = "n";
+                        var arrive = "n";
+                        var location = "n";
+                        var name = "n";
+                        var geoOutRange = false;
+                        //NOTE: when used from some explore like wechat explore,
+                        if (tableID == null || tableID.length == 0) {
+
+                            dojo.require("dojo.cookie");
+                            var cookie_name = getCleanContent(dojo.cookie('name'));
+                            var cookie_tel = getCleanContent(dojo.cookie('tel'));
+                            var cookie_address = getCleanContent(dojo.cookie('address'));
+                            var cookie_delieverdate = getCleanContent(dojo.cookie('delieverdate'));
+                            var cookie_remark = getCleanContent(dojo.cookie('remark'));
+
+                            tableID = "not_on_site"
+                            phoneNumber = prompt("Please leave your phone number:", cookie_tel);
+                            if (phoneNumber == "") {
+                                phoneNumber = "did-not-input"
+                            } else if (phoneNumber == null) {
+                                return;
+                            }
+
+                            address = prompt("Delever to address:(Leave it empty for picking up in store)", cookie_address);
+                            if (address == "") {
+                                address = "did-not-input"
+                            } else if (address == null) {
+                                return;
+                            }
+
+                            var myDate = new Date();
+                            arrive = prompt("Approximate time you would like to have it:", cookie_delieverdate);
+                            if (arrive == "") {
+                                arrive = "did-not-input"
+                            } else if (arrive == null) {
+                                return;
+                            }
+
+                            name = prompt("Your name please:", cookie_name == "n" ? "" : cookie_name);
+                            if (name == "") {
+                                name = "did-not-input"
+                            } else if (name == null) {
+                                return;
+                            }
+
+                            remark = prompt("Any other comments? (allergy must be mentioned):", cookie_remark == "n" ? "" : cookie_remark);
+                            if (remark == "") {
+                                remark = "did-not-input"
+                            } else if (remark == null) {
+                                return;
+                            }
+
+                            /* //TODO: send to back end to create a log
+                            if(contact_phone == null){
+                                alert("Sorry, The company haven't openned online ordering function.");
+                                return;
+                            } */
+                            //TODO: add geo checck, and if
+                            if (geoOutRange) {
+                                alert("Sorry, The address is out of service area.");
+                                return;
+                            }
+                        } else {
+                            <c:if test="${style_askName eq 'always'}">
+                                dojo.require("dojo.cookie");
+                                var cookie_name = dojo.cookie('name');
+                                name = prompt("Your name please:", cookie_name);
+                                if(name == ""){
+                                name = "did-not-input";
+                            }
+                            </c:if>
+                        }
+
+
+                        orderedItems = orderedItems.substr(1);
+                        var source = tableID + "zSTGOz" + name + "zSTGOz" + phoneNumber + "zSTGOz" + address + "zSTGOz" + arrive + "zSTGOz" + remark;
+
+                        //no need to wait for 6 seconds, because I let the geo watch start as soon as page loaded.
+                        //setTimeout("send('" + orderedItems + "','" + source + "',latitude,longitude,'" + MAP_POS_X2 + "','" + MAP_POS_Y2 + "','" + limit_location_diff +"','" + contact_phone + "')",6000);
+
+                        send(orderedItems, source, latitude, longitude, MAP_POS_X2, MAP_POS_Y2, limit_location_diff, contact_phone);
+                    }
+                    //hide bell
+                    if (isAboveEmployee == '' || isAboveEmployee == 'false') {
+                        obj = document.getElementById("bellArea");
+                        obj.parentNode.removeChild(obj);
+                    }
+                }
+
+                function getCleanContent(content) {
+                    if (content != null) {
+                        if (content.startsWith("\"")) {
+                            content = content.substring(1);
+                        }
+                    }
+                    if (content != null) {
+                        if (content.endsWith("\"")) {
+                            content = content.substring(0, content.length - 1);
+                        }
+                    }
+                    return content == "n" ? "" : content;
+                }
+
+                function send(orderedItems, source, latitude, longitude, MAP_POS_X2, MAP_POS_Y2, limit_location_diff, contact_phone) {
+
+                    /*var isFromOutside = Math.abs(latitude.value - MAP_POS_X2) > limit_location_diff || Math.abs(longitude.value - MAP_POS_Y2) > limit_location_diff;
+                    if(isFromOutside){
+                        if(source.indexOf("not_on_site") != 0){//means the first element is empty (the first element is for tableID)
+                            if(user_role.value == ''){
+                                alert("Sorry, the QRCode you are using is only for onsite order. Please call us or use the qrcode on webpage to order online.");
+                                return;
+                            }
+                        }
+                    }*/
+                    if (orderedItems.length == 0) {
+                        orderedItems = "emptyOrder";
+                    }
+                    $.ajax({
+                        headers: "Accept=application/json",
+                        type: "POST",
+                        url: "/services/createAnOrder/" + orderedItems,
+                        data: "source=" + source,
+                        async: false,
+                        success: function (textContent) {
+                            if (textContent == null || textContent.length == 0) {
+                                alert("Order submmited successfully!");
+                                //stay in current page.
+                            } else if (textContent.content) {
+                                if (user_role.value == '') {
+                                    window.location = "../showDetailOrder/" + textContent.content;
+                                } else {
+                                    window.location = "../dashboard";
+                                }
+                            } else {
+                                alert("Sorry, your order was not submit successfully. Please to call us " + contact_phone + " for better service.");
+                            }
+                        }
+                    });
+                }
+            </script>
+        </c:if>
+    </c:if>
+</jsp:root>

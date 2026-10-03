@@ -1,0 +1,1011 @@
+﻿<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message var="title" code="welcome_titlepane"
+		arguments="${app_name}" htmlEscape="false" />
+
+	<!-- the varibles for document.wirte(...) javascirps -->
+	<spring:message var="linkA_JIMG" code="linkA_JIMG" htmlEscape="false" />
+	<spring:message var="imgTag" code="imgTag" htmlEscape="false" />
+	<spring:message var="anglebrackets_left" code="anglebrackets_left"
+		htmlEscape="false" />
+	<spring:message var="ahref" code="ahref" htmlEscape="false" />
+	<spring:message var="endOfLink" code="endOfLink" htmlEscape="false" />
+	<spring:message var="theEnd" code="theEnd" htmlEscape="false" />
+	<spring:message var="liElementOn" code="liElementOn" htmlEscape="false" />
+	<spring:message var="liElement1" code="liElement1" htmlEscape="false" />
+	<spring:message var="liElement2" code="liElement2" htmlEscape="false" />
+
+	<!-- dosen't work, because absolute path doesn't work even for local tomcat! <spring:url var="imgBasePath" value="${imgBasePath}" /> -->
+	<!-- can not replace the imaged insite Root.war, and can not allow it lost when update the application.  <spring:url var="imgBasePath" value="/resources/images/" /> -->
+	<!-- Main -->
+	<c:if test="${not empty show_MainSlider}">
+		<div id="myCarousel" class="carousel slide"
+			style="margin-bottom: ${show_MainSlider}px;">
+			<div class="carousel-inner">
+				<div class="item active" align="center">
+					<img src="getImage/slide_superBig_1" />
+					<c:if test="${not empty showTextOnSlider}">
+						<div class="carousel-caption" style="display: inline-block; max-width:${showTextOnSlider_w}px; left:${showTextOnSlider}px; top:${showTextOnSlider_y}px;
+						 background-color:rgba(${slider_text_bg}); padding-left:20px; padding-right:20px;">
+							${text_on_slid[0]}
+						</div>
+						<script type="text/javascript"><jsp:text><![CDATA[
+						var container = document.querySelector("#myCarousel > div");
+						var elements = [];
+						for (var sliderIndex = 1; sliderIndex < ${slide_superBig_amount}; sliderIndex++) {
+							elements.push(document.querySelector("#myCarousel > div > div:nth-child(" + sliderIndex + ") > div:nth-child(2)"));
+						}
+						var speed = 0.3;
+						var position = 0;
+						var scrollHeight = 0;
+						var activeIndex = 0;
+						function moveElements() {
+							if (elements[activeIndex] != null && elements[activeIndex].scrollHeight > container.offsetHeight) {
+								var parentClass = elements[activeIndex].parentNode.classList;
+								if (parentClass[1] === 'active') {
+									position -= speed;
+									if (scrollHeight === 0) {
+										scrollHeight = elements[activeIndex].scrollHeight;
+									}
+									if (position < -scrollHeight) {
+										position = container.offsetHeight;
+									}
+									for (var j = 0; j < elements.length; j++) {
+										if (elements[j] != null) {
+											elements[j].style.top = position + 'px';
+										}
+									}
+								}
+							} else {
+								activeIndex++;
+								if (activeIndex >= ${slide_superBig_amount}) {
+									activeIndex = 0;
+								}
+								elements[activeIndex] = document.querySelector("#myCarousel > div > div:nth-child(" + (activeIndex + 1) + ") > div:nth-child(2)");
+							}
+							requestAnimationFrame(moveElements);
+						}
+						moveElements();
+						]]></jsp:text></script>
+					</c:if>
+					<div class="carousel-caption" style="display: inline-block;">
+						<c:if test="${not empty showTextOnSlider}">
+							<util:edit position="text_on_slid_1" content="${text_on_slid[0]}" richText="true" />
+						</c:if>
+						<util:changeImg position="slide_superBig_1"/>
+					</div>
+				</div>
+				<c:if test="${user_role == '[ROLE_ADMIN]'}">
+					<c:set var="slide_superBig_amount" value="${slide_superBig_amount + 1}" />
+				</c:if>
+				<c:forEach var="i" begin="2" end="${slide_superBig_amount}" step="1">
+					<div class="item" align="center">
+						<img src="getImage/slide_superBig_${i}" />
+						<c:if test="${not empty showTextOnSlider}">
+							<div class="carousel-caption" style="display: inline-block; left:${showTextOnSlider}px; top:${showTextOnSlider_y}px;
+							 max-width:${showTextOnSlider_w}px; background-color:rgba(${slider_text_bg}); padding-left:20px; padding-right:20px;">
+								${text_on_slid[i-1]}
+							</div>
+						</c:if>
+						<div class="carousel-caption" style="display: inline-block;">
+							<c:if test="${not empty showTextOnSlider}">
+								<util:edit position="text_on_slid_${i}" content="${text_on_slid[i-1]}" richText="true" />
+							</c:if>
+							<util:changeImg position="slide_superBig_${i}"/>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+			<c:if
+				test="${slide_superBig_amount > 1 or user_role == '[ROLE_ADMIN]'}">
+				<a class="left carousel-control" href="#myCarousel"
+					data-slide="prev">
+					<!-- DO NOT REMOVE This comments -->
+				</a>
+				<a class="right carousel-control" href="#myCarousel"
+					data-slide="next">
+					<!-- DO NOT REMOVE This comments -->
+				</a>
+			</c:if>
+		</div>
+	</c:if>
+
+	<c:if test="${not empty show_SmallSlider}">
+		<table
+			style="width:860px; border:100px; margin-bottom: ${show_SmallSlider}px"
+			align="center">
+			<tr>
+				<td valign="top" align="center" width="300px"><img
+					src="../images/${gift}" /></td>
+				<td></td>
+				<td valign="top" align="center" width="100%">
+					<div class="promotion">
+						<br />
+						<div class="STYLE3">Special</div>
+						<div>coming soon...</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</c:if>
+
+	<!-- Promotion -->
+	<c:if test="${show_3swicher}">
+		<div class="container" style="margin-bottom:${show_3swicher}px;">
+			<div class="jumbotron">
+				<table id="pictable" style="DISPLAY: none">
+					<tr>
+						<TD><IMG src="getImage/promotion_1"/></TD>
+						<TD>${text_promotion1}</TD>
+						<TD>menu_3_1_1</TD>
+					</tr>
+					<tr>
+						<TD><IMG src="getImage/promotion_2"/></TD>
+						<TD>${text_promotion2}</TD>
+						<TD>menu_3_1_2</TD>
+					</tr>
+					<tr>
+						<TD><IMG src="getImage/promotion_3"/></TD>
+						<TD>${text_promotion3}</TD>
+						<TD>menu_3_1_3</TD>
+					</tr>
+				</table>
+
+				<div class="div_xixi">
+					<script type="text/javascript">
+		         var picarry={};
+		         var lnkarry={};
+		         var ttlarry={};
+		         function FixCode(str){
+		           return str.replace("'","=");
+		         }
+		         var t=document.getElementById("pictable");
+		         var rl=t.rows.length;
+		         var baseu=document.URL.replace(/(http.*\/)(.*)/, "$1");
+		         if(baseu.indexOf("/servlet/")>=0){
+		           baseu = baseu.replace("/servlet/","/");
+		         }
+		         var txt="";
+		         for(var i=0; i &lt; rl; i++){
+		             try{
+		               picarry[i]=t.rows[i].cells[0].childNodes[0].src;
+		               lnkarry[i]=t.rows[i].cells[2].innerHTML;
+		               ttlarry[i]=FixCode(t.rows[i].cells[1].innerHTML);
+		               document.getElementById("li_jimg"+i).innerHTML = '<a href="'+lnkarry[id]+'" target="_blank" class="img"><img src="'+picarry[id]+'"/></a>';
+		             }
+		             catch(e)
+		             {}
+		         }
+				 document.write(${linkA_JIMG} +lnkarry[0]+ "' title='' style='background:url("+picarry[1] + ")' >"
+						   +  ${imgTag} + picarry[0]+${anglebrackets_left}
+						   +   ${liElementOn}
+						   +      ${ahref} + lnkarry[0] + "' class='img'>" + ttlarry[0] + ${endOfLink}
+						   +   ${liElement1}
+						   +      ${ahref} + lnkarry[1] + "' class='img'>" + ttlarry[1] + ${endOfLink}
+						   +   ${liElement2}
+						   +      ${ahref} + lnkarry[2] + "' class='img'>" + ttlarry[2] + ${endOfLink}
+						   +   ${theEnd});
+		
+		        </script>
+				</div>
+				<div class="row-fluid" style="margin-left: 200px;">
+					<util:changeImg position="promotion_1"/>
+					<util:changeText position="text_promotion1"
+						content="${text_promotion1}" />
+					<util:changeImg position="promotion_2" />
+					<util:changeText position="text_promotion2"
+						content="${text_promotion2}" />
+					<util:changeImg position="promotion_3" />
+					<util:changeText position="text_promotion3"
+						content="${text_promotion3}"/>
+				</div>
+
+				<spring:url value="/resources/js/promotionSwitcher.js"
+					var="promotionSwitcher_url" />
+				<script type="text/javascript" src="${promotionSwitcher_url}"><!-- required for FF3 and Opera --></script>
+			</div>
+		</div>
+	</c:if>
+
+	<c:if test="${not empty showFloatingPromotion}">
+		<div style="position: fixed; z-index: 3000; top: 100px; right: 10px">
+			<util:taoImg src="getImage/floating_promotion"
+				link="${showFloatingPromotion}" />
+			<util:changeImg position="floating_promotion" />
+		</div>
+	</c:if>
+
+	<c:if test="${not empty show_1_TextObject}">
+		<div style="margin-bottom: ${show_1_TextObject}px;">${text_subTitle0}</div>
+		<util:edit position="text_subTitle0" content="${text_subTitle0}"
+			richText="true" />
+	</c:if>
+
+	<c:if test="${not empty show_1_imgObject}">
+		<div class="row">
+			<div 
+				style="margin-bottom: ${show_1_imgObject}px; text-align: center;">
+				<util:taoImg src="getImage/One_Center_img"
+					link="${link_One_Center_img}" width="${Center_img_w}" />
+				<util:changeImg position="One_Center_img" />
+			</div>
+		</div>
+	</c:if>
+
+	<!-- firstLine -->
+	<c:if test="${not empty show_3_Object_inSmallerRow}">
+		<div class="row" style="width: 80%; margin-left: ${margin_left}px; margin-right: ${margin_right}px; margin-bottom: ${show_3_Object_inSmallerRow}px">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"
+				style="text-align: center;">
+				<!-- <c:if test="${(not empty text_firstLineTitle1 and not empty text_firstLineTitle2 and not empty text_firstLineTitle3) or user_role == '[ROLE_ADMIN]'}" >
+		        	<div>${text_firstLineTitle1}</div> <util:edit position="text_firstLineTitle1" content="${text_firstLineTitle1}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/firstLine_1" link="${link_firstLine1}" />
+				<util:changeImg position="firstLine_1" />
+				<!-- <c:if test="${(not empty text_firstLineContent1 and not empty text_firstLineContent2 and not empty text_firstLineContent3) or user_role == '[ROLE_ADMIN]'}" >
+		          	<div align="left">${text_firstLineContent1}</div> <util:edit position="text_firstLineContent1" content="${text_firstLineContent1}" richText="true"/>
+		        </c:if> -->
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_firstLineTitle1 and not empty text_firstLineTitle2 and not empty text_firstLineTitle3) or user_role == '[ROLE_ADMIN]'}" >
+			        <div>${text_firstLineTitle2}</div> <util:edit position="text_firstLineTitle2" content="${text_firstLineTitle2}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/firstLine_2" link="${link_firstLine2}" />
+				<util:changeImg position="firstLine_2" />
+				<!-- <c:if test="${(not empty text_firstLineContent1 and not empty text_firstLineContent2 and not empty text_firstLineContent3) or user_role == '[ROLE_ADMIN]'}" >
+		 	        <div  align="left">${text_firstLineContent2}</div> <util:edit position="text_firstLineContent2" content="${text_firstLineContent2}" richText="true"/>
+		        </c:if> -->
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_firstLineTitle1 and not empty text_firstLineTitle2 and not empty text_firstLineTitle3) or user_role == '[ROLE_ADMIN]'}" >
+		         	<div>${text_firstLineTitle3}</div> <util:edit position="text_firstLineTitle3" content="${text_firstLineTitle3}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/firstLine_3" link="${link_firstLine3}" />
+				<util:changeImg position="firstLine_3" />
+				<!-- <c:if test="${(not empty text_firstLineContent1 and not empty text_firstLineContent2 and not empty text_firstLineContent3) or user_role == '[ROLE_ADMIN]'}" >
+			        <div align="left">${text_firstLineContent3}</div> <util:edit position="text_firstLineContent3" content="${text_firstLineContent3}" richText="true"/>
+		        </c:if> -->
+			</div>
+		</div>
+	</c:if>
+
+	<!-- second line -->
+	<c:if test="${not empty show_4_Object}">
+		<div class="row" style="${margin_left}px; margin-right: ${margin_right}px; margin-bottom: ${show_4_Object}px">
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_categoryTitle1 and not empty text_categoryTitle2 and not empty text_categoryTitle3 and not empty text_categoryTitle4) or user_role == '[ROLE_ADMIN]'}" >
+		        	<div>${text_categoryTitle1}</div> <util:edit position="text_categoryTitle1" content="${text_categoryTitle1}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/category_1" link="${link_secondLine1}" />
+				<util:changeImg position="category_1" />
+				<!-- <c:if test="${(not empty text_categoryContent1 and not empty text_categoryContent2 and not empty text_categoryContent3 and not empty text_categoryContent4) or user_role == '[ROLE_ADMIN]'}" >
+		          	<div align="left">${text_categoryContent1}</div> <util:edit position="text_categoryContent1" content="${text_categoryContent1}" richText="true"/>
+		        </c:if> -->
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_categoryTitle1 and not empty text_categoryTitle2 and not empty text_categoryTitle3 and not empty text_categoryTitle4) or user_role == '[ROLE_ADMIN]'}" >
+			        <div>${text_categoryTitle2}</div> <util:edit position="text_categoryTitle2" content="${text_categoryTitle2}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/category_2" link="${link_secondLine2}" />
+				<util:changeImg position="category_2" />
+				<!-- <c:if test="${(not empty text_categoryContent1 and not empty text_categoryContent2 and not empty text_categoryContent3 and not empty text_categoryContent4) or user_role == '[ROLE_ADMIN]'}" >
+		 	        <div  align="left">${text_categoryContent2}</div> <util:edit position="text_categoryContent2" content="${text_categoryContent2}" richText="true"/>
+		        </c:if> -->
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_categoryTitle1 and not empty text_categoryTitle2 and not empty text_categoryTitle3 and not empty text_categoryTitle4) or user_role == '[ROLE_ADMIN]'}" >
+		         	<div>${text_categoryTitle3}</div> <util:edit position="text_categoryTitle3" content="${text_categoryTitle3}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/category_3" link="${link_secondLine3}" />
+				<util:changeImg position="category_3" />
+				<!-- <c:if test="${(not empty text_categoryContent1 and not empty text_categoryContent2 and not empty text_categoryContent3 and not empty text_categoryContent4) or user_role == '[ROLE_ADMIN]'}" >
+			        <div align="left">${text_categoryContent3}</div> <util:edit position="text_categoryContent3" content="${text_categoryContent3}" richText="true"/>
+		        </c:if> -->
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_categoryTitle1 and not empty text_categoryTitle2 and not empty text_categoryTitle3 and not empty text_categoryTitle4) or user_role == '[ROLE_ADMIN]'}" >
+			        <div>${text_categoryTitle4}</div> <util:edit position="text_categoryTitle4" content="${text_categoryTitle4}" richText="true"/>
+		        </c:if> -->
+				<util:taoImg src="getImage/category_4" link="${link_secondLine4}" />
+				<util:changeImg position="category_4" />
+				<!-- <c:if test="${(not empty text_categoryContent1 and not empty text_categoryContent2 and not empty text_categoryContent3 and not empty text_categoryContent4) or user_role == '[ROLE_ADMIN]'}" >
+		 	         <div align="left">${text_categoryContent4}</div> <util:edit position="text_categoryContent4" content="${text_categoryContent4}" richText="true"/>
+		        </c:if> -->
+			</div>
+		</div>
+	</c:if>
+
+	<!-- log -->
+	<c:if test="${not empty show_3_Object}">
+		<div class="container">
+		<div class="row" style="margin-left: ${margin_left}px; margin-right: ${margin_right}px; margin-bottom: ${show_3_Object}px;">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_LogTitle1 and not empty text_LogTitle2 and not empty text_LogTitle3) or user_role == '[ROLE_ADMIN]'}" >
+		        	<div>${text_LogTitle1}</div> <util:edit position="text_LogTitle1" content="${text_LogTitle1}" richText="true"/>
+		        </c:if> -->
+		        <c:if test="${not empty video_1}">
+		        	<iframe class="hover-effect" style="border-radius:8px;" height="${height_3_Object}ps" width="${width_3_Object}ps" src="https://www.youtube.com/embed/${video_1}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"><!--  --></iframe>
+		        </c:if>
+		        <c:if test="${empty video_1}">
+					<util:taoImg src="getImage/log_1" link="${link_log1}" />
+					<util:changeImg position="log_1" />
+				</c:if>
+				<c:if test="${not empty show_3_Object_text}">
+					<div align="center"
+						style="position: ${IsTextPositionAbsolute};top:10px">${text_logContent1}</div>
+					<util:edit position="text_logContent1"
+						content="${text_logContent1}" richText="true" />
+				</c:if>
+				<br />
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_logTitle1 and not empty text_logTitle2 and not empty text_logTitle3) or user_role == '[ROLE_ADMIN]'}" >
+			        <div>${text_logTitle2}</div> <util:edit position="text_logTitle2" content="${text_logTitle2}" richText="true"/>
+		        </c:if> -->
+		        
+		        <c:if test="${not empty video_2}">
+		        	<iframe height="${height_3_Object}ps" width="${width_3_Object}ps" src="https://www.youtube.com/embed/${video_2}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="false"><!--  --></iframe>
+		        </c:if>
+		        <c:if test="${empty video_2}">
+					<util:taoImg src="getImage/log_2" link="${link_log2}" />
+					 <!-- usemap="#Map" />
+					<map name="Map" id="Map">
+						<spring:url var="enURL" value="/menu_1?lang=en" />
+						<area shape="rect" coords="10,20,340,115" href="${link_log2}" />
+						<area shape="rect" coords="10,116,340,180" href="mailto:reservation@spaviva.ca" />
+					</map> -->
+					<util:changeImg position="log_2" />
+				</c:if>
+				<c:if test="${not empty show_3_Object_text}">
+					<div align="center" style="position: ${IsTextPositionAbsolute};top:10px">${text_logContent2}</div>
+					<util:edit position="text_logContent2" content="${text_logContent2}" richText="true" />
+				</c:if>
+				<br />
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
+				<!-- <c:if test="${(not empty text_logTitle1 and not empty text_logTitle2 and not empty text_logTitle3 and not empty text_logTitle4) or user_role == '[ROLE_ADMIN]'}" >
+		         	<div>${text_logTitle3}</div> <util:edit position="text_logTitle3" content="${text_logTitle3}" richText="true"/>
+		        </c:if> -->
+		        
+		        <c:if test="${not empty video_3}">
+		        	<iframe height="${height_3_Object}ps" width="${width_3_Object}ps" src="https://www.youtube.com/embed/${video_3}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"><!--  --></iframe>
+		        </c:if>
+		        <c:if test="${empty video_3}">
+					<util:taoImg src="getImage/log_3" link="${link_log3}" />
+					<util:changeImg position="log_3" />
+				</c:if>
+				<c:if test="${not empty show_3_Object_text}">
+					<div align="center" style="position: ${IsTextPositionAbsolute};top:10px">${text_logContent3}</div>
+					<util:edit position="text_logContent3" content="${text_logContent3}" richText="true" />
+				</c:if>
+				<br />
+			</div>
+		</div>
+		</div>
+	</c:if>
+	
+	<!-- gateway -->
+	<c:if test="${not empty show_2_Object}">
+		<div class="row" style="margin-left: ${margin_left}px; margin-right: ${margin_right}px; margin-bottom: ${show_2_Object}px;">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: center;">
+		        <c:if test="${not empty video_1}">
+		        	<iframe height="${height_2_Object}ps" width="${width_2_Object}ps" src="https://www.youtube.com/embed/${video_1}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"><!--  --></iframe>
+		        </c:if>
+		        <c:if test="${empty video_1}">
+					<util:taoImg src="getImage/log_1" link="${link_log1}" />
+					<util:changeImg position="log_1" />
+				</c:if>
+				<c:if test="${not empty show_2_Object_text}">
+					<div align="center"
+						style="position: ${IsTextPositionAbsolute};top:10px">${text_logContent1}</div>
+					<util:edit position="text_logContent1"
+						content="${text_logContent1}" richText="true" />
+				</c:if>
+				<br />
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: center;">
+		        <c:if test="${not empty video_2}">
+		        	<iframe height="${height_2_Object}ps" width="${width_2_Object}ps" src="https://www.youtube.com/embed/${video_2}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="false"><!--  --></iframe>
+		        </c:if>
+		        <c:if test="${empty video_2}">
+					<util:taoImg src="getImage/log_2" link="${link_log2}" />
+					<util:changeImg position="log_2" />
+				</c:if>
+				<c:if test="${not empty show_2_Object_text}">
+					<div align="center" style="position: ${IsTextPositionAbsolute};top:10px">${text_logContent2}</div>
+					<util:edit position="text_logContent2" content="${text_logContent2}" richText="true" />
+				</c:if>
+				<br />
+			</div>
+
+		</div>
+	</c:if>
+
+	<!-- for startup initialization -->
+	<script type='text/javascript'>
+	    /* if it doesn't work, might because there's some thing stopped the document from fully load. then try to use 
+	    window.onload = function(){playit();$('.carousel').carousel({interval: 5000})}; Please remember to call the 
+	    "playit();", because it's for the promotion swicher, and was difined in external js file, in JSP, if we define a 
+	    window.onload in html file, looks like it can replace the window.onload in external js file.*/   
+	    $(document).ready(function(){$('.carousel').carousel({interval: 5000})});
+	
+		var showEmailConfirmation = ${email ne null};	//@NOTE: when it's changing picture, must make sure that contnet is null!
+		if(showEmailConfirmation == true)			//first check if it's modifying text.
+			$('#"emailConformation"').modal('show');
+	  </script>
+	<!-- for sharethis,  while seems no effect on local, but has effect on openshift! don't know why yet.-->
+	<c:if test="${not empty show_shareThis}">
+		<script type="text/javascript">
+			stLight.options({
+				publisher : "a1800cce-5aac-40c5-8fbd-e0e4c83315a0",
+				doNotHash : false,
+				doNotCopy : false,
+				hashAddressBar : false
+			});
+		</script>
+		<script>
+			var options = {
+				"publisher" : "a1800cce-5aac-40c5-8fbd-e0e4c83315a0",
+				"position" : "right",
+				"ad" : {
+					"visible" : false,
+					"openDelay" : 5,
+					"closeDelay" : 0
+				},
+				"chicklets" : {
+					"items" : [ "facebook", "twitter", "linkedin", "email",
+							"sharethis", "googleplus" ]
+				}
+			};
+			var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+		</script>
+	</c:if>
+
+	<c:if test="${showLuckyWheel or showLuckyPrizeReminder}">
+		<style type="text/css">
+			#luckyWheelOverlay {
+				position: fixed;
+				inset: 0;
+				z-index: 3100;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 24px 18px 20px;
+				overflow: hidden;
+				background:
+					radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 30%),
+					rgba(18, 28, 40, 0.62);
+			}
+			#luckyWheelPanel {
+				position: relative;
+				width: min(92vw, 380px);
+				min-height: 400px;
+				overflow: hidden;
+				padding: 0;
+				border-radius: 0;
+				text-align: center;
+				color: #37506a;
+				background: transparent;
+				box-shadow: none;
+				border: 0;
+				backdrop-filter: none;
+			}
+			#luckyWheelClose {
+				position: absolute;
+				right: 8px;
+				top: 4px;
+				width: 34px;
+				height: 34px;
+				border: 0;
+				border-radius: 50%;
+				background: transparent;
+				color: rgba(255,255,255,0.94);
+				font-size: 28px;
+				line-height: 34px;
+				cursor: pointer;
+				text-shadow: 0 2px 10px rgba(0,0,0,0.28);
+				z-index: 12;
+			}
+			#luckyWheelStage {
+				position: relative;
+				width: 320px;
+				height: 370px;
+				margin: 18px auto 0;
+			}
+			#luckyWheelPointer {
+				position: absolute;
+				top: 54px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 0;
+				height: 0;
+				border-left: 9px solid transparent;
+				border-right: 9px solid transparent;
+				border-bottom: 24px solid #f0a63f;
+				filter: drop-shadow(0 3px 8px rgba(88, 63, 35, 0.16));
+				z-index: 6;
+			}
+			#luckyWheelPointer:after {
+				content: "";
+				position: absolute;
+				left: -7px;
+				top: 18px;
+				width: 14px;
+				height: 14px;
+				border-radius: 50%;
+				background: #fff9ef;
+				border: 3px solid #f2a23e;
+			}
+			#luckyWheelWheel {
+				position: absolute;
+				left: 50%;
+				top: 57%;
+				width: 236px;
+				height: 236px;
+				transform: translate(-50%, -50%) rotate(0deg);
+				transform-origin: 50% 50%;
+				border-radius: 50%;
+				background: conic-gradient(from -30deg,
+					#f36a5c 0deg 60deg,
+					#57bde6 60deg 120deg,
+					#53cea1 120deg 180deg,
+					#ffb24c 180deg 240deg,
+					#8f87fb 240deg 300deg,
+					#ff7cae 300deg 360deg);
+				box-shadow: inset 0 10px 18px rgba(255,255,255,0.46), inset 0 -14px 22px rgba(60,72,90,0.1), 0 18px 34px rgba(84,112,146,0.18);
+				border: 10px solid #fffaf1;
+				transition: transform 5.4s cubic-bezier(.12,.86,.18,1);
+				overflow: hidden;
+			}
+			#luckyWheelWheel:before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				border-radius: 50%;
+				background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.92) 0deg 2deg, transparent 2deg 60deg);
+				opacity: 0.9;
+			}
+			#luckyWheelWheel:after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 74px;
+				height: 74px;
+				margin-left: -37px;
+				margin-top: -37px;
+				border-radius: 50%;
+				background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.55), transparent 24%), linear-gradient(180deg, #78b3d9 0%, #4e86b1 100%);
+				border: 8px solid #ffffff;
+				box-shadow: 0 8px 18px rgba(78,117,149,0.22);
+				z-index: 3;
+			}
+			.lucky-wheel-item {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 56px;
+				margin-left: -28px;
+				text-align: center;
+				color: #fff;
+				text-shadow: 0 1px 4px rgba(0,0,0,0.22);
+				z-index: 2;
+			}
+			.lucky-wheel-prize-badge {
+				width: 54px;
+				height: 54px;
+				margin: 0 auto;
+				border-radius: 22px;
+				overflow: hidden;
+				background: rgba(255,255,255,0.95);
+				box-shadow: 0 12px 18px rgba(20,29,40,0.18);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.lucky-wheel-prize-badge img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.lucky-wheel-prize-fallback {
+				display: inline-flex;
+				width: 100%;
+				height: 100%;
+				align-items: center;
+				justify-content: center;
+				font-size: 28px;
+				font-weight: 800;
+				color: #527597;
+			}
+			#luckyWheelSpinBtn {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				width: 70px;
+				height: 70px;
+				border-radius: 50%;
+				border: 7px solid #fefcf8;
+				background: linear-gradient(180deg, #7cb5da 0%, #4f88b3 100%);
+				box-shadow: 0 8px 18px rgba(78,117,149,0.2);
+				color: #fff;
+				font-size: 18px;
+				font-weight: 800;
+				letter-spacing: 0.08em;
+				cursor: pointer;
+				z-index: 7;
+			}
+			#luckyWheelSpinBtn[disabled] {
+				cursor: default;
+				opacity: 0.72;
+			}
+			#luckyWheelResultDialog {
+				display: none;
+				margin: 26px auto 0;
+				width: min(84vw, 280px);
+				padding: 18px 18px 16px;
+				border-radius: 24px;
+				background: rgba(255, 255, 255, 0.93);
+				box-shadow: 0 16px 34px rgba(44, 63, 88, 0.16);
+				backdrop-filter: blur(8px);
+			}
+			#luckyWheelResultImageWrap {
+				width: 88px;
+				height: 88px;
+				margin: 0 auto 12px;
+				border-radius: 24px;
+				background: rgba(245,249,253,0.98);
+				box-shadow: inset 0 0 0 1px rgba(127,180,213,0.18), 0 10px 20px rgba(64, 89, 118, 0.12);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+			}
+			#luckyWheelResultImageWrap img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			#luckyWheelResultTitle {
+				font-size: 22px;
+				font-weight: 800;
+				color: #35506a;
+				margin: 0 0 8px;
+			}
+			#luckyWheelResultPrize {
+				font-size: 17px;
+				font-weight: 700;
+				color: #486987;
+				margin: 0 0 10px;
+			}
+			#luckyWheelResultMessage {
+				font-size: 15px;
+				line-height: 1.55;
+				color: #64809a;
+				margin: 0;
+			}
+			.lucky-wheel-actions a {
+				display: inline-block;
+				margin: 8px 6px 0;
+				padding: 11px 18px;
+				border-radius: 999px;
+				text-decoration: none;
+				font-weight: 700;
+				letter-spacing: 0.02em;
+			}
+			.lucky-wheel-primary {
+				background: #7fb4d5;
+				color: #fff;
+			}
+			.lucky-wheel-secondary {
+				background: #eef5fb;
+				color: #43607a;
+			}
+			#luckyWheelReminderCard {
+				background: linear-gradient(180deg, #fffef9 0%, #f3f8fd 100%);
+				border: 1px solid rgba(127,180,213,0.3);
+				border-radius: 28px;
+				padding: 28px 22px 24px;
+			}
+			@media (max-width: 680px) {
+				#luckyWheelPanel {
+					width: min(96vw, 340px);
+					min-height: 360px;
+					padding: 0;
+				}
+				#luckyWheelStage {
+					width: 286px;
+					height: 332px;
+					margin: 12px auto 0;
+				}
+				#luckyWheelPointer {
+					top: 46px;
+					border-left-width: 8px;
+					border-right-width: 8px;
+					border-bottom-width: 22px;
+				}
+				#luckyWheelWheel {
+					width: 214px;
+					height: 214px;
+					top: 56%;
+				}
+				.lucky-wheel-item {
+					width: 42px;
+					margin-left: -21px;
+				}
+				.lucky-wheel-prize-badge {
+					width: 40px;
+					height: 40px;
+					border-radius: 16px;
+				}
+				#luckyWheelSpinBtn {
+					width: 64px;
+					height: 64px;
+					font-size: 16px;
+				}
+				#luckyWheelResultDialog {
+					margin-top: 22px;
+					width: min(90vw, 270px);
+					padding: 18px 16px 16px;
+				}
+				#luckyWheelResultImageWrap {
+					width: 74px;
+					height: 74px;
+					border-radius: 20px;
+				}
+				#luckyWheelResultTitle {
+					font-size: 20px;
+				}
+				#luckyWheelResultPrize {
+					font-size: 16px;
+				}
+			}
+		</style>
+		<div id="luckyWheelConfig" style="display:none;" data-reminder="${showLuckyPrizeReminder}" data-lang="${luckyWheelLang}">
+			<span id="luckyPrizeNameValue"><c:out value="${luckyPrizeName}" /></span>
+			<span id="luckyPrizeImageValue"><c:out value="${luckyPrizeImageUrl}" /></span>
+			<c:forEach var="card" items="${luckyWheelPrizeCards}">
+				<span class="lucky-wheel-data"
+					data-code="${card.code}"
+					data-label="${card.label}"
+					data-hint="${card.hint}"
+					data-image="${card.imageUrl}"
+					data-weight="${card.weight}"></span>
+			</c:forEach>
+		</div>
+		<script type="text/javascript"><jsp:text><![CDATA[
+		function initLuckyWheelOverlay() {
+			var configRoot = document.getElementById('luckyWheelConfig');
+			if (!configRoot) {
+				return;
+			}
+			var langKey = ((configRoot.getAttribute('data-lang') || 'en_').substring(0, 2)).toLowerCase();
+			var luckyText = {
+				en: {
+					waitingTitle: 'Prize waiting',
+					waitingMessage: 'You still have a prize waiting: ',
+					waitingAuth: 'Sign in or register to claim it.',
+					resultTitle: 'Congratulations',
+					resultAuth: 'Sign in or register to claim your prize.',
+					resultDone: 'Your prize has been added to your account.',
+					noPrize: 'No prize is configured yet.',
+					spinning: 'Spinning...',
+					error: 'Sorry, please try again.',
+					login: 'Login',
+					register: 'Register',
+					spin: 'SPIN'
+				},
+				fr: {
+					waitingTitle: 'Prix en attente',
+					waitingMessage: 'Vous avez encore un prix en attente : ',
+					waitingAuth: 'Connectez-vous ou inscrivez-vous pour le réclamer.',
+					resultTitle: 'Félicitations',
+					resultAuth: 'Connectez-vous ou inscrivez-vous pour réclamer votre prix.',
+					resultDone: 'Votre prix a été ajouté à votre compte.',
+					noPrize: 'Aucun prix n’est configuré.',
+					spinning: 'Rotation...',
+					error: 'Désolé, veuillez réessayer.',
+					login: 'Connexion',
+					register: 'Inscription',
+					spin: 'TOUR'
+				},
+				zh: {
+					waitingTitle: '奖品待领取',
+					waitingMessage: '你还有一个奖品待领取：',
+					waitingAuth: '请登录或注册后领取。',
+					resultTitle: '恭喜中奖',
+					resultAuth: '请登录或注册后领取你的奖品。',
+					resultDone: '你的奖品已经登记到账户中。',
+					noPrize: '还没有配置奖品。',
+					spinning: '正在抽奖...',
+					error: '抱歉，请再试一次。',
+					login: '登录',
+					register: '注册',
+					spin: '抽奖'
+				}
+			};
+			var t = luckyText[langKey] || luckyText.en;
+			var oldOverlay = document.getElementById('luckyWheelOverlay');
+			if (oldOverlay && oldOverlay.parentNode) {
+				oldOverlay.parentNode.removeChild(oldOverlay);
+			}
+			var overlay = document.createElement('div');
+			overlay.id = 'luckyWheelOverlay';
+			var panel = document.createElement('div');
+			panel.id = 'luckyWheelPanel';
+			overlay.appendChild(panel);
+			document.body.appendChild(overlay);
+			var closeBtn = document.createElement('button');
+			closeBtn.id = 'luckyWheelClose';
+			closeBtn.type = 'button';
+			closeBtn.setAttribute('aria-label', 'Close');
+			closeBtn.innerHTML = '&#215;';
+			panel.appendChild(closeBtn);
+			if (closeBtn) {
+				closeBtn.addEventListener('click', function() {
+					overlay.style.display = 'none';
+				});
+			}
+			function renderResultCard(prizeName, prizeImageUrl, requiresAuth) {
+				panel.innerHTML = '';
+				panel.appendChild(closeBtn);
+				var resultDialog = document.createElement('div');
+				resultDialog.id = 'luckyWheelResultDialog';
+				var imageWrap = document.createElement('div');
+				imageWrap.id = 'luckyWheelResultImageWrap';
+				if (prizeImageUrl) {
+					var resultImg = document.createElement('img');
+					resultImg.alt = prizeName || 'Prize';
+					resultImg.src = prizeImageUrl;
+					imageWrap.appendChild(resultImg);
+				} else {
+					imageWrap.innerHTML = '<span class="lucky-wheel-prize-fallback">' + ((prizeName || '?').charAt(0)) + '</span>';
+				}
+				var title = document.createElement('h3');
+				title.id = 'luckyWheelResultTitle';
+				title.textContent = t.resultTitle;
+				var prize = document.createElement('div');
+				prize.id = 'luckyWheelResultPrize';
+				prize.textContent = prizeName || '';
+				var message = document.createElement('p');
+				message.id = 'luckyWheelResultMessage';
+				message.textContent = requiresAuth ? t.resultAuth : t.resultDone;
+				resultDialog.appendChild(imageWrap);
+				resultDialog.appendChild(title);
+				resultDialog.appendChild(prize);
+				resultDialog.appendChild(message);
+				resultDialog.style.display = 'block';
+				panel.appendChild(resultDialog);
+			}
+			var showReminder = configRoot.getAttribute('data-reminder') === 'true';
+			if (showReminder) {
+				var waitingPrizeName = ((document.getElementById('luckyPrizeNameValue') || {}).textContent || '').trim();
+				var waitingPrizeImage = ((document.getElementById('luckyPrizeImageValue') || {}).textContent || '').trim();
+				renderResultCard(waitingPrizeName, waitingPrizeImage, true);
+				var waitingText = document.getElementById('luckyWheelResultMessage');
+				if (waitingText) {
+					waitingText.textContent = t.waitingMessage + waitingPrizeName + '. ' + t.waitingAuth;
+				}
+				var waitingTitle = document.getElementById('luckyWheelResultTitle');
+				if (waitingTitle) {
+					waitingTitle.textContent = t.waitingTitle;
+				}
+				return;
+			}
+			var stage = document.createElement('div');
+			stage.id = 'luckyWheelStage';
+			stage.innerHTML = '<div id="luckyWheelPointer"></div><div id="luckyWheelWheel"></div><button id="luckyWheelSpinBtn" type="button">' + t.spin + '</button>';
+			panel.appendChild(stage);
+			var spinBtn = document.getElementById('luckyWheelSpinBtn');
+			if (!spinBtn) {
+				return;
+			}
+			var wheel = document.getElementById('luckyWheelWheel');
+			var prizeDataEls = configRoot.querySelectorAll('.lucky-wheel-data');
+			var prizeCards = [];
+			for (var d = 0; d < prizeDataEls.length; d++) {
+				prizeCards.push({
+					code: prizeDataEls[d].getAttribute('data-code') || '',
+					label: prizeDataEls[d].getAttribute('data-label') || '',
+					hint: prizeDataEls[d].getAttribute('data-hint') || '',
+					imageUrl: prizeDataEls[d].getAttribute('data-image') || '',
+					weight: prizeDataEls[d].getAttribute('data-weight') || ''
+				});
+			}
+			if (!prizeCards.length) {
+				spinBtn.disabled = true;
+				renderResultCard('', '', false);
+				document.getElementById('luckyWheelResultTitle').textContent = t.waitingTitle;
+				document.getElementById('luckyWheelResultPrize').textContent = '';
+				document.getElementById('luckyWheelResultMessage').textContent = t.noPrize;
+				return;
+			}
+			var palette = ['#f36a5c', '#57bde6', '#53cea1', '#ffb24c', '#8f87fb', '#ff7cae', '#69c7d0', '#f7a35c'];
+			var segmentDeg = 360 / prizeCards.length;
+			var colorStops = [];
+			for (var c = 0; c < prizeCards.length; c++) {
+				var startDeg = (segmentDeg * c).toFixed(4);
+				var endDeg = (segmentDeg * (c + 1)).toFixed(4);
+				colorStops.push(palette[c % palette.length] + ' ' + startDeg + 'deg ' + endDeg + 'deg');
+			}
+			wheel.style.background = 'conic-gradient(from -90deg, ' + colorStops.join(',') + ')';
+			var itemDistance = window.innerWidth < 680 ? 46 : 58;
+			for (var i = 0; i < prizeCards.length; i++) {
+				var card = prizeCards[i];
+				var itemAngle = segmentDeg * i;
+				var item = document.createElement('div');
+				item.className = 'lucky-wheel-item';
+				item.style.transform = 'rotate(' + itemAngle + 'deg) translateY(-' + itemDistance + 'px) rotate(' + (-itemAngle) + 'deg)';
+				var badgeHtml = card.imageUrl
+					? '<img src="' + card.imageUrl + '" alt="' + (card.label || 'Prize') + '" />'
+					: '<span class="lucky-wheel-prize-fallback">' + ((card.label || '?').charAt(0)) + '</span>';
+				item.innerHTML = '<div class="lucky-wheel-prize-badge">' + badgeHtml + '</div>';
+				wheel.appendChild(item);
+			}
+			var spinning = false;
+			var currentRotation = 0;
+			spinBtn.addEventListener('click', function() {
+				if (spinning) { return; }
+				spinning = true;
+				spinBtn.disabled = true;
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', 'spinLuckyWheel', true);
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState !== 4) { return; }
+					if (xhr.status < 200 || xhr.status >= 300) {
+						renderResultCard('', '', false);
+						document.getElementById('luckyWheelResultTitle').textContent = t.waitingTitle;
+						document.getElementById('luckyWheelResultPrize').textContent = '';
+						document.getElementById('luckyWheelResultMessage').textContent = t.error;
+						spinBtn.disabled = false;
+						spinning = false;
+						return;
+					}
+					var data = JSON.parse(xhr.responseText);
+					var prizeIndex = 0;
+					for (var p = 0; p < prizeCards.length; p++) {
+						if (prizeCards[p].code === data.prizeCode) {
+							prizeIndex = p;
+							break;
+						}
+					}
+					var extraTurns = 360 * (6 + Math.floor(Math.random() * 2));
+					var finalOffset = (360 - (prizeIndex * segmentDeg) - (segmentDeg / 2)) % 360;
+					currentRotation += extraTurns + finalOffset;
+					wheel.style.transform = 'translate(-50%, -50%) rotate(' + currentRotation + 'deg)';
+					window.setTimeout(function() {
+						stage.style.display = 'none';
+						renderResultCard(data.prizeName || '', data.prizeImageUrl || '', data.requiresAuth);
+						spinBtn.disabled = false;
+						spinning = false;
+					}, 5400);
+				};
+				xhr.send('');
+			});
+		}
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initLuckyWheelOverlay);
+		} else {
+			initLuckyWheelOverlay();
+		}
+		]]></jsp:text></script>
+	</c:if>
+</div>

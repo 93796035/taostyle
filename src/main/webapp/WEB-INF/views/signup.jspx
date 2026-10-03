@@ -1,0 +1,118 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<c:if test="${not empty mainOrderList}">
+		<!-- MainOrder list -->
+		<page:list id="pl_com_stgo_taostyle_domain_MainOrder" label="Order" labelPlural="" items="${mainOrderList}" render="${fn:length(mainOrderList) gt 0}" z="user-managed">
+			<!-- 
+			<c:set var="name_db" value="${fn:toLowerCase(pageContext['request'].userPrincipal.name)}"/>
+			<c:set var="position" value="${fn:indexOf(name_db, '*')}" /> 
+			<c:set var="name_db" value="${fn:substring(name_db, 0, position)}"/>
+			 -->
+			<table:BigSortable data="${mainOrderList}" id="l_com_stgo_taostyle_domain_MainOrder" path="/showDetailOrder" 
+			selectable="false" create="false" update="false"  delete="false">
+				<!-- table:column id="c_com_stgo_taostyle_domain_mainorder_id" label="ID" property="id"/-->
+				<table:column id="c_com_stgo_taostyle_domain_mainorder_delieverdate" date="true" dateTimePattern="HH:mm:ss" label="Target" property="delieverdate"/>
+				<table:column id="c_com_stgo_taostyle_domain_mainorder_sizetable" label="Customer" property="sizeTable"/>
+				<table:column id="c_com_stgo_taostyle_domain_mainorder_recordStatus" label="Status" property="recordStatus"/>
+				<table:column id="c_com_stgo_taostyle_domain_mainorder_paycondition" label="Total" property="payCondition"/>
+			</table:BigSortable>
+		</page:list>
+	</c:if>
+			
+	<spring:message code="security_login_title" var="title"
+		htmlEscape="false" />
+	<util:panel id="title" title="${title}">
+		<table class="gallery"
+			style="background:#${background_pop}; opacity:${pop_opacity}">
+			<tbody>
+				<tr>
+					<td style="padding: 10px" width="940px" align="center"><spring:url
+							value="/signup" var="form_url" /> <c:if
+							test="${not empty SignUp_ErrorMessage}">
+    	${SignUp_ErrorMessage}
+    </c:if>
+						<form name="f" action="${fn:escapeXml(form_url)}" method="POST">
+							<table>
+								<tr>
+									<td>Name* :</td>
+									<td><input id="j_username" type='text' name='loginname' style="width: 150px" required="required" />
+										<spring:message code="security_login_form_name_message" var="name_msg" htmlEscape="false" />
+									</td>
+								</tr>
+								<tr>
+									<td>Password*:</td>
+									<td><input id="j_password" type='password' name='password' style="width: 150px" required="required" />
+										<spring:message code="security_login_form_password_message" var="pwd_msg" htmlEscape="false" />
+									</td>
+								</tr>
+								<tr>
+									<td>Tel :</td>
+									<td><input id="j_tel" type='text' name='tel' style="width: 150px" /></td>
+								</tr>
+								<tr>
+									<td>Email :</td>
+									<td><input id="j_email" type="email" name='email' style="width: 150px" /></td>
+								</tr>
+								<tr style="height:20pt;"><td colspan="2"></td></tr>
+								<tr><td colspan="2">
+									<script src="https://www.google.com/recaptcha/api.js" defer="defer"><!--google reCAPTHA--></script>
+									<div class="g-recaptcha" data-sitekey="6Le8xgArAAAAAI1jgDYukZk_EuJ1GIvKJ6aKY881"><!--google reCAPTHA--></div>
+								</td></tr>
+								<tr><td colspan="2"><hr /></td></tr>
+								<tr><td colspan="2" align="center">
+										<spring:message code="button_submit" var="submit_label" htmlEscape="false" />
+										<input class="btn btn-sm col-sm-4 btn-black move-right" id="proceed" type="submit" value="${fn:escapeXml(submit_label)}" />
+                                        <span id="signup-progress-text" style="display:none; margin-left:12px; color:#7f6849; font-weight:600;">Creating site, please wait...</span></td>
+								</tr>
+							</table>
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</util:panel>
+
+	<script type='text/javascript'>
+	    /* if it doesn't work, might because there's some thing stopped the document from fully load. then try to use 
+	    window.onload = function(){playit();$('.carousel').carousel({interval: 5000})}; Please remember to call the 
+	    "playit();", because it's for the promotion swicher, and was difined in external js file, in JSP, if we define a 
+	    window.onload in html file, looks like it can replace the window.onload in external js file.*/   
+	    $(document).ready(
+	    		function(){
+	    			document.getElementById('j_username').focus()
+	    		}
+	    );
+		window.addEventListener('DOMContentLoaded', function () {
+			const form = document.forms["f"];
+            const progressText = document.getElementById("signup-progress-text");
+            const proceed = document.getElementById("proceed");
+			if (form) {
+				form.addEventListener("submit", function (e) {
+					const response = typeof grecaptcha !== "undefined" ? grecaptcha.getResponse() : "";
+					if (response.length === 0) {
+						alert("Please complete the CAPTCHA verification first");
+						e.preventDefault(); // 闂傚倸鍟扮划顖烆敆濞戙垹绠甸柟閭︿簼閸?
+                        return;
+					}
+                    if (progressText) {
+                        progressText.style.display = "inline";
+                    }
+                    if (proceed) {
+                        proceed.disabled = true;
+                        proceed.value = "Working...";
+                    }
+				});
+			}
+		});
+	</script>
+</div>
+

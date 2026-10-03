@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="020_010_create_for_new_client.html">020_010_create_for_new_client</a></td></tr>
+<tr><td><a href="020_040_give_basic_image_to_client.html">020_040_give_basic_image_to_client</a></td></tr>
+<tr><td><a href="020_050_check_adding_configration.html">020_050_check_adding_configration</a></td></tr>
+<tr><td><a href="020_060_adding_img_for_menu4.html">020_060_adding_img_for_menu4</a></td></tr>
+<tr><td><a href="020_040_give_basic_image_to_client.html">020_040_give_basic_image_to_client</a></td></tr>
+<tr><td><a href="020_100_logout_as_new_client.html">020_100_logout_as_new_client</a></td></tr>
+<tr><td><a href="020_999_delete_new_client.html">020_999_delete_new_client</a></td></tr>
+</tbody></table>
+</body>
+</html>

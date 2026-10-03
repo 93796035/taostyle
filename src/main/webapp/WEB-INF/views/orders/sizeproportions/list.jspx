@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:list id="pl_com_stgo_taostyle_domain_SizeProportion"
+		items="${sizeproportions}" z="xFctpyRnv08IlE/zDhkXUFPo0Pg=">
+		<table:table data="${sizeproportions}" delete="false"
+			id="l_com_stgo_taostyle_domain_SizeProportion"
+			parentItemId="${mainOrderId}" path="/sizeproportions"
+			z="user-managed">
+			<table:column
+				id="c_com_stgo_taostyle_domain_SizeProportion_mainOrder"
+				property="mainOrder" z="33VlHxUE22CqlZYANxnCnxY76xs=" />
+			<table:column id="c_com_stgo_taostyle_domain_SizeProportion_Color"
+				property="color" z="XNgnra973woPyQE8zKG4EY7dCjw=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_SizeProportion_smallsize"
+				property="smallsize" z="weVdTFbZb0962Y+fXGv0VlSGH4U=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_SizeProportion_middlesize"
+				property="middlesize" z="aJzeL5/sQf2lB8tiKS2zVUCOKL8=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_SizeProportion_largeSize"
+				property="largeSize" z="2MSlrQvDkyyuDQ4yQR9dOKpRlOw=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_SizeProportion_extraLargeSize"
+				property="extraLargeSize" z="77cdPTtBfmcYEDW2vNk4T4r5nI4=" />
+		</table:table>
+	</page:list>
+</div>

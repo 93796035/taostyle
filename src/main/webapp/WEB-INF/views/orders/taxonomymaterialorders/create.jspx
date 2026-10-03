@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<div class="gallery"
+		style="background:#${background_subpage}; opacity:${subpage_opacity}; padding: 20px">
+		<spring:message arguments="Outsourcing Management"
+			code="entity_update" var="title_msg" htmlEscape="false" />
+		<legend>${title_msg}</legend>
+		<table>
+			<tbody>
+				<tr>
+					<td align="center" style="width: 350px;">
+						<c:if
+							test="${not empty Update_ErrorMessage}">
+							<div style="color: red">${Update_ErrorMessage}</div>
+						</c:if> 
+						<spring:url value="/taxonomymaterialorders" var="form_url" /> 
+						<springform:form modelAttribute="taxonomyMaterialOrder" action="${form_url}" method="POST">
+							<input type="hidden" name="id"
+								value="${taxonomyMaterialOrder['id']}" />
+							<table>
+								<tr>
+									<td>Main Order :</td>
+									<td><select name="mainOrder" style="width: 164px">
+											<c:forEach items="${mainorders}" var="item">
+												<option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</option>
+											</c:forEach>
+									</select></td>
+								</tr>
+
+								<tr>
+									<td>Factory :</td>
+									<td><springform:select path="factory" name="factory"
+											style="width:164px">
+											<c:forEach items="${factorys}" var="item">
+												<springform:option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</springform:option>
+											</c:forEach>
+										</springform:select></td>
+								</tr>
+								<tr>
+									<td>produceFormat :</td>
+									<td><input id="shipment" name="shipment"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['produceFormat']}" /></td>
+								</tr>
+
+								<tr>
+									<td>orderDate :</td>
+									<td><input id="orderDate" name="orderDate"
+										style="width: 150px" type="text" value="${orderDate}" /></td>
+								</tr>
+								<script>
+						$(function(){
+							$('#orderDate').datepicker();
+						});
+					</script>
+
+
+								<tr>
+									<td>itemName :</td>
+									<td><input id="itemName" name="itemName"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['itemName']}" /></td>
+								</tr>
+								<tr>
+									<td>color :</td>
+									<td><input id="color" name="color" style="width: 150px"
+										type="text" value="${taxonomyMaterialOrder['color']}" /></td>
+								</tr>
+								<tr>
+									<td>sizeSpecification :</td>
+									<td><input id="sizeSpecification" name="sizeSpecification"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['sizeSpecification']}" /></td>
+								</tr>
+
+								<tr>
+									<td>Supplier :</td>
+									<td><springform:select path="supplier" name="supplier"
+											style="width:164px">
+											<c:forEach items="${suppliers}" var="item">
+												<springform:option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</springform:option>
+											</c:forEach>
+										</springform:select></td>
+								</tr>
+								<tr>
+									<td>quantity :</td>
+									<td><input id="quantity" name="quantity"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['quantity']}" /></td>
+								</tr>
+								<tr>
+									<td>CONS :</td>
+									<td><input id="CONS" name="CONS" style="width: 150px"
+										type="text" value="${taxonomyMaterialOrder['CONS']}" /></td>
+								</tr>
+								<tr>
+									<td>unit :</td>
+									<td><input id="unit" name="unit" style="width: 150px"
+										type="text" value="${taxonomyMaterialOrder['unit']}" /></td>
+								</tr>
+								<tr>
+									<td>orderQuantity :</td>
+									<td><input id="orderQuantity" name="orderQuantity"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['orderQuantity']}" /></td>
+								</tr>
+								<tr>
+									<td>ext_quantity :</td>
+									<td><input id="ext_quantity" name="ext_quantity"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['ext_quantity']}" /></td>
+								</tr>
+								<tr>
+									<td>realQuantity :</td>
+									<td><input id="realQuantity" name="realQuantity"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['realQuantity']}" /></td>
+								</tr>
+								<tr>
+									<td>unitPrice :</td>
+									<td><input id="unitPrice" name="unitPrice"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['unitPrice']}" /></td>
+								</tr>
+								<tr>
+									<td>totalAmount :</td>
+									<td><input id="totalAmount" name="totalAmount"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['totalAmount']}" /></td>
+								</tr>
+								<tr>
+									<td>recd_qty :</td>
+									<td><input id="recd_qty" name="recd_qty"
+										style="width: 150px" type="text"
+										value="${taxonomyMaterialOrder['recd_qty']}" /></td>
+								</tr>
+
+								<tr>
+									<td>recd_date :</td>
+									<td><input id="recd_date" name="recd_date"
+										style="width: 150px" type="text" value="${recd_date}" /></td>
+								</tr>
+								<script>
+						$(function(){
+							$('#recd_date').datepicker();
+						});
+					</script>
+								<tr>
+									<td>remark :</td>
+									<td><input id="remark" name="remark" style="width: 150px"
+										type="text" value="${taxonomyMaterialOrder['remark']}" /></td>
+								</tr>
+
+								<tr>
+									<td colspan="2"><hr /></td>
+								</tr>
+								<tr>
+									<td align="center" colspan="2">
+										<spring:message code="button_submit" htmlEscape="false"
+											var="submit_label" /> <input
+										class="btn btn-sm col-sm-4 btn btn-primary move-right"
+										id="proceed" type="submit"
+										value="${fn:escapeXml(submit_label)}" /></td>
+								</tr>
+							</table>
+						</springform:form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--     
+    <form:create id="fc_com_stgo_taostyle_domain_TaxonomyMaterialOrder" modelAttribute="taxonomyMaterialOrder" path="/taxonomymaterialorders" render="${empty dependencies}" z="kIRe7Db4I4KYkYs1dU2SX3gjOQw=">
+        <field:select field="mainOrder" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_mainOrder" itemValue="id" items="${mainorders}" path="/mainorders" z="ZTuakZJmnwgjolL1+UtlLgtN8is="/>
+        <field:select field="factory" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_factory" itemValue="id" items="${factorys}" path="/useraccounts" required="true" z="mNkgskLC9TuwxoFtZKoLMZm8wtY="/>
+        <field:input field="produceFormat" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_produceFormat" z="uWL5/EA+sQZ9nEStkN3qYScHsJs="/>
+        <field:datetime dateTimePattern="${taxonomyMaterialOrder_orderdate_date_format}" field="orderDate" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_orderDate" z="XeCcLgk1vE99pyYEBtdBbp534Zg="/>
+        <field:input field="itemName" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_itemName" z="SQg74arBd1S1nJjKW7nak5EeMIg="/>
+        <field:input field="color" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_color" z="FMSh0+uusAiDHCRd5GDrbWevTm4="/>
+        <field:input field="sizeSpecification" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_sizeSpecification" z="yUjmPQsqSU8+XO+irt1VN9qJMUM="/>
+        <field:select field="supplier" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_supplier" itemValue="id" items="${useraccounts}" path="/useraccounts" z="NSZ1BI8oIlpdhu+OUDFmdDPkBJE="/>
+        <field:input field="quantity" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_quantity" required="true" z="xyMkyWMeiigCHKxLnvzd4LhZcG8="/>
+        <field:input field="CONS" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_CONS" z="UXaO0Yjww9KB6Z7BPEkvaom9NPo="/>
+        <field:input field="unit" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_unit" z="5YZNF8318dLh5RtSSrdhFWLbAf0="/>
+        <field:input field="orderQuantity" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_orderQuantity" z="p1YbvVOo8AytrCLTWs5yd3Iek74="/>
+        <field:input field="ext_quantity" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_ext_quantity" z="xGG+mbKzsFmZdnP81ZJ4eJ4+PzU="/>
+        <field:input field="realQuantity" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_realQuantity" z="zLRPe7oq7FetI5uWeVJxEMzAFuY="/>
+        <field:input field="unitPrice" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_unitPrice" z="00678Ukwmc1TUk7y44rEk7TJ86w="/>
+        <field:input field="totalAmount" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_totalAmount" z="eYldGqt+m6Myi+Hm5ehGz2v7UrQ="/>
+        <field:input field="recd_qty" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_recd_qty" z="EPVbVPQDwFjUPye/uuFklk3C8gE="/>
+        <field:datetime dateTimePattern="${taxonomyMaterialOrder_recd_date_date_format}" field="recd_date" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_recd_date" z="8qnk7tMJkfzBusLmlIlI2swgDTk="/>
+        <field:input field="remark" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_remark" z="Fzly/XsuCwZ7H4/juF/k0aGtJUw="/>
+    </form:create>
+    
+    <form:dependency dependencies="${dependencies}" id="d_com_stgo_taostyle_domain_TaxonomyMaterialOrder" render="${not empty dependencies}" z="3emxuFuahcIxJ/eTaH3ul7RqgiY="/>
+ -->
+	<!-- <field:select field="employee" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_employee" itemValue="id" items="${useraccounts}" path="/useraccounts" z="bVa+o9EJEklcLsM6M9wToOsV9rk="/> -->
+	<!-- <field:select field="approvedManager" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_approvedManager" itemValue="id" items="${useraccounts}" path="/useraccounts" z="kYsO2Ky0SxQXAzVfZdelE9UfjxA="/>
+        <field:input field="approve_status" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_approve_status" z="me1F4aSUyVc8kb9ydA3fKHqFb0o="/>
+        <field:input field="resonForApproveOrDeny" id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_resonForApproveOrDeny" z="m1FBEMGGtMx2LJsvVcSsLfYggNk="/>
+         -->
+</div>

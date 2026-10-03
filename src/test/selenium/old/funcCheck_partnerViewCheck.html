@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/taostyle" />
+<title>login with partner user</title>
+</head>
+<body>
+	<table cellpadding="1" cellspacing="1" border="1">
+		<thead>
+			<tr>
+				<td rowspan="1" colspan="3">login with partner user</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumPartner</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=TEST FOR PDF</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>id=swithview</td>
+				<td>Preview</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_Product_price1_id &gt; dt
+					&gt; label</td>
+				<td>Price :</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

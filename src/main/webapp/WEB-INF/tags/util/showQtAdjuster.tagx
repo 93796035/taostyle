@@ -1,0 +1,109 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<!-- java scripts for Check Box (manager and above always show, they use it to select product for feature.) -->
+	<c:if test="${'true' eq show_service_cBox and isAboveManager ne 'true'}">
+		<script type="text/javascript">
+			function updateStatus(imageKey, featureId, user_role, change, curObj, taxRate) {
+				if (user_role === '[ROLE_ADMIN]' || user_role === '[ROLE_MANAGER]') {
+					//if logged in as Manager or admin, then ajax to back end.
+					$.ajax({
+						headers: { "Accept": "application/json" },
+						type: "POST",
+						url: "updateFeature/" + imageKey,
+						data: "featureId=" + featureId,
+						async: false,
+						success: function () {
+							var checkbox = document.getElementById("check-" + imageKey);
+							var opacity = checkbox.checked ? 1 : 0.1;
+
+							var img = document.getElementById("img-" + imageKey);
+							var des = document.getElementById("des-" + imageKey);
+							if (img) img.style.opacity = opacity;
+							if (des) des.style.opacity = opacity;
+						}
+					});
+					return;
+				}
+
+				if (user_role === '[ROLE_PRINTER]') {
+					$.ajax({
+						headers: { "Accept": "application/json" },
+						type: "POST",
+						url: "updatePrinter/" + imageKey,
+						data: "featureId=" + featureId,
+						async: false,
+						success: function () {
+							var checkbox = document.getElementById("check-" + imageKey);
+							var opacity = checkbox.checked ? 1 : 0.1;
+
+							var img = document.getElementById("img-" + imageKey);
+							var des = document.getElementById("des-" + imageKey);
+							if (img) img.style.opacity = opacity;
+							if (des) des.style.opacity = opacity;
+						}
+					});
+					return;
+				}
+
+				var textField = document.getElementById("txt-" + imageKey);
+				var rawOld = textField &amp;&amp; textField.dataset.oldValue ? textField.dataset.oldValue : "0";
+				var rawNew = textField &amp;&amp; textField.value ? textField.value : "0";
+
+				$.ajax({
+					headers: { "Accept": "application/json" },
+					type: "POST",
+					url: "updateSelection/" + imageKey,
+					data: (change === 'set' &amp;&amp; textField)
+							? "change=set:old=" + rawOld + ",new=" + rawNew
+							: "change=" + change,
+					async: true,
+					success: function (response) {
+						var selectedCount = response.selectedItems &amp;&amp; response.selectedItems[imageKey]
+								? response.selectedItems[imageKey]
+								: 0;
+
+						if (textField) {
+							textField.value = selectedCount;
+							textField.dataset.oldValue = selectedCount;
+						}
+
+						var totalSelectedQt = document.getElementById("totalSelectedQt");
+						if (totalSelectedQt) {
+							totalSelectedQt.innerText = response.itemNumber;
+						}
+
+						var totalPrice = document.getElementById("totalPrice");
+						if (totalPrice) {
+							totalPrice.innerText = parseFloat(response.totalPrice).toFixed(2);
+						}
+
+						var visible = selectedCount &gt; 0 ? "1" : "0.1";
+						var img = document.getElementById("img-" + imageKey);
+						var des = document.getElementById("des-" + imageKey);
+						if (img) img.style.opacity = visible;
+						if (des) des.style.opacity = visible;
+
+						var checkBox = document.getElementById("check-" + featureId + "-" + imageKey);
+						if (checkBox) {
+							checkBox.style.visibility = selectedCount &gt; 1 ? 'hidden' : 'visible';
+						}
+
+						var note = document.getElementById("note-" + imageKey);
+						if (note) {
+							note.style.visibility = 'visible';
+							if (selectedCount &lt; 2 &amp;&amp; change.indexOf('up') !== 0) {
+								note.style.visibility = 'hidden';
+							}
+						}
+					}
+				});
+			}
+		</script>
+	</c:if>
+</jsp:root>
+

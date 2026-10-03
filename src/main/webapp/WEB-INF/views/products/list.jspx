@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:list_catalog id="pl_com_stgo_taostyle_domain_Product"
+		items="${products}" z="user-managed">
+		<table:table_catalog data="${products}"
+			id="l_com_stgo_taostyle_domain_Product" position="${position}"
+			path="/products" z="user-managed">
+			<table:column id="c_com_stgo_taostyle_domain_Product_partNo"
+				property="partNo" z="user-managed" />
+			<table:column id="c_com_stgo_taostyle_domain_Product_name"
+				property="name" z="user-managed" />
+			<table:column id="c_com_stgo_taostyle_domain_Product_producedplace"
+				property="producedplace" z="user-managed" />
+			<table:column id="c_com_stgo_taostyle_domain_Product_c1"
+				property="c1" z="user-managed" />
+			<table:column id="c_com_stgo_taostyle_domain_Product_c2"
+				property="c2" z="user-managed" />
+			<table:column id="c_com_stgo_taostyle_domain_Product_c3"
+				property="c3" z="user-managed" />
+		</table:table_catalog>
+	</page:list_catalog>
+</div>

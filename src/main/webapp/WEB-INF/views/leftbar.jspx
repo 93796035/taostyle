@@ -1,0 +1,217 @@
+<div id="leftbar" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<!-- LeftMenuBar --><!-- change to use a subMenu[], we display subMenu array only one bigger than used. -->
+	<c:if test="${not empty subMenu}">
+		<!-- when screen is not too small, occupy 2 cols -->
+		<c:set value="col-sm-2 col-md-2 col-lg-2" var="span" />
+		
+		<c:if test="${not empty show_big_hander}">
+			<c:set var="hander_padding" value="${show_big_hander}" />
+		</c:if>
+		<c:if test="${'true' == show_big_hander}">
+			<c:set var="hander_padding" value="${fn:length(subMenu) *(11 + leftbar_item_padding)}" />
+		</c:if>
+		<div class="leftbar" id="left_bar" style="left:${leftbar_gap}px; background:#${background_leftbar}; opacity:${leftbar_opacity}; position:fixed; z-Index:1000; font-size:${leftbar_font_size}px">
+			<br/>
+			<div class="accordion" id="accordionLeftBar"  >
+			  <c:forEach var="i" begin="0" end="${fn:length(subMenu)}" step="1">
+				<c:if test="${subMenu[i][0] != null and subMenu[i][0] != '' or user_role == '[ROLE_ADMIN]'}">
+					<div class="accordion-group" >
+						
+						<c:choose>
+							<c:when test="${fn:length(subMenu[i]) > 1 or user_role == '[ROLE_ADMIN]'}">
+								<a href="#accordion-element-${i+1}" onclick="javascript:checkMenu('${topIdx}${i+1}')" class="accordion-toggle" 
+								 data-toggle="collapse" data-parent="#accordionLeftBar">
+								 	<div class="accordion-heading" style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+										${subMenu[i][0]}
+									</div>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${topIdx}${i+1}" class="accordion-toggle">
+									<div class="accordion-heading" style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+										${subMenu[i][0]}
+									</div>
+								</a>
+							</c:otherwise>
+						</c:choose>
+						
+						<div id="accordion-element-${i+1}" class="accordion-body collapse" style="margin-left: 10px">
+							<div class="accordion-inner">
+							  <c:set value="${fn:length(subMenu[i])}" var="subsubMenu_length" />
+							  <!-- make sure the subsubMenu_length bigger than the last item, so an pencil will be displayed-->
+							  <c:forEach var="j" begin="1" end="${subsubMenu_length}" step="1">
+								<c:if test="${subMenu[i][j] != null and subMenu[i][j] != '' or user_role == '[ROLE_ADMIN]'}">
+									<c:set value="${topIdx}${i+1}_${j}" var="subsubMenu_url"/>
+									<a href="${subsubMenu_url}">${subMenu[i][j]}</a>
+									<util:changeText position="${subsubMenu_url}" content="${subMenu[i][j]}" />
+									<br/>
+								</c:if>
+							  </c:forEach>
+							</div>
+						</div>
+						
+						<!-- the decoration between submenus -->
+						<c:if test="${'true' eq show_seperator_in_leftbar}">
+							<hr/>
+						</c:if>
+					</div>
+				</c:if>
+              </c:forEach>
+			</div>
+			<!-- show language bar on status bar -->
+			<c:if test="${'true' eq show_lang_in_leftbar}">
+				<!-- language bar -->
+				<hr/>
+				<c:if test="${lang1 != null}">
+				    <div style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+						<util:language locale="${lang1}" />
+					</div>
+				</c:if>
+				<c:if test="${lang2 != null}">
+				    <div style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+						<util:language locale="${lang2}" />
+					</div>
+				</c:if>
+				<c:if test="${lang3 != null}">
+				    <div style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+						<util:language locale="${lang3}" />
+					</div>
+				</c:if>
+				<c:if test="${lang4 != null}">
+				    <div style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+						<util:language locale="${lang4}" />
+					</div>
+				</c:if>
+				<c:if test="${lang5 != null}">
+				    <div style="padding-top: ${leftbar_item_padding}px; padding-bottom:${leftbar_item_padding}px; vertical-align: top;">
+						<util:language locale="${lang5}" />
+					</div>
+				</c:if>
+			</c:if>		
+			<c:if test="${'true' eq show_checkout_in_leftbar}">
+				<hr/>
+				<c:set var="hander_padding" value="${hander_padding + 35}" />
+				<c:if test="${show_num_total}">
+					<c:set var="hander_padding" value="${hander_padding + 30}" />
+					<div>
+						Total: $<input id="totalPrice" value="${totalPrice}" style="width: 40px; border-style:none; background:none" />
+						<br/>
+						Items:<input id="selectedItem" value="${itemNumber}" style="width: 15px; border-style:none; background:none"/>
+					</div>
+				</c:if>
+				
+				<div>
+					<spring:url value="/showSelection" var="showSelection" /> 
+					<a href="${showSelection}"> 
+						<spring:url value="/resources/images/selections.png" var="selections_img_url" /> 
+						<img alt="Selections" src="${selections_img_url}" title="Click here to show selections" />
+					</a>
+				</div>
+			</c:if>
+			
+		</div>
+		<!-- LeftMenuBar -->
+		<c:if test="${empty show_status_category}">
+			<div id="hander" class="leftbar" ontouchend="javascript:switchHanderToBarDiv()"
+				style="padding-bottom:${hander_padding}px; padding-top:${hander_padding}px; visibility:hidden; left:-${statusbar_border_radius}px; font-weight:bold; 
+				background:#${background_leftbar}; opacity:${leftbar_opacity}; position:fixed; z-Index:1000;">
+				<b>>></b>
+			</div>
+		</c:if>
+		<input id="threshold_hiding_leftbar" name="threshold_hiding_leftbar" type="hidden" value="${threshold_hiding_leftbar}"/>
+		<!-- make the selected menu highlighted. -->
+		<script type='text/javascript'>
+			document.addEventListener("DOMContentLoaded", function(event) {
+				var nav = document.getElementById("accordionLeftBar");
+				var lilen = nav.getElementsByTagName("a");
+				var currenturl = document.location.href;
+				
+				if(currenturl.indexOf("menu_") == 0){
+					var last = 0;
+					for (var i=0; ; i++){
+						var linkurl = lilen[i].getAttribute("href");
+						if(currenturl.indexOf(linkurl)!=-1){
+							last = i;
+							lilen[last].className += " current";
+						}
+						
+						if(i + 1 == lilen.length)
+							break;
+					}
+
+					var elementid = "${currentSubMenu}";
+					document.getElementById(elementid).className += " in";
+				}
+				
+				//hidden the left bar. because by default, menu show, hander hide.
+				if(document.body.clientWidth &lt; threshold_hiding_leftbar.value){
+					switchBarDivToHander();//hide bar, 
+					
+					var noticeArea = document.getElementById("noticeArea");
+					if(noticeArea){
+						noticeArea.style.left="${status_left}px";
+						var menuOnStatusBar = document.getElementById("menu_on_status_bar");
+						if(${status_left} != 0){
+							//hiden the Menu
+							if(menuOnStatusBar)
+								menuOnStatusBar.style.visibility='hidden';
+							// this line has no effect, is it because the .radius are not the right property? noticeArea.style.radius="5px";
+						}else{
+							if(menuOnStatusBar)
+								menuOnStatusBar.style.visibility='visible';
+						}
+					}
+				}
+			});
+			
+			function switchBarDivToHander(){
+				if(document.body.clientWidth &lt; threshold_hiding_leftbar.value){
+					document.getElementById("left_bar").style.visibility='hidden';
+					if(document.getElementById("hander") != null){
+						document.getElementById("hander").style.visibility='visible';
+					}
+				}
+			}
+			
+			function switchHanderToBarDiv(){
+				if(document.getElementById("hander") != null){
+					document.getElementById("hander").style.visibility='hidden';
+				}
+				setTimeout("showBarDiv()", 500);
+			}
+			
+			function showBarDiv(){
+				var barDiv = document.getElementById("left_bar");
+				if(barDiv.style.visibility == 'visible'){
+					barDiv.style.visibility='hidden';
+					barDiv.style.left = '10px';
+				}else{
+					barDiv.style.visibility='visible';
+					barDiv.style.left = '-10px';
+				}
+			}
+			
+			/**
+			function moveElement(elementId,padding){
+				var element = document.getElementById(elementId);
+				
+				if (window.getComputedStyle) {
+				    style = window.getComputedStyle(element, null);    // 非IE
+				} else { 
+				    style = element.currentStyle;  // IE
+				}
+				var widthStr = style.width;
+				var xpos = Number(widthStr.substring(0, widthStr.length - 2));
+				xpos = 0 - xpos;
+				element.style.right= "-10px";
+			}**/
+			
+	  	</script>
+	</c:if>
+</div>

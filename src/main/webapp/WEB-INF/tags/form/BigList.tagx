@@ -1,0 +1,386 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+	<meta charset="utf-8" />
+	<meta http-equiv="pragma" content="no-cache"/>
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="cache-control" content="no-store" />
+	<meta http-equiv="expires" content="Thu, 01 Jun 1970 00:00:00 GMT" />
+	<meta http-equiv="Access-Control-Allow-Origin" content="*"/>  
+	<spring:url value="/resources/js/printer/epos-2.3.0.js" var="epson_core" />
+	<script type="text/javascript" src="${epson_core}" ><!-- required for FF3 and Opera --></script>
+	
+	<spring:url value="/resources/js/printer/CustomerDisplayDevice.js" var="epson_device" />
+	<script type="text/javascript" src="${epson_device}" ><!-- required for FF3 and Opera --></script>
+
+   <spring:url value="/resources/js/printer/printerlibs.js" var="sunson_device" />
+	<script type="text/javascript" src="${sunson_device}" ><!-- required for FF3 and Opera --></script>
+
+	<jsp:directive.attribute name="id" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="The identifier for this tag (do not change!)" />
+	<jsp:directive.attribute name="items" type="java.util.Collection"
+		required="true" rtexprvalue="true"
+		description="The form backing object name" />
+	<jsp:directive.attribute name="label" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="The label used for this object, will default to a message bundle if not supplied" />
+	<jsp:directive.attribute name="mainOrderID" type="java.lang.Long"
+		required="true" rtexprvalue="true"
+		description="The id of MainOrder, it will be used to delete the whole order." />
+		
+	<jsp:directive.attribute name="recordStatus" type="java.lang.Long"
+		required="false" rtexprvalue="true"
+		description="The status of MainOrder, it will be used to check if the auto_print should work or not." />
+		
+	<jsp:directive.attribute name="labelPlural" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="The label used for this object, will default to a message bundle if not supplied" />
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="openPane" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Control if the title pane is opened or closed by default (default: true)" />
+
+	<c:if test="${empty render or render}">
+		<div class="gallery" style="padding: 20px; background:#${background_subpage}">
+			<c:if test="${empty label}">
+				<spring:message
+					code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}"
+					var="label" htmlEscape="false" />
+			</c:if>
+			<c:if test="${empty labelPlural}">
+				<spring:message
+					code="label_${fn:toLowerCase(fn:substringAfter(id,'_'))}_plural"
+					var="labelPlural" htmlEscape="false" />
+			</c:if>
+			<div id="printAreaForReceip">
+				<legend>${label}</legend>
+				<c:choose>
+					<c:when test="${not empty items}">
+						<jsp:doBody />
+					</c:when>
+					<c:otherwise>
+						<spring:message arguments="${label}" code="entity_not_found" />
+						<jsp:doBody />
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
+			<c:if test="${user_role == '[ROLE_EMPLOYEE]' || user_role == '[ROLE_MANAGER]'}">
+				<spring:url value="/resources/images/back.png" var="back_img_url" />
+				<img alt="Back" src="${back_img_url}" title="Back to main order page." onclick="javascript:backToMainOrder()" style="cursor:pointer"/>
+				 | 
+				<spring:url value="/resources/images/print.png" var="print_img_url" />
+				<img alt="Print" src="${print_img_url}" title="Send the order to printer." onclick="javascript:printMainOrder('${mainOrderID}', '')" style="cursor:pointer"/>
+				 | 
+				<spring:url value="/resources/images/money.png" var="money_img_url" />
+				<img alt="Served" src="${money_img_url}" title="Ready for recieve money." onclick="javascript:orderCompleted('${mainOrderID}')" style="cursor:pointer"/>
+				 | 
+				<spring:url value="/resources/images/clean.png" var="clean_img_url" />
+				<img alt="Merge" src="${clean_img_url}" title="Clean the order from the list" onclick="javascript:cleanAnOrder('${mainOrderID}')" style="cursor:pointer"/>
+				<!-- input id="OrderCleaned" type="submit" class="btn btn-primary" onclick="javascript:closeAnOrder('${mainOrderID}')" value="Close" /-->
+			</c:if>
+		</div>
+		
+		<c:if test="${user_role != '[ROLE_PRINTER]'}">
+			<script type="text/javascript">
+			
+				<c:if test="${auto_print and recordStatus eq 0}">
+					var auto_print_delay = 1;
+					<c:if test="${auto_print_delay}">
+						auto_print_delay = ${auto_print_delay};
+					</c:if>
+					setTimeout(function(){ printMainOrder('${mainOrderID}', '${auto_print}'); }, auto_print_delay * 1000);
+				</c:if>
+				
+				function backToMainOrder() {
+					window.location = "../dashboard";
+				}
+				
+				function MyHashMap(){
+				     var size = 0;
+				     var entry = new Object();
+				     this.put = function (key , value){
+				         if(!this.containsKey(key)){
+				             size ++ ;
+				         }
+				         entry[key] = value;
+				     }
+				     this.get = function (key){
+				         if( this.containsKey(key)){
+				             return entry[key];
+				         }else{
+				             return null;
+				         }
+				     }
+				     this.remove = function ( key ){
+				         if( delete entry[key] ){
+				             size --;
+				         }
+				     }
+				     this.containsKey = function ( key ){
+				         return (key in entry);
+				     }
+				     this.containsValue = function ( value ){
+				         for(var prop in entry){
+				             if(entry[prop] == value){
+				                 return true;
+				             }
+				         }
+				         return false;
+				     }
+				     this.values = function (){
+				         var values = new Array(size);
+				         for(var prop in entry){
+				             values.push(entry[prop]);
+				         }
+				         return values;
+				     }
+				     this.keys = function (){
+				         var keys = new Array(size);
+				         for(var prop in entry){
+				             keys.push(prop);
+				         }
+				         return keys;
+				     }
+				     this.size = function (){
+				         return size;
+				     }
+				 }
+				
+				function printMainOrder(mainOrderID, isAutoPrinting) {
+					if(isAutoPrinting != 'true'){
+						var confirmed = confirm("Are you sure to send it to printer?");
+						if(!confirmed){
+							return;
+						}
+					}
+					<c:if test="${fn:length(fn:split(printers[0], '.')) eq 4}">	<!--do a simple check on the name of first printer-->
+						var printsMap = new MyHashMap();
+						<c:forEach items = "${printersMap}" var = "item"> <!-- why do we copy the printerIP and printStyle? can not use${printersMap} directly?-->
+							printsMap.put("${item.key}", "${item.value}");
+						</c:forEach>
+						//to print on each printer
+						<c:forEach var="i" begin="1" end="${fn:length(printers)}" step="1">
+							<c:if test="${not empty materialsForPrinters[i-1]}">
+								var io${i} = createWebSocketIO();   
+								<!--implement the onopen method-->
+								io${i}.onopen=function(e){
+									
+			                    	POS_Reset(io${i});
+			    					POS_Beep(io${i}, 0, 0);
+			                   		//all or togo mode, will put all content into string, then print.
+						            var printType=printsMap.get("${printers[i-1]}");
+			                   		
+									if(printType=== 'togo' || printType=== 'all'){
+								       POS_TextOut(io${i}," " + "${sizeTable}" + "         "+"${targetTime}"+'\n',0,1,1,0,0);
+								       POS_TextOut(io${i},"------------------------------------------"+'\n',0,0,0,0,0);
+										<c:forEach var="j" begin="1" end="${fn:length(materialsForPrinters [i-1])}" step="1">
+										    <c:choose>
+												<c:when test="${not empty auto_combine_print}">
+													POS_TextOut(io${i},"${materialsForPrinters [i-1][j-1]['portionName']} "+" X${materialsForPrinters [i-1][j-1]['recordStatus']}" + '\n',0,1,1,0,0);
+												</c:when>
+												<c:otherwise>
+													POS_TextOut(io${i},"${materialsForPrinters [i-1][j-1]['portionName']} " + '\n',0,1,1,0,0);
+												</c:otherwise>
+											</c:choose>
+											POS_TextOut(io${i},"${materialsForPrinters [i-1][j-1]['remark']}"+'\n',-3,1,1,0,0);
+									    </c:forEach>
+										
+										if(printType=== 'togo'){
+											POS_TextOut(io${i},"${address}" +'\n',0,0,0,1,0);
+											POS_TextOut(io${i},"${contactPhone}"+'\n',0,0,0,1,0);
+											POS_TextOut(io${i},"Total:"+"${total}"+" Tax:"+"${tax}"+" = $"+"${endPrice}"+'\n',0,0,0,1,0);
+										}
+										
+										POS_FeedAndCutPaper(io${i});
+									    //can we assume that if the code here reahed, means the content printed well? what about the outof paper?
+									    var parent = document.getElementById("printAreaForReceip");
+										var child=document.getElementById("${printers[i-1]}");
+										parent.removeChild(child);
+									}else if(printType=== 'separate'){
+										//separate print, will printe "fn:length(materialsForPrinters [i-1])" times.
+										<c:forEach var="j" begin="1" end="${fn:length(materialsForPrinters [i-1])}" step="1">	
+											
+											POS_TextOut(io${i}," " + "${sizeTable}" +"         "+"${targetTime}"+'\n',0,1,1,0,0);
+											POS_TextOut(io${i},"------------------------------------------"+'\n',0,0,0,0,0);
+											
+											<c:choose>
+												<c:when test="${not empty auto_combine_print}">
+													POS_TextOut(io${i},"${materialsForPrinters [i-1][j-1]['portionName']} "+" X${materialsForPrinters [i-1][j-1]['recordStatus']}" +'\n',0,1,1,0,0);
+												</c:when>
+												<c:otherwise>
+													POS_TextOut(io${i},"${materialsForPrinters [i-1][j-1]['portionName']} " + '\n',0,1,1,0,0);
+												</c:otherwise>
+											</c:choose>
+											POS_TextOut(io${i},"${materialsForPrinters [i-1][j-1]['remark']}"+'\n',-3,1,1,0,0);
+											POS_FeedAndCutPaper(io${i});
+										</c:forEach>
+										var parent = document.getElementById("printAreaForReceip");
+										var child=document.getElementById("${printers[i-1]}");
+										parent.removeChild(child);
+									}else{
+										alert("Error: the printer type is not set correctly, please contact info@ShareTheGoodOnes for correct configuration.");
+									}	
+									io${i}.close();
+			                    }
+								
+								<!--implement the onerror method-->
+								io${i}.onerror= function(e){
+									//alert("Error: the content might not printed correctly, please check the printer or internet connection.");
+			                    	console.log(e);
+			                    	//orderNotPrintWell(mainOrderID);
+			    				}
+								
+			                    var printerIpAddress ="${printers[i-1]}";
+			                    io${i}.open(printerIpAddress, 8080);
+			                    addElementDiv(printerIpAddress);
+							</c:if>
+						</c:forEach>
+						<!-- start a timer to check if the status disppeared, if not beep()!-->
+						<c:if test="${fn:length(printers) gt 0}">
+							var delay_1st_checkstatus = 5000;
+							if('${delay_1st_checkstatus}' != ''){
+								delay_1st_checkstatus = '${delay_1st_checkstatus}';
+			            	}
+							setTimeout(function(){ checkstatus(false); }, delay_1st_checkstatus);
+						</c:if>
+					</c:if>
+					
+					orderPrinted(mainOrderID);
+				}
+		
+				function checkstatus(finalcheck){
+					//check last element:
+					var text = document.getElementById("printAreaForReceip").lastElementChild.innerHTML;
+					if(text.startsWith('printing to ')){
+						var warn_sound_duration = 4000;
+		            	if('${warn_sound_duration}' != ''){
+		            		warn_sound_duration = '${warn_sound_duration}';
+		            	}
+		            	var warn_sound_freq = 940;
+		            	if('${warn_sound_freq}' != ''){
+		            		warn_sound_freq = '${warn_sound_freq}';
+		            	}
+		            	if(finalcheck){
+							beep(warn_sound_duration, warn_sound_freq);
+		            	}else{
+		            		var delay_2ed_checkstatus = 10000;
+		            		if('${delay_2ed_checkstatus}' != ''){
+		            			delay_2ed_checkstatus = '${delay_2ed_checkstatus}';
+			            	}
+		            		setTimeout(function(){ checkstatus(true); }, delay_2ed_checkstatus);
+		            	}
+						return;
+					}
+					//back to dashboard.
+					window.location.href = "../dashboard";
+				}
+				
+				function beep(duration, frequency) {
+					var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
+		            var oscillator = audioCtx.createOscillator();
+		            var gainNode = audioCtx.createGain();
+		
+		            oscillator.connect(gainNode);
+		            gainNode.connect(audioCtx.destination);
+		
+		            if (frequency){oscillator.frequency.value = frequency;}
+		
+		            oscillator.start();
+		            setTimeout(function(){oscillator.stop()}, (duration ? duration : 500));
+		        }
+		        
+				function addElementDiv(ip) {
+					var parent = document.getElementById("printAreaForReceip");
+					var div = document.createElement("div");
+					div.setAttribute("id", ip);
+					div.style.textAlign = "left";
+					div.innerHTML = "printing to " + ip + "......";
+					parent.appendChild(div);
+				}
+		
+				function orderPrinted(mainOrderID){
+					$.ajax({
+				    	headers: "Accept=application/json",
+				        type: "POST",
+				        url: "updateAnOrderStatus/"+mainOrderID,
+				       data: "recordStatus=10",
+				        async:false,
+				        success:function(textContent){
+				        	if(textContent == null || textContent.length == 0){
+				        	}else{
+				        		alert( "Please check the connection of internet or cotact the admin.");
+				       		}
+				        	//because when this executed, print job might still in thread (not printed yet), so we can not go back to dashboard.
+				        	//window.location = "../dashboard";
+				        }
+				    });
+				}
+				
+				function orderNotPrintWell(mainOrderID){
+					$.ajax({
+				    	headers: "Accept=application/json",
+				        type: "POST",
+				        url: "updateAnOrderStatus/"+mainOrderID,
+				       data: "recordStatus=0",
+				        async:false,
+				        success:function(textContent){
+				        	if(textContent == null || textContent.length == 0){
+				        	}else{
+				        		alert( "Please check the connection of internet or cotact the admin.");
+				       		}
+				        }
+				    });
+				}
+				
+				function orderCompleted(mainOrderID) {
+					var confirmed = confirm("Are you sure all served?");
+					if(confirmed){
+						$.ajax({
+					    	headers: "Accept=application/json",
+					        type: "POST",
+					        url: "updateAnOrderStatus/"+mainOrderID,
+					        data: "recordStatus=50",
+					        async:false,
+					        success:function(textContent){
+					        	if(textContent == null || textContent.length == 0){
+					        	}else{
+					        		alert( "Please check the connection of internet or cotact the admin.");
+					        	}
+					        	window.location = "../dashboard";
+					        }
+				    	});
+					}
+				}
+				
+				function cleanAnOrder(mainOrderID) {
+					var confirmed = confirm("Are you sure to remove it?");
+					if(confirmed){
+						$.ajax({
+					    	headers: "Accept=application/json",
+					        type: "POST",
+					        url: "updateAnOrderStatus/"+mainOrderID,
+					        data: "recordStatus=-1",
+					        async:false,
+					        success:function(textContent){
+					        	if(textContent == null || textContent.length == 0){
+					        	}else{
+					        		alert( "Please check the connection of internet or cotact the admin.");
+					        	}
+					        	window.location = "../dashboard";
+					        }
+					    });
+					}
+				}
+			
+			</script>
+		</c:if>
+	</c:if>
+</jsp:root>

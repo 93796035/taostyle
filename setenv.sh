@@ -1,0 +1,2 @@
+export JPDA_ADDRESS=127.0.0.1:5005
+export JPDA_TRANSPORT=dt_socket

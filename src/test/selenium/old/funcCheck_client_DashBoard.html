@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/taostyle" />
+<title>funcCheck_client_DashBoard</title>
+</head>
+<body>
+	<table cellpadding="1" cellspacing="1" border="1">
+		<thead>
+			<tr>
+				<td rowspan="1" colspan="3">funcCheck_client_DashBoard</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>assertText</td>
+				<td>link=HOME</td>
+				<td>HOME</td>
+			</tr>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/login?login_error=t</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumNormalUser</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>link=HOME</td>
+				<td>HOME</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>link=PRODUCT</td>
+				<td>PRODUCT</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>link=SERVICE</td>
+				<td>SERVICE</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>link=Logout</td>
+				<td>Logout</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img[alt=&quot;My Account&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#todoAndMyDocListview &gt; div.gallery</td>
+				<td>My Documents:No Documents found.FilepathContent
+					TypeFilesizeSubmit Time upload new documents</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumNormalUser</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_UserAccount_email_id &gt;
+					dd</td>
+				<td>notmalUser@gmail.com</td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=upload new documents</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>name=content</td>
+				<td>C:\workspace\taostyle\src\test\selenium\ScienceRresearch.docx</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=button.btn.btn-primary</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoAndMyDocListview']/div/table/tbody/tr/td[2]</td>
+				<td>.docx</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumNormalUser_ScienceRresearch</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=button.btn.btn-primary</td>
+				<td>Download</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

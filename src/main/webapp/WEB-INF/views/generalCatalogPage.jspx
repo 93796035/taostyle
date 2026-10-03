@@ -1,0 +1,82 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/css/blueimp-gallery.min.css"
+		var="blueimp_gallery" />
+	<link rel="stylesheet" href="${blueimp_gallery}" />
+
+	<!-- don't display by default -->
+	<c:set value=" col-xs-12 col-sm-12 col-md-12 col-lg-12" var="span" />
+	
+	<c:set value="0px" var="leftmargin" />
+	
+	<!-- if have menu, then display-->
+	<c:if test="${not empty subMenu and 'true' eq leftbar_fixed}">
+		<c:set value=" col-xs-${service_width_xs} col-sm-${service_width_sm} col-md-${service_width_md} col-lg-${service_width_lg} col-xl-${service_width_xl}
+		 col-sm-offset-${12-service_width_sm} col-md-offset-${12-service_width_md} col-lg-offset-${12-service_width_lg} col-xl-offset-${12-service_width_xl}" var="span" />
+		<c:set value="20px" var="leftmargin" />
+	</c:if>
+
+	<c:set var="isAboveManager"  value="false" />
+	<c:if test="${user_role == '[ROLE_ADMIN]'  or user_role == '[ROLE_MANAGER]'}">
+		<c:set var="isAboveManager"  value="true" />
+	</c:if>
+	
+  	<c:set var="isAboveEmployee"  value="false" />
+	<c:if test="${isAboveManager or user_role == '[ROLE_EMPLOYEE]'}">
+		<c:set var="isAboveEmployee"  value="true" />
+	</c:if>
+	
+  	<c:set var="isPrinter"  value="false" />
+	<c:if test="${user_role == '[ROLE_PRINTER]'}">
+		<c:set var="isPrinter"  value="true" />
+	</c:if>
+	
+	<!-- Main Content -->
+	<div id="gridview" class="${span}" align="center"
+		style="margin-top: 10px; padding:20px; background:#${background_subpage}; opacity:${subpage_opacity}; border-radius: 8px;">
+		
+		<div style="margin-bottom: ${show_1_TextObject}px;" align="center">${subpageContent}</div>
+		<util:edit position="service_${menuIdx}_title" content="${subpageContent}" richText="true" />
+		<br/>
+		
+		<div class="row" style="margin-left:${service_margin_left}px; margin-right: ${service_margin_right}px; margin-top: ${show_4_Object}px; margin-bottom: ${show_4_Object}px">
+			<c:forEach var="i" begin="1" end="${serviceAmount}" step="1">
+				<div class="col-xs-${service_number_xs} col-sm-${service_number_sm} col-md-${service_number_md} col-lg-${service_number_lg}" 
+				style="text-align: center;">
+					
+			  		<c:set var="opacity" value="1"/>
+			        <c:if test="${not empty visibleStatusList and visibleStatusList[i-1] eq '' }" >
+			  			<c:set var="opacity" value="0.1"/>
+			        </c:if>
+			        
+					<c:if test="${not empty descriptions[i-1] and not empty showDescriptionsOnTop}" >
+			          	<div id="des-${menuIdx}_${i}" align="center" style="opacity:${opacity}; text-align: center;">${descriptions[i-1]}</div> 
+			          	<util:edit position="service_${menuIdx}_${i}_description" content="${descriptions[i-1]}" richText="true"/>
+			        </c:if>
+			        <a id="img-${menuIdx}_${i}" href="javascript:showDetail('service_${menuIdx}_${i}')" title="Click to check detailed information" style="opacity:${opacity}"> 
+						<img src="getImage/service_${menuIdx}_${i}_thum" alt="image" style="border-radius:8px;"/>
+					</a>
+					<c:if test="${not empty descriptions[i-1] and empty showDescriptionsOnTop or user_role == '[ROLE_ADMIN]'}" >
+			          	<div id="des-${menuIdx}_${i}" align="center" style="opacity:${opacity}; text-align: center;">${descriptions[i-1]}</div> 
+			          	<util:edit position="service_${menuIdx}_${i}_description" content="${descriptions[i-1]}" richText="true"/>
+			        </c:if>
+			        
+				</div>
+			</c:forEach>
+			<util:adjustImages position="service_${menuIdx}" allowedLevel="[ROLE_MANAGER]"/>
+		</div>
+	</div>
+		
+	<util:showDetail allowedLevel="[ROLE_MANAGER]"/>
+	<util:showNote allowedLevel="[ROLE_MANAGER]"/>
+      
+</div>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/taostyle" />
+<title>funcCheck_employee_dashBoard</title>
+</head>
+<body>
+	<table cellpadding="1" cellspacing="1" border="1">
+		<thead>
+			<tr>
+				<td rowspan="1" colspan="3">funcCheck_employee_dashBoard</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumEmployee</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>//div[@id='todoListview']/a</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>name=content</td>
+				<td>C:\workspace\taostyle\src\test\selenium\Interview Questions
+					for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=b</td>
+				<td>Please click the 'Browse...' button</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>name=content</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=button.btn.btn-primary</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoListview']/div/table/tbody/tr/td</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;upload new documents&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=legend</td>
+				<td>List all My Documents:</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_MediaUpload_contentType_id
+					&gt; dd</td>
+				<td>.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=button.btn.btn-primary</td>
+				<td>Download</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>simon</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='todoListview']/div/table/tbody/tr/td</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=img.btn.btn-info</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_MediaUpload_filesize_id
+					&gt; dd</td>
+				<td>49580</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_MediaUpload_contentType_id
+					&gt; dd</td>
+				<td>.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=button.btn.btn-primary</td>
+				<td>Download</td>
+			</tr>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/dashboard</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=dd</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_MediaUpload_filesize_id
+					&gt; dd</td>
+				<td>49580</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_s_com_stgo_taostyle_domain_MediaUpload_contentType_id
+					&gt; dd</td>
+				<td>.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>id=_filepath_id</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=#_c_com_stgo_taostyle_domain_MediaUpload_filepath_id
+					&gt; dt &gt; label</td>
+				<td>Comment :</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=_filepath_id</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx is
+					not good!</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div/div/div/table/tbody/tr/td</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx is
+					not good!</td>
+			</tr>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/dashboard</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//img[@alt='Update Media Upload']</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=input.btn.btn-danger</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=input.btn.btn-danger</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertConfirmation</td>
+				<td>Are you sure want to delete this item?</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>waitForVisible</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>simon</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertTextNotPresent</td>
+				<td>//div[@id='todoListview']/div/table/tbody/tr/td</td>
+				<td>seleniumEmployee_Interview Questions for QA Tester.docx</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+
+		</tbody>
+	</table>
+</body>
+</html>

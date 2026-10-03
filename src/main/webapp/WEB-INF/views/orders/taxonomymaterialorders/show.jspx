@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:show id="ps_com_stgo_taostyle_domain_TaxonomyMaterialOrder"
+		object="${taxonomymaterialorder}" path="/taxonomymaterialorders"
+		z="kXXuHbtiHkS33Y+Ej7tk6+5vTxs=">
+		<field:display field="mainOrderStr"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_mainOrder"
+			object="${taxonomymaterialorder}" z="JCsord57UddR9qdVO3GIOdmH2hk=" />
+		<field:display field="factory"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_factory"
+			object="${taxonomymaterialorder}" z="nMslEvfDH9U7mKDotnlIM70KGHU=" />
+		<field:display field="produceFormat"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_produceFormat"
+			object="${taxonomymaterialorder}" z="yhL9pnvQOmZ1gOHjiMMToG9BAJE=" />
+		<field:display date="true"
+			dateTimePattern="${taxonomyMaterialOrder_orderdate_date_format}"
+			field="orderDate"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_orderDate"
+			object="${taxonomymaterialorder}" z="RFnYQtpo4yaTnAK0mQdMmbh9/r8=" />
+		<field:display field="employee"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_employee"
+			object="${taxonomymaterialorder}" z="RaCBMQZsMEVsYal2gOU4UM8QrIs=" />
+		<field:display field="itemName"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_itemName"
+			object="${taxonomymaterialorder}" z="6pJFVmf7cSgFw8mMONhli6HWkvM=" />
+		<field:display field="color"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_color"
+			object="${taxonomymaterialorder}" z="s4Q/X4M9e7GqCWHWbZY5Ounq20A=" />
+		<field:display field="sizeSpecification"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_sizeSpecification"
+			object="${taxonomymaterialorder}" z="UB29okCewzp+NCkGR+sqVFaGTQQ=" />
+		<field:display field="supplier"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_supplier"
+			object="${taxonomymaterialorder}" z="lPU0zF+/cLlN/ofCmjSkQ2Y5jao=" />
+		<field:display field="quantity"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_quantity"
+			object="${taxonomymaterialorder}" z="NcLtupO8pROgW1UwsALqjmA1S80=" />
+		<field:display field="CONS"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_CONS"
+			object="${taxonomymaterialorder}" z="ZMqI5vKE8L6qsKoauB2JaiDYiss=" />
+		<field:display field="unit"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_unit"
+			object="${taxonomymaterialorder}" z="wb3h0VcUzoZck4SWC1BCCkKczPI=" />
+		<field:display field="orderQuantity"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_orderQuantity"
+			object="${taxonomymaterialorder}" z="PIYOcVnGD5MuaCfWHpec/O4ANXc=" />
+		<field:display field="ext_quantity"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_ext_quantity"
+			object="${taxonomymaterialorder}" z="1Utz8PpdUtiRwVWrKADJ2urtXEI=" />
+		<field:display field="realQuantity"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_realQuantity"
+			object="${taxonomymaterialorder}" z="Kk0URHkzDfiB2Afgt8ZB0HbrOHE=" />
+		<field:display field="unitPrice"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_unitPrice"
+			object="${taxonomymaterialorder}" z="a5qMxAK3sqb4mA/A4xJoAOZ0YD8=" />
+		<field:display field="totalAmount"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_totalAmount"
+			object="${taxonomymaterialorder}" z="0O6mLdvdb7e6HWaiaWihkiRNsTo=" />
+		<field:display field="recd_qty"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_recd_qty"
+			object="${taxonomymaterialorder}" z="xx01LR4UQod7yK2OQSVtjDbAsVs=" />
+		<field:display date="true"
+			dateTimePattern="${taxonomyMaterialOrder_recd_date_date_format}"
+			field="recd_date"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_recd_date"
+			object="${taxonomymaterialorder}" z="kaRimtbRcaaw3ivr0PjTgxuJMhQ=" />
+		<field:display field="remark"
+			id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_remark"
+			object="${taxonomymaterialorder}" z="dyEuwaBa3yx9a1H4Zppwp963kvw=" />
+		<!--         <field:display field="approvedManager" id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_approvedManager" object="${taxonomymaterialorder}" z="ZLBZ96e/y0bk7w5fnIv6bJ1bt1U="/>
+        <field:display field="approve_status" id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_approve_status" object="${taxonomymaterialorder}" z="QgGzjCMhm947VRUnhi1efgtn2b4="/>
+        <field:display field="resonForApproveOrDeny" id="s_com_stgo_taostyle_domain_TaxonomyMaterialOrder_resonForApproveOrDeny" object="${taxonomymaterialorder}" z="cZHsaIiBzWt9WRtGdTW19od0IvE="/>
+ -->
+	</page:show>
+</div>
