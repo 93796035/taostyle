@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:show_product id="ps_com_stgo_taostyle_domain_Product"
+		object="${product}" path="/products" z="user-managed">
+		<field:display field="partNo"
+			id="s_com_stgo_taostyle_domain_Product_partNo" object="${product}"
+			z="user-managed" />
+		<field:display field="name"
+			id="s_com_stgo_taostyle_domain_Product_name" object="${product}"
+			z="user-managed" />
+		<field:display field="producedplace"
+			id="s_com_stgo_taostyle_domain_Product_producedplace"
+			object="${product}" z="user-managed" />
+		<!--    <field:display field="c1" id="s_com_stgo_taostyle_domain_Product_c1" object="${product}" z="7zxCAbYXFR+MevOHoELxNLxE16Y="/>
+        <field:display field="c2" id="s_com_stgo_taostyle_domain_Product_c2" object="${product}" z="OTDKvYXvBl53AEdouOMy/lJB7cc="/>
+        <field:display field="c3" id="s_com_stgo_taostyle_domain_Product_c3" object="${product}" z="aGHE3S5bzi+QhEa94kQJQzVvDj4="/>
+ -->
+		<field:display field="litorweight"
+			id="s_com_stgo_taostyle_domain_Product_Litorweight"
+			object="${product}" z="user-managed" />
+		<field:display field="unit"
+			id="s_com_stgo_taostyle_domain_Product_unit" object="${product}"
+			z="user-managed" />
+		<field:display field="packagesname"
+			id="s_com_stgo_taostyle_domain_Product_packagesname"
+			object="${product}" z="user-managed" />
+		<field:display field="itemquantity"
+			id="s_com_stgo_taostyle_domain_Product_itemquantity"
+			object="${product}" z="user-managed" />
+		<field:display field="lenth"
+			id="s_com_stgo_taostyle_domain_Product_lenth" object="${product}"
+			z="user-managed" />
+		<field:display field="width"
+			id="s_com_stgo_taostyle_domain_Product_width" object="${product}"
+			z="user-managed" />
+		<field:display field="height"
+			id="s_com_stgo_taostyle_domain_Product_height" object="${product}"
+			z="user-managed" />
+		<c:if test="${pageContext['request'].userPrincipal != null}">
+			<field:display field="price1"
+				id="s_com_stgo_taostyle_domain_Product_price1" label="Price"
+				object="${product}" z="user-managed" />
+			<!--          <field:display field="price2" id="s_com_stgo_taostyle_domain_Product_price2" object="${product}" z="user-managed"/>
+            <field:display field="price3" id="s_com_stgo_taostyle_domain_Product_price3" object="${product}" z="user-managed"/> -->
+		</c:if>
+	</page:show_product>
+</div>

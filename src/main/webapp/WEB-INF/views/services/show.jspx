@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:show id="ps_com_stgo_taostyle_domain_Service" object="${service}"
+		path="/services" z="Uzqw0+hkPYv2T2paBu74x1DakHg=">
+		<field:display field="name"
+			id="s_com_stgo_taostyle_domain_Service_name" object="${service}"
+			z="5KThRCya6T4dybt7XEK86g3BvDI=" />
+		<field:display field="description"
+			id="s_com_stgo_taostyle_domain_Service_description"
+			object="${service}" z="SwbqU3IfhpMR+NpksLXnoMdwBqY=" />
+		<field:display field="c1" id="s_com_stgo_taostyle_domain_Service_c1"
+			object="${service}" z="vGT27iWtffHdhI3LDK4u2PoIpd4=" />
+		<field:display field="c2" id="s_com_stgo_taostyle_domain_Service_c2"
+			object="${service}" z="5bVbSoPuqHPCl0MfQaSKxsqtBP4=" />
+		<field:display field="c3" id="s_com_stgo_taostyle_domain_Service_c3"
+			object="${service}" z="pIF0q6xKEaQQL4lOTv7DplqefKg=" />
+	</page:show>
+</div>

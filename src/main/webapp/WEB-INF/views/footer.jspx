@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<footer id="footer"
+	style="margin-top: 10px; border-top: 0px; padding-top: 0px"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<!-- foot -->
+	<c:if test="${show_footArea == '3'}">
+		<c:set var="footer_padding_top" value="0"/>
+		<div class="container">
+		<div class="row" style="background-color:#${background_footArea}; color:#${foreground_footArea}; margin-top:${show_footArea}px">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<c:if test="${(not empty text_footContent1 and not empty text_footContent2 and not empty text_footContent3) or user_role == '[ROLE_ADMIN]'}">
+					<div align="left" style="margin-left: ${margin_left}px">${text_footContent1}</div>
+					<util:edit position="text_footContent1"
+						content="${text_footContent1}" richText="true" />
+				</c:if>
+			</div>
+
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="">
+				<c:if test="${(not empty text_footContent1 and not empty text_footContent2 and not empty text_footContent3) or user_role == '[ROLE_ADMIN]'}">
+					<div align="left" style="margin-left: ${margin_left}px">${text_footContent2}</div>
+					<util:edit position="text_footContent2"
+						content="${text_footContent2}" richText="true" />
+				</c:if>
+			</div>
+
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<c:if test="${(not empty text_footContent1 and not empty text_footContent2 and not empty text_footContent3) or user_role == '[ROLE_ADMIN]'}">
+					<div align="left" style="margin-left: ${margin_left}px; margin-right: ${margin_right}px; ">${text_footContent3}</div>
+					<util:edit position="text_footContent3"
+						content="${text_footContent3}" richText="true" />
+					<c:if test="${not empty show_registerForm}">
+						<util:signupForPromotion returnPath="/register" />
+					</c:if>
+					<c:if test="${not empty show_CommentForm}">
+						<util:signupForPromotion returnPath="/comment" />
+					</c:if>
+				</c:if>
+			</div>
+		</div>
+		</div>
+	</c:if>
+	<c:if test="${show_footArea == '2'}">
+		<c:set var="footer_padding_top" value="0"/>
+		<div class="row" style="background-color:#${background_footArea}; color:#${foreground_footArea}; margin-top:${show_footArea}px">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<c:if test="${(not empty text_footContent1 and not empty text_footContent2 and not empty text_footContent3) or user_role == '[ROLE_ADMIN]'}">
+					<div align="left" style="margin-left: ${margin_left}px">${text_footContent1}</div>
+					<util:edit position="text_footContent1"
+						content="${text_footContent1}" richText="true" />
+				</c:if>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<c:if test="${(not empty text_footContent1 and not empty text_footContent2 and not empty text_footContent3) or user_role == '[ROLE_ADMIN]'}">
+					<div align="left" style="margin-left: ${margin_left}px; margin-right: ${margin_right}px; ">${text_footContent3}</div>
+					<util:edit position="text_footContent3"
+						content="${text_footContent3}" richText="true" />
+					<c:if test="${not empty show_registerForm}">
+						<util:signupForPromotion returnPath="/register" />
+					</c:if>
+					<c:if test="${not empty show_CommentForm}">
+						<util:signupForPromotion returnPath="/comment" />
+					</c:if>
+				</c:if>
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${show_footArea == '1'}">
+		<c:set var="footer_padding_top" value="0"/>
+		<div class="row" style="background-color:#${background_footArea}; color:#${foreground_footArea}; margin-top:${show_footArea}px">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<c:if test="${(not empty text_footContent1 and not empty text_footContent2 and not empty text_footContent3) or user_role == '[ROLE_ADMIN]'}">
+					<div align="left" style="margin-left: ${margin_left}px">${text_footContent1}</div>
+					<util:edit position="text_footContent1"
+						content="${text_footContent1}" richText="true" />
+				</c:if>
+			</div>
+		</div>
+	</c:if>
+
+	<c:if test="${'false' != show_foot}">
+		<div style="height:${footer_h}px; padding-top:${footer_padding_top}px; background-color: #${background_foot}" />
+		<span style="margin-left:30px;">${footer_copyright}</span>
+		<util:edit position="footer_copyright" content="${footer_copyright}" richText="true" />
+		<c:if test="${pageContext['request'].userPrincipal == null}">
+			<span class="pull-right" style="padding-right: 30px"> 
+				<spring:url value="/signup" var="signup_url" />
+				<a href="${signup_url}"> 
+					<spring:url value="/resources/images/signup.png" var="signup_img_url" /> 
+					<img alt="Signup" src="${signup_img_url}" />
+				</a>
+				<c:out value=" | " /> 
+				<spring:url value="/login" var="login_url" />
+				<a href="${login_url}"> 
+					<spring:url value="/resources/images/login.png" var="login_img_url" /> 
+					<img alt="Login" src="${login_img_url}" />
+				</a>
+			</span>
+		</c:if>
+		<c:if test="${pageContext['request'].userPrincipal != null}">
+			<span class="pull-right" style="padding-right: 30px"> 
+			
+			  <!-- for shopping car related icon -->
+			  <c:if test="${not empty show_ShoppingTool and (user_role eq '[ROLE_ADMIN]' or user_role eq '[ROLE_EMPLOYEE]')}">
+		    	<spring:url value="/carts" var="list_url"/>
+		      	<c:out value=" | " />
+		      </c:if>
+		      <c:if test="${not empty show_ShoppingTool and user_role eq '[ROLE_CLIENT]'}">
+		    	<spring:url value="/mycarts" var="list_url"/>
+		      	<a href="${list_url}">
+		        	<spring:url value="/resources/images/content.png" var="content_img_url" />
+		        	<img alt="My List" src="${content_img_url}" title="Click here to see previous order list" />
+		      	</a>				
+		      	<c:out value=" | " />
+		      </c:if>
+		      
+		      <!-- for team group related icon, app_ContentManager ne 'true' means if app_ContentManager was set with default value not a real user name
+		      it means no need to allow upload files. -->
+		      <c:if test="${not empty app_ContentManager and app_ContentManager ne 'true' and (user_role eq '[ROLE_MANAGER]' or user_role eq '[ROLE_EMPLOYEE]')}">
+					<spring:url value="/sendEmail" var="sendEmail_url" />
+					<a href="${sendEmail_url}"> 
+						<spring:url value="/resources/images/write.png" var="account_img_url" />
+						<img alt="Compose an Email" src="${account_img_url}" title="Compose an Email." />
+					</a>
+					<c:out value=" | " />
+					<a href="javascript:showUpload()" title="upload documents.">
+						<spring:url value="/resources/images/upload.png" var="account_img_url" />
+						<img alt="Upload a File" src="${account_img_url}" title="Upload a File." />
+					</a>
+					<c:out value=" | " />
+			  </c:if> 
+            
+			  <c:if test="${user_role eq '[ROLE_ADMIN]'}">
+					<spring:url value="/useraccounts?sortFieldName=id" var="useraccounts_url" />
+					<c:if test="${client != null and (client.name eq 'for_demo' or client.name eq 'stgo')}">
+						<spring:url value="/people" var="useraccounts_url" />
+					</c:if>
+					<a href="${useraccounts_url}"> 
+						<spring:url value="/resources/images/accounts.png" var="account_img_url" />
+						<img alt="Client Accounts" src="${account_img_url}" title="Click here to modify all clients' account information." />
+					</a>
+					<c:out value=" | " /> 
+			  </c:if> 
+				
+				<!-- for useraccount icon -->
+				<c:choose>
+					<c:when test="${user_role eq '[ROLE_ADMIN]'}">
+						<spring:url value="/people" var="myAccount_url">
+							<spring:param name="form" />
+						</spring:url>
+					</c:when>
+					<c:when test="${app_ContentManager != null and (user_role ne '[ROLE_ADMIN]')}">
+						<!-- if  -->
+						<spring:url value="/dashboard" var="myAccount_url" />
+					</c:when>
+					<c:otherwise>
+						<spring:url value="/useraccounts" var="myAccount_url">
+							<spring:param name="currentUserID" value="${currentUser.id}" />
+						</spring:url>
+					</c:otherwise>
+				</c:choose> 
+				<a href="${myAccount_url}"> 
+					<spring:url value="/resources/images/account.png" var="account_img_url" /> 
+					<img alt="My Account" src="${account_img_url}" title="Click here to modify account information." />
+				</a> 
+				
+				<!-- for logout icon -->
+				<c:out value=" | " /> 
+				<spring:url value="/resources/j_spring_security_logout" var="logout" /> 
+				<a href="${logout}"> 
+					<spring:url value="/resources/images/logout.png" var="logout_img_url" /> 
+					<img alt="Logout" src="${logout_img_url}" title="Click here to logout." />
+				</a>
+			</span>
+		</c:if>
+		<c:if test="${'false' != show_stgo_adv and not fn:containsIgnoreCase(footer_copyright, 'ShareTheGoodOnes')}">
+			<div style="margin-left:30px;"><a ref='https://www.shareTheGoodOnes.com/for_demo'>Powered by ShareTheGoodOnes.com</a></div>
+		</c:if>
+
+		<c:if test="${not empty show_CustomServiceTool }">
+			<style>
+				#tawkchat-container {
+					bottom: 20px !important; /* 调整聊天窗口距离底部的距离 */
+					left: 20px !important;   /* 将聊天窗口移动到左边 */
+					right: auto !important; /* 清除右对齐 */
+				}
+			</style>
+			<script type="text/javascript">
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+					var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+					s1.async=true;
+					s1.src='${show_CustomServiceTool}';
+					s1.charset='UTF-8';
+					s1.setAttribute('crossorigin','*');
+					s0.parentNode.insertBefore(s1,s0);
+				})();
+			</script>
+		</c:if>
+
+		<script type="text/javascript">
+			function showUpload() {
+				$('#windowTitleDialog').modal('show');
+			}
+			// 监听页面滚动事件
+			window.addEventListener('scroll', function() {
+			  // 当页面滚动到底部时
+			  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+				// 加载下一个页面的操作
+				loadNextPage();
+			  }
+			});
+
+			// 加载下一个页面的函数
+			function loadNextPage() {
+			  // 执行加载下一个页面的逻辑，例如请求新的数据或者导航到下一页
+			  // 这里可以根据具体需求来实现你的逻辑
+			  console.log('加载下一个页面');
+			  if("${nextPage}".length > 0){
+				window.location.href="${nextPage}";
+			  }
+			}
+		</script>
+
+		<!-- the pop up window! -->
+		<div class="modal fade" style="display: none" id="windowTitleDialog"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">X</button>
+						<h4 class="modal-title" id="myModalLabel">
+							<b>Please click the 'Browse...' button</b>: to select a file from
+							disk!
+						</h4>
+					</div>
+					<spring:url value="/mediauploads" var="form_url" />
+					<springform:form action="${form_url}" method="POST" modelAttribute="mediaUpload" enctype="multipart/form-data">
+						<div class="modal-body col-xs-4 padding-top-5px" style="vertical-align: middle;">
+							<input type="file" name="content"> <!--  --></input> 
+							<input type="hidden" name="position" value="personalDocument"><!--  --></input> 
+							<input name="returnPath" type="hidden" value="${returnPath}"><!--  --></input>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary" type="submit">Upload</button>
+						</div>
+					</springform:form>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</c:if>
+</footer>

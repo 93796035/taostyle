@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+	<!-- HTTP security configurations -->
+	<http auto-config="false" use-expressions="true" name="userSecurityFilter"
+		create-session="always" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<custom-filter position="FORM_LOGIN_FILTER"
+			ref="bigAuthenticationProcessingFilter" />
+		<!-- <form-login login-processing-url="/resources/j_spring_security_check" 
+			login-page="/login" authentication-failure-url="/login?login_error=t" /> -->
+
+		<logout logout-url="/resources/j_spring_security_logout"
+			success-handler-ref="logoutSuccessHandler" />
+		
+		<!-- Configure these elements to secure URIs in your application -->
+		<intercept-url pattern="/customizes/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/**/customizes/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/poeple/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/useraccounts/**" access="isAuthenticated()" />
+		<intercept-url pattern="/updateProductInfo/**" access="isAuthenticated()" />
+		<!-- Mobile Product sync authenticates with its own activation/token protocol. -->
+		<intercept-url pattern="/products/mobileSync/**" access="permitAll" />
+		<intercept-url pattern="/products/**" access="isAuthenticated()" />
+		<intercept-url pattern="/services/addToCart" access="permitAll()" />
+		<intercept-url pattern="/services/createAnOrderFromForm" access="permitAll()" />
+		<intercept-url pattern="/services/createRechargeRecord" access="permitAll()" />
+		<intercept-url pattern="/services/createRiaRecord" access="permitAll()" />
+
+		<intercept-url pattern="/services/returnFromPaypal" access="permitAll()" />
+		<intercept-url pattern="/services/combineAnOrder/{mainOrderID}" access="permitAll()" />
+		<intercept-url pattern="/services/createAnOrder/{orderedItems}" access="permitAll()" />
+		<intercept-url pattern="/services/**" access="isAuthenticated()" />
+		<intercept-url pattern="/dashboard/**" access="isAuthenticated()" />
+		<!-- <intercept-url pattern="/careerApply/**" access="isAuthenticated()" 
+			/> -->
+
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/login/**" access="permitAll" />
+		<intercept-url pattern="/**" access="permitAll" />
+		
+		<csrf disabled="true" />
+	</http>
+
+	<!-- Configure Authentication mechanism -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="backendAuthenticationProvider" />
+		<!-- SHA-256 values can be produced using 'echo -n your_desired_password 
+			| sha256sum' (using normal *nix environments) <authentication-provider> <password-encoder 
+			hash="sha-256" /> <user-service> <user name="casproteus" password="e9365c749fac21d6468ae6f99ce46f9e6852cf3d0b311e2147c349c95a861ec7" 
+			authorities="ROLE_ADMIN" /> <user name="sharethegoodones" password="eeab42953f9fb298650801cf22acdb54b61edccdcaeeebc1870c6dc0c3ee14e9" 
+			authorities="ROLE_ADMIN" /> <user name="stgo" password="6c3a921017a36dcdd9a2153e163a81cc3b02778839b830622444fb3447354765" 
+			authorities="ROLE_USER" /> </user-service> </authentication-provider> -->
+	</authentication-manager>
+</beans:beans>

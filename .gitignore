@@ -1,0 +1,11 @@
+.settings/*
+target
+*.zip
+*.iml
+/.apt_generated/
+/.apt_generated_tests/
+.settings/s
+.idea/
+.classpath
+.project
+

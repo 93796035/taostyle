@@ -1,0 +1,529 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<spring:url var="music" value="/resources/images/MountainStream.wma" />
+	<bgsound src="${music}" />
+
+
+	<c:if test="${flashpage_w > 0}">
+		<div>
+			<div name="word" id="word_a"
+				style="position: absolute; top: 20px; left: 0px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">a</div>
+			<div name="word" id="word_b"
+				style="position: absolute; top: 20px; left: 40px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">b</div>
+			<div name="word" id="word_c"
+				style="position: absolute; top: 20px; left: 80px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">c</div>
+			<div name="word" id="word_d"
+				style="position: absolute; top: 20px; left: 120px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">d</div>
+			<div name="word" id="word_e"
+				style="position: absolute; top: 20px; left: 160px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">e</div>
+			<div name="word" id="word_f"
+				style="position: absolute; top: 20px; left: 200px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">f</div>
+			<div name="word" id="word_g"
+				style="position: absolute; top: 20px; left: 240px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">g</div>
+			<div name="word" id="word_h"
+				style="position: absolute; top: 20px; left: 280px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">h</div>
+			<div name="word" id="word_i"
+				style="position: absolute; top: 20px; left: 320px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">i</div>
+			<div name="word" id="word_j"
+				style="position: absolute; top: 20px; left: 360px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">j</div>
+			<div name="word" id="word_k"
+				style="position: absolute; top: 20px; left: 400px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">k</div>
+			<div name="word" id="word_l"
+				style="position: absolute; top: 20px; left: 440px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">l</div>
+			<div name="word" id="word_m"
+				style="position: absolute; top: 20px; left: 480px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">m</div>
+			<div name="word" id="word_n"
+				style="position: absolute; top: 20px; left: 520px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">n</div>
+			<div name="word" id="word_o"
+				style="position: absolute; top: 20px; left: 560px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">o</div>
+			<div name="word" id="word_p"
+				style="position: absolute; top: 20px; left: 600px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">p</div>
+			<div name="word" id="word_q"
+				style="position: absolute; top: 20px; left: 640px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">q</div>
+			<div name="word" id="word_r"
+				style="position: absolute; top: 20px; left: 680px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">r</div>
+			<div name="word" id="word_s"
+				style="position: absolute; top: 20px; left: 720px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">s</div>
+			<div name="word" id="word_t"
+				style="position: absolute; top: 20px; left: 760px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">t</div>
+			<div name="word" id="word_u"
+				style="position: absolute; top: 20px; left: 800px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">u</div>
+			<div name="word" id="word_v"
+				style="position: absolute; top: 20px; left: 840px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">v</div>
+			<div name="word" id="word_w"
+				style="position: absolute; top: 20px; left: 880px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">w</div>
+			<div name="word" id="word_x"
+				style="position: absolute; top: 20px; left: 920px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">x</div>
+			<div name="word" id="word_y"
+				style="position: absolute; top: 20px; left: 960px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">y</div>
+			<div name="word" id="word_z"
+				style="position: absolute; top: 20px; left: 1000px; width: 30px color:  #000000; text-align: center; font-size: 50px; opacity: 0.0;">z</div>
+		</div>
+		<div style="position: absolute; top: 70px; left: 0px; width: 100px">
+			<div style="position: absolute; top: 70px; left: 0px; width: 100px">
+				<input id="highSpeed" name="speed" type="radio">High Speed</input>
+			</div>
+			<div style="position: absolute; top: 105px; left: 0px; width: 100px">
+				<input id="lowSpeed" name="speed" type="radio">Low Speed </input>
+			</div>
+		</div>
+
+		<!-- the fox -->
+		<div id="theFox"
+			style="position: absolute; left: -40px; top: 360px; color: white">
+			<img src="getImage/flash_1" width="${flashpage_w}"
+				height="${flashpage_h}" border="0" />
+			<util:changeImg position="flash_1" />
+		</div>
+
+		<c:if test="${user_role == '[ROLE_ADMIN]'}">
+			<div id="theFoxBackward"
+				style="position: absolute; left: 1000px; top: 360px; color: white;">
+				<img src="getImage/flash_FoxBackward" width="${flashpage_w}"
+					height="${flashpage_h}" border="0" />
+				<util:changeImg position="flash_FoxBackward" />
+			</div>
+		</c:if>
+		<c:if test="${user_role != '[ROLE_ADMIN]'}">
+			<div id="theFoxBackward"
+				style="position: absolute; left: -40px; top: 360px; color: white; opacity: 0.0;">
+				<img src="getImage/flash_FoxBackward" width="${flashpage_w}"
+					height="${flashpage_h}" border="0" />
+				<util:changeImg position="flash_FoxBackward" />
+			</div>
+		</c:if>
+
+		<!-- the thomas and the word -->
+		<div id="textcontent"
+			style="position: absolute; left: 100px; top: 360px; color: #000000; font-size: 50px;">
+			Simon n Nicholas</div>
+		<!-- the dora and boots -->
+		<div id="doraBoots"
+			style="position: absolute; width: 150px; height: 150px; top: 340px; opacity: 0.0;">
+			<img src="getImage/flash_dora" width="${flashpage_w}"
+				height="${flashpage_h}" border="0" />
+			<util:changeImg position="flash_dora" />
+		</div>
+		<!-- the smile of the Fox -->
+		<div id="smilingFox"
+			style="position: absolute; left: 1260px; width: 150px; height: 150px; top: 340px; opacity: 0.0;">
+			<img src="getImage/flash_smilingFox" width="${flashpage_w}"
+				height="${flashpage_h}" border="0" />
+			<util:changeImg position="flash_smilingFox" />
+		</div>
+
+		<!-- the congratulation -->
+		<c:if test="${user_role == '[ROLE_ADMIN]'}">
+			<div id="congratulation"
+				style="position: absolute; left: 500px; width: 350px; height: 250px; top: 140px; opacity: 1.0;">
+				<img src="getImage/flash_congratulation" width="450" height="350"
+					border="0" />
+				<util:changeImg position="flash_congratulation" />
+			</div>
+		</c:if>
+		<c:if test="${user_role != '[ROLE_ADMIN]'}">
+			<div id="congratulation"
+				style="position: absolute; left: 500px; width: 350px; height: 250px; top: 140px; opacity: 0.0;">
+				<img src="getImage/flash_congratulation" width="450" height="350"
+					border="0" />
+				<util:changeImg position="flash_congratulation" />
+			</div>
+		</c:if>
+
+		<!-- the cry of the Fox -->
+		<c:if test="${user_role == '[ROLE_ADMIN]'}">
+			<div id="cryingFox"
+				style="position: absolute; left: 260px; width: 150px; height: 150px; top: 340px; opacity: 1.0;">
+				<img src="getImage/flash_cryingFox" width="${flashpage_w}"
+					height="${flashpage_h}" border="0" />
+				<util:changeImg position="flash_cryingFox" />
+			</div>
+		</c:if>
+		<c:if test="${user_role != '[ROLE_ADMIN]'}">
+			<div id="cryingFox"
+				style="position: absolute; left: 260px; width: 150px; height: 150px; top: 340px; opacity: 0.0;">
+				<img src="getImage/flash_cryingFox" width="${flashpage_w}"
+					height="${flashpage_h}" border="0" />
+				<util:changeImg position="flash_cryingFox" />
+			</div>
+		</c:if>
+
+		<!-- the status bar and the input field -->
+		<div id="inputArea"
+			style="background: black; top: 600px; width: 1380px; height: 38px; left: 0px; position: absolute;">
+			<label id="status" style="left: 0px; top: 5px; position: absolute;">Status:</label>
+			<input id="inputfield" type="input"
+				style="color: black; left: 600px; top: 5px; position: absolute;" />
+		</div>
+
+		<script>
+			var timerIdFox;
+			var timerIdWord;
+			var startTime;
+			var frameTime = 500;
+			var dur = 10 * 1000;
+
+			var words=new Array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
+			
+			i = 0;
+			var currentWord;
+			var currentDrict;
+			
+			//================================================================================================
+			findDimensions();
+			window.onresize=findDimensions;
+			
+			start();
+			
+			var winWidth=1250;
+			var winHeight=0;
+			
+			function findDimensions(){
+				if(window.innerWidth)
+					winWidth=window.innerWidth;
+				else if((document.body) &amp; (document.body.clientWidth))
+					winWidth=document.body.clientWidth;
+				//get height.
+				if(window.innerHeight)
+					winHeight=window.innerHeight;
+				else if((document.body) &amp; (document.body.clientHeight))
+					winHeight=document.body.clientHeight;
+				//nasty hack to deal with doctype swith in IE
+				if(document.documentElement &amp; document.documentElement.clientHeight &amp; document.documentElement.clientWidth){
+					winHeight=document.documentElement.clientHeight;
+					winWidth=document.documentElement.clientWidth;
+				}
+				document.getElementById("inputArea").style.top = (winHeight - 50) + "px";
+				document.getElementById("smilingFox").style.left = (winWidth - 100) + "px";
+				document.getElementById("inputfield").style.left = (winWidth/2 - 50) + "px";
+			}
+			
+			
+	        //run the animation from beginning, the fox start moving from left, the work start moving from left.
+	        //set the content of the content every time.
+			function start() {
+				if(navigator.userAgent.indexOf('Firefox') &lt; 0){
+					alert('Sorry, this application support only FireFox, please use Firefox to try again!');
+					return;
+				}
+	        	//reset the content.
+				document.getElementById("inputfield").value = '';
+				document.getElementById("textcontent").innerHTML = words[i];
+				
+				//reset the time and start chase and run.
+				startTime = new Date;
+				timerIdFox = setInterval(foxChase, frameTime);
+				timerIdWord = setInterval(wordRun, frameTime);
+			}
+	
+			function foxChase(time) {
+				//for debug (quik jump over)
+				if(document.getElementById("inputfield").value.indexOf("jumpover") >= 0){
+					document.getElementById("inputfield").value = '';
+					//move the running word to top.
+					var element = document.getElementById("textcontent");
+			        element.style.opacity  = 0.0;
+			        fadeInElement("word_"+element.innerHTML.trim());
+			        //stop chasing.
+					clearTimeout(timerIdFox);
+					clearTimeout(timerIdWord);
+					//start hitting.
+					startFoxHitting();
+				}
+				//if match, then stop moving and display dora.
+				else if(document.getElementById("inputfield").value.indexOf(document.getElementById("textcontent").innerHTML.trim()) >= 0){
+					clearTimeout(timerIdFox);
+					clearTimeout(timerIdWord);
+					
+					//remove the word from list
+					if(i == 0){
+						words = words.splice(i+1, words.length);
+					}else{
+						var a = words.splice(i+1, words.length);
+						var b = words.splice(0, i); 
+						words = b.concat(a);
+					}
+					i--;
+					
+					displayDora();
+				}
+				//if not matching, then check if has reached end, if not, keep moving; if reached, show smile.
+				else{
+					var per = (new Date - startTime) / dur;
+					
+					//go on moving.
+					if(per &lt; 1.2) {
+						document.getElementById("theFox").style.left = (Math.round(winWidth * per) - 100 + 60*per) + "px"; //should be faster than word. so fox can reach the word.
+					} 
+					//the fox win! display fox's smile.
+					else {
+						clearTimeout(timerIdFox);
+						clearTimeout(timerIdWord);
+						
+						//give Simon n Nicholas a big smile!
+						document.getElementById("smilingFox").style.opacity = 1.0;
+						fadeOutFoxSmile_chase();
+					}
+				}
+			}
+			
+			//the moving of the word, if not stopped, just keep moving.
+			function wordRun(time) {
+				var per = (new Date - startTime) / dur;
+				document.getElementById("textcontent").style.left = (Math.round(winWidth * per)+40) + "px";
+				document.getElementById("inputfield").focus();
+			}
+
+			//----------------------------------------
+			function displayDora(){
+				var location = document.getElementById("theFox").style.left;
+				location = location.substring(0, location.length - 2);
+				document.getElementById("doraBoots").style.left = (Number(location) + 100) + "px";
+				document.getElementById("textcontent").style.left = (Number(location) + 200) + "px";
+				fadeInDora();
+			}
+			
+			function fadeInDora(elementId){
+				var element = document.getElementById("doraBoots");
+				var ishighSpeed = document.getElementById("highSpeed").checked;
+				if(ishighSpeed){
+					 element.style.opacity = 1.0;
+				}
+				element.style.opacity = Number(element.style.opacity) + 0.1;
+	            if(element.style.opacity >= 1.0) {
+	                element.style.opacity = 1.0;
+	                setTimeout("fadeOutDora()", ishighSpeed ? 200 : 500);
+	                setTimeout("fadeOutWord()", ishighSpeed ? 200 : 500);
+	            } else {
+	                setTimeout("fadeInDora()", 100);
+	            }
+	        }
+			
+	        function fadeOutDora(){
+	            var element = document.getElementById("doraBoots");
+				element.style.opacity = Number(element.style.opacity) - 0.1;
+	            if(element.style.opacity &lt; 0.0) {
+	                element.style.opacity = 0.0;
+	            } else {
+	                setTimeout("fadeOutDora()", 100);
+	            }
+	        }
+
+			//let it disppear together with dora for now.
+	        function fadeOutWord(){
+	            var element = document.getElementById("textcontent");
+	            if(currentWord == null){
+	            	currentWord = element.innerHTML.trim();	//because after the opacity become 0, the value get from textcontent become nexe word. dkw.
+	            }
+	            
+	            if(element.style.opacity == ""){
+	            	element.style.opacity  = 1.0;
+	            }
+				element.style.opacity = Number(element.style.opacity) - 0.1;
+	            if(element.style.opacity &lt; 0.0) {
+	                element.style.opacity = 0.0;
+	                fadeInElement("word_"+currentWord);
+	                currentWord = null;
+	                
+	              	//if no word left, then upgrade!
+					if(words.length==0){
+						document.getElementById("congratulation").style.opacity = 1.0;
+		                setTimeout("fadeOutElement('congratulation')", 3000);
+						//then we should go to the second phase.
+						document.getElementById("inputfield").value = '';
+						clearTimeout(timerIdFox);
+						clearTimeout(timerIdWord);
+		                setTimeout("startFoxHitting()", 3000);
+					}else{
+	                	startNext();	//start an other fox chasing.
+					}
+	            } else {
+	                setTimeout("fadeOutWord()", 100);
+	            }
+	        }
+			
+			function fadeInElement(elementID){
+				var elementTop = document.getElementById(elementID);
+				elementTop.style.opacity = Number(elementTop.style.opacity) + 0.1;
+	            if(elementTop.style.opacity > 1.0) {
+	            	elementTop.style.opacity = 1.0;
+	            } else {
+	                setTimeout("fadeInElement('"+ elementID +"')", 100);
+	            }
+			}
+
+			function fadeOutElement(elementID){
+				var elementTop = document.getElementById(elementID);
+				elementTop.style.opacity = Number(elementTop.style.opacity) - 0.1;
+	            if(elementTop.style.opacity &lt; 0.0) {
+	            	elementTop.style.opacity = 0.0;
+	            } else {
+	                setTimeout("fadeOutElement('"+ elementID +"')", 100);
+	            }
+			}
+			
+			//should changed to +1 moving up.
+	        function fadeOutFoxSmile_chase(){
+	            var element = document.getElementById("smilingFox");
+				element.style.opacity = Number(element.style.opacity) - 0.1;
+	            if(element.style.opacity &lt; 0.0) {
+	                element.style.opacity = 0.0;
+	                startNext();
+	            } else {
+	                setTimeout("fadeOutFoxSmile_chase()", 200);
+	            }
+	        }
+			
+			//should changed to +1 moving up.
+	        function fadeOutFoxSmile_hit(){
+	            var element = document.getElementById("smilingFox");
+				element.style.opacity = Number(element.style.opacity) - 0.1;
+	            if(element.style.opacity &lt; 0.0) {
+	                element.style.opacity = 0.0;
+	                startFoxHitting();
+	            } else {
+	                setTimeout("fadeOutFoxSmile_hit()", 200);
+	            }
+	        }
+	        
+			function startNext(){
+				var element = document.getElementById("textcontent");
+				element.style.left = 10 + "px";
+				element.style.opacity = 1.0;
+				
+				i++;
+				if(i >= words.length){
+					i = 0;
+				}
+				
+                setTimeout(start(), 1000);
+			}
+			
+			//=============================================================================
+			function startFoxHitting(){
+				document.getElementById("status").innerHTML = "Start the fox hitting game....";
+				//let the fox move back and forth
+				currentDrict = true;
+
+				document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.left = currentDrict ? "0px" : "1000px";
+				document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.opacity = 1.0;
+				startTime = new Date;
+				timerIdFox = setInterval(foxRun, frameTime);
+			}
+			
+			function foxRun() {
+				//document.getElementById("status").innerHTML = "I'd run fast, you can not hit me! la la la ....";
+				//check if any element id is included in this string. if match, then do game and clear.
+				var allFallDown = true;
+				var words = document.getElementsByName("word");
+				for(var i = 0; i &lt; words.length; i++){
+					if(words.item(i).style.opacity != 0){
+						allFallDown = false;
+						if(document.getElementById("inputfield").value.indexOf(words.item(i).innerHTML.trim()) >= 0){
+							//if match, then drop the word. 
+							//document.getElementById("status").innerHTML = "Catch up! a word is falling down to hit the fox....";
+							clearTimeout(timerIdFox);
+							document.getElementById("inputfield").value = '';
+							fall(0.1, 0.6, 30, words.item(i).id);
+							break;
+						}
+					}
+				}
+				//all fall down, display congration page.
+				if(allFallDown){
+					window.location.href="game/congratulations";//?backurl="+window.location.href;  
+				}
+				//not all fall down yet, go ont running.
+				else{
+					//if not matching, then check if has reached end, if not, keep moving; if reached, move backward.		
+					if(i == words.length){
+						var per = (new Date - startTime) / dur;
+						//go on moving.
+						if(per &lt; 1.0) { 					//should be faster than word. so fox can reach the word.
+							//document.getElementById("status").innerHTML = "go on moving " + (currentDrict ? "right!...." : "left!....") + new Date;
+							document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.left = (currentDrict ? Math.round(1000 * per) : (1000 - Math.round(1000 * per))) + "px";
+							document.getElementById("inputfield").focus();
+						} 
+						//move back
+						else {
+							//document.getElementById("status").innerHTML = "Ooops, time to move back....";
+							document.getElementById(currentDrict ? "theFoxBackward" : "theFox").style.left = (currentDrict ? Math.round(1000 * per) : 0 )+ "px";
+							document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.opacity = 0.0;
+							document.getElementById(currentDrict ? "theFoxBackward" : "theFox").style.opacity = 1.0;
+							clearTimeout(timerIdFox);
+							startTime = new Date;
+							currentDrict = !currentDrict;
+							timerIdFox = setInterval(foxRun, frameTime);
+						}
+					}				
+				}
+				//@note: it's really wired, that the condition after the &amp; is also computed, even if the condition before &amp; is already failed. so I have to use || instead.
+				var elementId = "word_" + document.getElementById("inputfield").value;
+				if(document.getElementById(elementId) == null || document.getElementById(elementId).style.opacity == 0){}else{}
+			}
+			
+			//--------------------------
+			function fall(hp, vp, sp, elementID) {
+				
+				var f = document.getElementById(elementID);
+				var h_Shift = 1, speed = 1;
+				var starXpos = parseInt(f.style.left);
+				
+				i = setInterval(function(){
+					if(f){
+						var xPos = parseInt(f.style.left) + h_Shift;
+						var yPos = parseInt(f.style.top) + speed;
+						f.style.left = xPos + 'px';
+						f.style.top = yPos + 'px';
+						
+						if(xPos - starXpos > 131){
+							clearInterval(i);
+							fadeOutElement(elementID);
+
+							var movingfox = document.getElementById(currentDrict ? "theFox" : "theFoxBackward");
+							movingfox.style.opacity = 0.0;
+							document.getElementById("smilingFox").style.left = movingfox.style.left;
+							document.getElementById("smilingFox").style.opacity = 1.0;
+							fadeOutFoxSmile_hit();
+						}
+						if(yPos &lt; 380){
+							speed += 2;
+						} else {
+							h_Shift = (speed > 0) ? speed * hp : 0;
+							speed *= (speed > 0) ? -1 * vp : 0;
+							//if hitted the fox.
+							var distance = xPos - parseInt(document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.left);
+							document.getElementById("status").innerHTML = "the distance is:" +distance;
+							if(distance > (currentDrict ? 10 : -10) &amp; distance &lt; (currentDrict ? 90 : 50)){
+								clearTimeout(i);
+								clearInterval(i);
+								fadeOutElement(elementID);
+								document.getElementById("cryingFox").style.left = document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.left;
+								document.getElementById("cryingFox").style.opacity = 1.0;
+								document.getElementById(currentDrict ? "theFox" : "theFoxBackward").style.opacity = 0.0;
+								document.getElementById("status").innerHTML = (currentDrict ? "theFox" : "theFoxBackward") + " is hided!";
+								fadeOutFoxCry();
+							}
+						}
+					}
+				}, sp);
+			}
+			
+			 function fadeOutFoxCry(){
+	            var element = document.getElementById("cryingFox");
+				element.style.opacity = Number(element.style.opacity) - 0.1;
+	            if(element.style.opacity &lt; 0.0) {
+	                element.style.opacity = 0.0;
+	                startFoxHitting();
+	            } else {
+	                setTimeout("fadeOutFoxCry()", 200);
+	            }
+	        }
+		</script>
+	</c:if>
+</div>

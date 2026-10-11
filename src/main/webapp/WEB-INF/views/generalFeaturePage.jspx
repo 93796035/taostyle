@@ -1,0 +1,309 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/css/blueimp-gallery.min.css"
+		var="blueimp_gallery" />
+	<link rel="stylesheet" href="${blueimp_gallery}" />
+
+	<!-- don't display by default -->
+	<c:set value=" col-xs-12 col-sm-12 col-md-12 col-lg-12" var="span" />
+	<c:set value="0px" var="leftmargin" />
+	
+	<!-- if have menu, then display -->
+	<c:if test="${not empty subMenu and 'true' eq leftbar_fixed}">
+		<c:set value=" col-xs-${service_width_xs} col-sm-${service_width_sm} col-md-${service_width_md} col-lg-${service_width_lg} col-xl-${service_width_xl}
+		 col-sm-offset-${12-service_width_sm} col-md-offset-${12-service_width_md} col-lg-offset-${12-service_width_lg} col-xl-offset-${12-service_width_xl}" var="span" />
+		<c:set value="20px" var="leftmargin" />
+	</c:if>
+
+  	<c:set var="isPrinter"  value="false" />
+	<c:if test="${user_role == '[ROLE_PRINTER]'}">
+		<c:set var="isPrinter"  value="true" />
+	</c:if>
+	
+	<c:set var="isAboveManager"  value="false" />
+	<c:if test="${user_role == '[ROLE_ADMIN]'  or user_role == '[ROLE_MANAGER]'}">
+		<c:set var="isAboveManager"  value="true" />
+	</c:if>
+	
+  	<c:set var="isAboveEmployee"  value="false" />
+	<c:if test="${isAboveManager or user_role == '[ROLE_EMPLOYEE]'}">
+		<c:set var="isAboveEmployee"  value="true" />
+	</c:if>
+			
+	<!-- Main Content -->
+	<c:set var="length" value="${fn:length(features)}"/>
+	<c:if test="${length > 0 }">
+	 <!-- the featured contents -->
+	 <c:forEach var="j" begin="0" end="${length-1}" step="1"> <!-- have to start from 1, because end are not allowed to be less than 0 -->
+	 
+	  <c:set var="featureId"  value="${features[j].id}" />
+	  
+	  <div id="${featureId}-gridview" class="gallery ${span}"
+		style="margin-left:${leftmargin}; padding:20px; background:#${background_subpage}; opacity:${subpage_opacity}; float:right">
+		
+		<!-- title of the section -->
+		<div style="margin-bottom: ${show_1_TextObject}px;">${groupTitles[j]}</div>
+		<util:edit position="feature_${menuIdx}-${features[j].refMenuIdx}_groupTitle" content="${groupTitles[j]}" richText="true" />
+		<br/>
+		
+		<div class="row" style="margin-left:${service_margin_left}px; margin-right: ${service_margin_right}px; margin-top: ${show_4_Object}px; margin-bottom: ${show_4_Object}px">
+			<c:set var="subLength" value="${fn:length(imageKeys[j])}"/>
+			<c:if test="${subLength > 0 }">
+ 	 
+			 	<input type="hidden" name="featureId" value="${features[j].id}" />
+			 	<input type="hidden" name="refMenuIdx" value="${features[j].refMenuIdx}" />
+			 	<input type="hidden" name="length" value="${fn:length(imageKeys[j])}" />
+
+			  	<c:forEach var="i" begin="0" end="${subLength-1}" step="1">
+
+			 	    <c:set var="imageIdx"  value="${imageKeys[j][i]}" />
+
+					<div class="col-xs-${service_number_xs} col-sm-${service_number_sm} col-md-${service_number_md} col-lg-${service_number_lg}"
+					 style="display: inline-block; vertical-align: top; text-align: center; height:${service_heights[j]}px">
+				  		<c:set var="opacity" value="1"/>
+				        <c:if test="${not empty visibleStatusList[j] and visibleStatusList[j][i] eq ''}" >
+				  			<c:set var="opacity" value="0.1"/>
+				        </c:if>
+
+						<!-- description and image -->
+						<c:if test="${not empty descriptions[j][i] and 'true' eq showDescriptionsOnTop}" >
+				          	<div id="des-${imageIdx}" align="center" style="opacity:${opacity}; text-align: center;">${descriptions[j][i]}</div>
+							<c:if test="${'true' eq moneyShow}" >
+								<div id="price-${menuIdx}" style="text-align: center; opacity:${opacity};font-weight:${moneyWeight};color:#${moneyColor}; font-size:${moneySize}pt;"> ${moneyLetter}${prices[j][i]}</div>
+							</c:if>
+						</c:if>
+				        <a id="img-${imageIdx}" href="javascript:showDetail('service_${imageKeys[j][i]}')" title="Click to check detailed information" style="opacity:${opacity}">
+							<img class="hover-effect" src="getImage/service_${imageIdx}_thum" alt="image" style="border-radius:${statusbar_border_radius}px;"/>
+						</a>
+						<c:if test="${not empty descriptions[j][i] and 'true' ne showDescriptionsOnTop}" >
+				          	<div id="des-${imageIdx}" align="center" style="opacity:${opacity}; text-align: center;">${descriptions[j][i]}</div>
+							<c:if test="${'true' eq moneyShow}" >
+								<div id="price-${imageIdx}" style="text-align: center; opacity:${opacity};font-weight:${moneyWeight};color:#${moneyColor}; font-size:${moneySize}pt;"> ${moneyLetter}${prices[j][i]}</div>
+							</c:if>
+						</c:if>
+
+				        <!-- selection controllers -->
+				        <c:if test="${'true' eq show_service_cBox or 'true' eq isAboveManager}">
+				        	<!-- visibility control -->
+					    	<c:set var="visibility" value="${(empty visibleStatusList[j][i] or visibleStatusList[j][i] eq '1') ? 'visible' : 'hidden'}" />
+
+					    	<c:choose>
+					    	  <c:when test = "${support_times ne true or isPrinter or 'true' eq isAboveManager}">
+						    	<c:choose>
+									<c:when test="${not empty visibleStatusList and not empty visibleStatusList[j][i]}">
+										<input id="check-${imageIdx}" type="checkbox" name="${imageIdx}" style="width:80px; height:20px; visibility:${visibility};"
+										 checked="checked" onclick="javascript:updateStatus('${imageIdx}',${featureId},'${user_role}','check')" />
+							       	</c:when>
+							        <c:otherwise>
+										<input id="check-${imageIdx}" type="checkbox" name="${imageIdx}" style="width:80px; height:20px; visibility:${visibility}; "
+										 onclick="javascript:updateStatus('${imageIdx}',${featureId},'${user_role}','check')" />
+							        </c:otherwise>
+						  		</c:choose>
+					  		  </c:when>
+					  		  <c:otherwise>
+								<c:if test="${'true' eq moneyShow}">
+								  <span style="display: inline-flex; align-items: center; border: 1px solid #${color_operator};
+								  border-radius: ${statusbar_border_radius}px; padding: 2px; font-size: ${fontsize_operator}px; color:#${color_operator}">
+						  			<c:set var="aboveTwo" value="${not empty visibleStatusList and not empty visibleStatusList[j][i] and visibleStatusList[j][i] != '1'}" />
+
+									<a id="decreaser-${imageIdx}" onclick="javascript:updateStatus('${imageIdx}',${featureId},'${user_role}','down1', ${tax_rate})"
+									style="color:#${color_operator}; border-radius:${statusbar_border_radius}px; background:#${background_operator}; display:inline-block; width:${touchButtonWidth}px">&#160;-&#160;</a>
+
+						     		<input id="txt-${imageIdx}" type="text" name="${imageIdx}" value="${visibleStatusList[j][i] == null ? '0' : visibleStatusList[j][i]}"
+										   onfocus="this.dataset.oldValue = this.value"
+										   onblur="updateStatus('${imageIdx}', ${featureId}, '${user_role}', 'set', this, ${tax_rate})"
+										   onkeydown="if(event.key === 'Enter'){this.blur(); }"
+									style="padding:2px; text-align:center; width:40px; border-style:none; background:none; font-size: ${fontsize_num}px;"/>
+
+								 	<a id="increaser-${imageIdx}" onclick="javascript:updateStatus('${imageIdx}',${featureId},'${user_role}','up1', ${tax_rate})"
+								 	 style="color:#${color_operator}; border-radius:${statusbar_border_radius}px; background:#${background_operator}; display:inline-block; width:${touchButtonWidth}px">&#160;+&#160;</a>
+							 	  </span>
+								</c:if>
+					    	  </c:otherwise>
+					    	</c:choose>
+						</c:if>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
+	  </div>
+	 </c:forEach>	 
+	</c:if>
+	<!-- the form for collecting user information -->
+	<c:if test="${not empty showCollectForm}">
+		<script type="text/javascript">
+			function validate_form(thisform){
+				var isValid = true;
+
+				for (var i = 0; i &lt; thisform.elements.length; i++) {
+					var element = thisform.elements[i];
+
+					if (element.type === "button" || element.type === "submit") continue;
+
+					if (element.placeholder.startsWith("*") || element.placeholder.endsWith("*")) {
+						if (!validate_required(element, element.name + " not valid")) {
+							element.focus();
+							return false;
+						}
+					}
+
+					// 根据 name 自动选择校验规则
+					if (!validateElement(element)) {
+						isValid = false;
+						break;
+					}
+				}
+
+				return isValid;
+			}
+
+			/**
+			 * 封装的校验方法：根据输入框 name 动态校验内容
+			 * @param {HTMLElement} element - 输入框元素
+			 * @returns {boolean} - 校验结果（true：通过，false：失败）
+			 */
+			function validateElement(element) {
+				var value = element.value.trim();
+
+				// 验证电话号码（name 包含 tel）
+				if (element.name.toLowerCase().includes("tel")) {
+					var phoneRegex = /^(\+?\d{1,3}[- ]?)?\d{7,15}$/;
+					if (!phoneRegex.test(value)) {
+						alert("The phone number looks not correct.");
+						element.focus();
+						return false;
+					}
+				}
+
+				// 验证地址（name 包含 addr）
+				else if (element.name.toLowerCase().includes("addr")) {
+					var addressRegex = /^[a-zA-Z0-9\s,'-]{10,}$/;
+					if (!addressRegex.test(value)) {
+						alert("The address seems not correct.");
+						element.focus();
+						return false;
+					}
+				}
+				return true;
+			}
+
+			function validate_required(element,alerttxt){
+				with (element){
+					if (value==null||value==""){
+						alert(alerttxt);
+						return false;
+					}else {
+						if(element.placeholder.startsWith("tel") || element.placeholder.endsWith("tel")){
+							value = value.replace("(","");
+							value = value.replace(")","");
+							value = value.replace(",","");
+							value = value.replace("-","");
+							value = value.replace(" ","");
+							if(value.length != 10){
+								alert(alerttxt);
+								return false;
+							}
+						}
+						return true;
+					}
+				}
+			}
+
+			function submitFun(act) {
+				var form = document.forms["infocollecter"];  // 获取表单对象
+				if (validate_form(form)) {
+					form.action.value = act;
+					form.submit();
+				}
+			}
+		</script>
+
+		<div id="gridview" class="${span}"
+			 style="margin-top: 10px; padding:20px; background:#${background_subpage}; opacity:${subpage_opacity}; border-radius: 8px;">
+
+			<div style="margin-bottom: ${show_1_TextObject}px;">${subpageContent}</div>
+			<util:edit position="service_${menuIdx}_title" content="${subpageContent}" richText="true" />
+			<br/>
+
+			<div class="row" style="margin-left:${service_margin_left}px; margin-right: ${service_margin_right}px; margin-top: ${show_4_Object}px; margin-bottom: ${show_4_Object}px">
+				<spring:url value="/services/createAnOrderFromForm" var="form_url">
+					<spring:param name="position" value="${menuIdx}" />
+				</spring:url>
+				<form name="infocollecter" action="${fn:escapeXml(form_url)}" method="POST"><!-- onsubmit="return validate_form(this)" ${fn:escapeXml(form_url)} -->
+					<div align="left" style="margin-left: ${margin_left}px">
+
+						<c:forEach var="i" begin="1" end="${questionAmount}" step="1">
+						<div class="row" style="display: flex; align-items: center; margin-bottom: 10px;">
+							<div class="col-xs-${textmenu_number_xs} col-sm-${textmenu_number_sm} col-md-${textmenu_number_md} col-lg-${textmenu_number_lg}"
+								 style="flex: 1; text-align: left;">
+								<div id="des-${menuIdx}_${i}" style="opacity:${opacity}; text-align: left;">
+								<label for="form${i-1}" style="display: inline-block; width: 150px;">${questions[i-1]}</label>
+									<!-- 对于最后一个输入框，使用 textarea -->
+									<c:if test="${i == questionAmount}">
+										<textarea id="form${i-1}" placeholder="" name="${formNames[i-1]}"
+												  style="border: 1px solid #bebdaa; border-radius: 5px; color: #86856f;
+														 font: italic 105%/110% 'Times New Roman', Times, serif;
+														 padding: 4px; margin-left: 0px;
+														 transition: all 0.7s ease 0s; width: 240px; height: 100px;">
+											<!-- xxx -->
+										</textarea>
+									</c:if>
+									<!-- 其他文本框仍然保持为 input -->
+									<c:if test="${i != questionAmount}">
+										<input id="form${i-1}" placeholder="${formTypes[i-1]}" name="${formNames[i-1]}"
+											   style="border: 1px solid #bebdaa; border-radius: 5px; color: #86856f;
+													  font: italic 105%/110% 'Times New Roman', Times, serif;
+													  padding: 4px; margin-left: 0px;
+													  transition: all 0.7s ease 0s; width: 240px;" />
+									</c:if>
+								</div>
+							</div>
+							<util:edit position="service_${menuIdx}_${i}_description" content="${questions[i]}" richText="true"/>
+						</div>
+						</c:forEach>
+
+						<input type="hidden" name="action" value="edit"/>
+						<c:if test = "${not empty client_secret}">
+							<input id="paynow" type="button" onclick="submitFun('paynow');"
+								  style="background-image: url('https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png');
+								  background-size: contain; background-repeat: no-repeat; background-position: center;
+								  background-color: transparent;
+								  border: none; width: 200px; height: 50px; margin: 10px;cursor: pointer;"
+								   alt="Pay with PayPal" />
+							<c:if test="${empty MustPay}">
+								<input id="proceed" type="button" value="Pay on Pickup" onclick="submitFun('paylater');"
+									   style="border: 1px solid #bebdaa; background:#${background_leftbar}; border-radius:${statusbar_border_radius}px;
+								   color:#${foreground_leftbar}; font-size: ${statusFontSize}px; padding: 4px; margin: 10px;
+								   transition: all 0.7s ease 0s; width: 204px; height:40px; position: relative; top:2px" />
+							</c:if>
+						</c:if>
+						<c:if test="${empty client_secret}">
+							<input id="proceed" type="button" value="Submit Order" onclick="submitFun('paylater');"
+								   style="border: 1px solid #bebdaa; background:#${background_leftbar}; border-radius:${statusbar_border_radius}px;
+						 color:#${foreground_leftbar};  font-size: ${statusFontSize}px; padding: 4px; margin: 10px;
+						 transition: all 0.7s ease 0s; width: 200px; height:50px" />
+						</c:if>
+					</div>
+				</form>
+			</div>
+		</div>
+	</c:if>
+
+	<!-- and remove tool -->
+	<util:addRemoveFeatureGroup allowedLevel="[ROLE_MANAGER]" />
+    <util:showQtAdjuster />
+	<util:checkOut />
+
+	<util:showDetail allowedLevel="[ROLE_MANAGER]"/>
+	<util:showNote allowedLevel="[ROLE_MANAGER]"/>
+
+</div>

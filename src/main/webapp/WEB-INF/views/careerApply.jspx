@@ -1,0 +1,302 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<div class="hero-unit" style="color: #${background_foot}">
+		<!-- for upload resume -->
+		<spring:url value="/mediauploads" var="form_url" />
+		<springform:form action="${form_url}" method="POST"
+			modelAttribute="mediaUpload" enctype="multipart/form-data">
+			<table style="width: 400px; margin-left: auto; margin-right: auto">
+				<tbody>
+					<tr>
+						<td>${notice}</td>
+					</tr>
+					<tr style="height: 100px">
+						<td>${text_on_career_0} <util:edit
+								position="text_on_career_0" content="${text_on_career_0}"
+								richText="true" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>First Name</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='firstname' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Middle Name</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='middlename' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Last Name</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='lastname' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Phone</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='phone' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Mobile</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='mobile' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Email</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='email' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Address</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='address' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>City</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='city' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Province</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='province' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Country</td>
+					</tr>
+					<tr>
+						<td><input type='text' name='country' style="width: 450px"
+							required="required" /></td>
+					</tr>
+					<tr>
+						<td><br />Upload your Resume <input type="file"
+							name="content"></input> <input type="hidden" name="position"
+							value="careerApply" /> <input name="returnPath" type="hidden"
+							value="${returnPath}" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td><br />How did you hear about us? <select
+							name='hearedfrom' style="width: 130px" required="required">
+								<option value="none">Please select one</option>
+								<option value="Employe Quebec">Employe Quebec</option>
+								<option value="Website">Website</option>
+								<option value="client">Client</option>
+								<option value="friend">Friend</option>
+								<option value="other">Other</option>
+						</select></td>
+					</tr>
+					<tr style="height: 40px; padding: 20px">
+						<td>Are you legally entitled to work in Canada? <input
+							type="radio" name="leggal" value="yes" style="margin-left: 20px"
+							checked="checked">Yes</input> <input type="radio" name="leggal"
+							value="no" style="margin-left: 20px">No</input>
+						</td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Work Authorization <select name='workpermit'
+							style="width: 130px" required="required">
+								<option value="none">Please select one</option>
+								<option value="Citizen">Citizen</option>
+								<option value="Work Permit">Work Permit</option>
+								<option value="Landed immigrant">Landed immigrant</option>
+								<option value="Foreign student">Foreign student</option>
+						</select>
+						</td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Which position are you applying for? <input type='text'
+							name='position' style="width: 150px" required="required" /></td>
+					</tr>
+					<tr style="height: 40px">
+						<td>Highest Education <select name='education'
+							style="width: 130px" required="required">
+								<option value="none">Please select one</option>
+								<option value="highschool">High School</option>
+								<option value="college">College</option>
+								<option value="university">University</option>
+						</select>
+						</td>
+					</tr>
+					<tr style="height: 70px">
+						<td><textarea maxlength="1024" name='program'
+								style="width: 450px; height: 50px" placeholder="Program">
+								<!-- xxx -->
+							</textarea></td>
+					</tr>
+					<tr style="height: 70px">
+						<td><textarea maxlength="1024" name='skills'
+								style="width: 450px; height: 50px"
+								placeholder="Please List skills and / or relevant information">
+								<!-- xxx -->
+							</textarea></td>
+					</tr>
+					<tr style="height: 70px">
+						<td>Number of years of experience relevant to this position <select
+							name='experience' style="width: 130px" required="required">
+								<option value="none">Please select one</option>
+								<option value="Less than 1 year">Less than 1 year</option>
+								<option value="1 year">1 year</option>
+								<option value="2-4years">2-4years</option>
+								<option value="5 years">5 years</option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td><textarea maxlength="1024" name='salary'
+								style="width: 450px; height: 50px"
+								placeholder="Salary Expectations">
+								<!-- xxx -->
+							</textarea></td>
+					</tr>
+					<tr style="height: 80px">
+						<td>What type of work hours are you looking for?<br /> <input
+							type="radio" name="worktime" value="fulltime"
+							style="margin-left: 20px" checked="checked">Full time
+							(25+ hours)</input> <input type="radio" name="worktime" value="parttime"
+							style="margin-left: 60px">Part- time (24 hours or less)</input>
+						</td>
+					</tr>
+					<tr>
+						<td><textarea maxlength="1024" name='nonavailable'
+								style="width: 450px; height: 50px"
+								placeholder="Please indicate when you are NOT available to work:">
+								<!-- xxx -->
+							</textarea></td>
+					</tr>
+					<tr style="height: 80px">
+						<td>Have you been employed by us previously?<br /> <input
+							type="radio" name="oldstaff" value="yes"
+							style="margin-left: 20px" checked="checked">Yes</input> <input
+							type="radio" name="oldstaff" value="no"
+							style="margin-left: 100px">No</input>
+						</td>
+					</tr>
+					<tr>
+						<td><textarea maxlength="1024" name='other'
+								style="width: 450px; height: 50px"
+								placeholder="Please add any other additional information that you feel may be relevant to the position applied for">
+								<!-- xxx -->
+							</textarea></td>
+					</tr>
+
+					<tr>
+						<td>
+							<div class="modal-footer">
+								<button class="btn btn-primary" type="submit">Upload</button>
+							</div>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</springform:form>
+	</div>
+
+	<script type='text/javascript'>
+		function saveContentIntoinput() {
+			document.getElementById('content').value = $('#editor').cleanHtml();
+			$('#richEditorForm').submit();
+		}
+
+		$(function() {
+
+			function initToolbarBootstrapBindings() {
+				var fonts = [ 'Serif', 'Sans', 'Arial', 'Arial Black',
+						'Courier', 'Courier New', 'Comic Sans MS', 'Helvetica',
+						'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma',
+						'Times', 'Times New Roman', 'Verdana' ], fontTarget = $(
+						'[title=Font]').siblings('.dropdown-menu');
+
+				$
+						.each(
+								fonts,
+								function(idx, fontName) {
+									fontTarget
+											.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:'+ fontName + '">'
+													+ fontName + '</a></li>'));
+								});
+
+				$('a[title]').tooltip({
+					container : 'body'
+				});
+				$('.dropdown-menu input').click(function() {
+					return false;
+				}).change(
+						function() {
+							$(this).parent('.dropdown-menu').siblings(
+									'.dropdown-toggle').dropdown('toggle');
+						}).keydown('esc', function() {
+					this.value = '';
+					$(this).change();
+				});
+
+				$('[data-role=magic-overlay]').each(
+						function() {
+							var overlay = $(this), target = $(overlay
+									.data('target'));
+							overlay.css('opacity', 0).css('position',
+									'absolute').offset(target.offset()).width(
+									target.outerWidth()).height(
+									target.outerHeight());
+						});
+
+				if ("onwebkitspeechchange" in document.createElement("input")) {
+					var editorOffset = $('#editor').offset();
+					$('#voiceBtn').css('position', 'absolute').offset(
+							{
+								top : editorOffset.top,
+								left : editorOffset.left
+										+ $('#editor').innerWidth() - 35
+							});
+				} else {
+					$('#voiceBtn').hide();
+				}
+			}
+			;
+
+			function showErrorAlert(reason, detail) {
+				var msg = '';
+				if (reason === 'unsupported-file-type') {
+					msg = "Unsupported format " + detail;
+				} else {
+					console.log("error uploading file", reason, detail);
+				}
+				$(
+						'<div class="alert"> <button type="button" class="close" data-dismiss="alert">X</button>'
+								+ '<strong>File upload error</strong> '
+								+ msg
+								+ ' </div>').prependTo('#alerts');
+			}
+			;
+
+			initToolbarBootstrapBindings();
+			$('#editor').wysiwyg({
+				fileUploadError : showErrorAlert
+			});
+		});
+	</script>
+</div>

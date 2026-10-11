@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<form:create id="fc_com_stgo_taostyle_domain_SizeProportion"
+		modelAttribute="sizeProportion" path="/sizeproportions"
+		render="${empty dependencies}" z="Pe9Dcy9WAdk2/tTdmrLTMSZiRdw=">
+		<field:select field="mainOrder"
+			id="c_com_stgo_taostyle_domain_SizeProportion_mainOrder"
+			itemValue="id" items="${mainorders}" path="/mainorders"
+			required="true" z="qWpho7ZZ6NULgcB/Ems8sT6slkQ=" />
+		<field:input field="Color"
+			id="c_com_stgo_taostyle_domain_SizeProportion_Color"
+			z="hLV3L1VhYkpPKdZApsDC07AvKsE=" />
+		<field:input field="smallsize"
+			id="c_com_stgo_taostyle_domain_SizeProportion_smallsize"
+			z="ngtfaozig+J7yI+7rNZm8tWlj08=" />
+		<field:input field="middlesize"
+			id="c_com_stgo_taostyle_domain_SizeProportion_middlesize"
+			z="wL+pcyVV+GRuXWCs7XSG1VNBM8A=" />
+		<field:input field="largeSize"
+			id="c_com_stgo_taostyle_domain_SizeProportion_largeSize"
+			z="IftS8pb0zEErmIlwuT93dLD3CBU=" />
+		<field:input field="extraLargeSize"
+			id="c_com_stgo_taostyle_domain_SizeProportion_extraLargeSize"
+			z="2jl+kltljQJm8Y5T+87bOkSYPpQ=" />
+		<field:input field="other1"
+			id="c_com_stgo_taostyle_domain_SizeProportion_other1"
+			z="OKmB6wIYJUYdrH3jF1eRVR938RQ=" />
+		<field:input field="other2"
+			id="c_com_stgo_taostyle_domain_SizeProportion_other2"
+			z="MHwPYJbFDnJG/ewUB1nJAsZYFmA=" />
+		<!-- 
+        <field:input field="other3" id="c_com_stgo_taostyle_domain_SizeProportion_other3" z="3A3KqOejb8xS3+tWdO/p3T/QW7U="/>
+        <field:input field="other4" id="c_com_stgo_taostyle_domain_SizeProportion_other4" z="sGz8gnhFHTNqRt5OPz/rCNOPHDI="/>
+         -->
+		<field:input field="total"
+			id="c_com_stgo_taostyle_domain_SizeProportion_total"
+			z="tVGtsTl23yBPwynfUb4QBUkrAOQ=" />
+		<field:input field="Remark"
+			id="c_com_stgo_taostyle_domain_SizeProportion_Remark"
+			z="Dcs5lKM67LU1KXXA68wPqS1/oSc=" />
+	</form:create>
+	<form:dependency dependencies="${dependencies}"
+		id="d_com_stgo_taostyle_domain_SizeProportion"
+		render="${not empty dependencies}" z="nNMlcu4SVB0yjIAg2xYWkXLt4oM=" />
+</div>

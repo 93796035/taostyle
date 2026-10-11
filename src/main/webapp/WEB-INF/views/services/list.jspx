@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:list_catalog id="pl_com_stgo_taostyle_domain_Service"
+		items="${services}" z="user-managed">
+		<table:table_catalog data="${services}"
+			id="l_com_stgo_taostyle_domain_Service" path="/services"
+			position="${position}" z="user-managed">
+			<table:column id="c_com_stgo_taostyle_domain_Service_name"
+				property="name" z="zU3npd/SS3YVQxEKovpbIkJujq8=" />
+			<table:column id="c_com_stgo_taostyle_domain_Service_description"
+				property="description" z="FQmCPNZVtBYBfcUq3NedJwT3wu4=" />
+			<table:column id="c_com_stgo_taostyle_domain_Service_c1"
+				property="c1" z="mXsD81CU93xtXf3zumtMTEeSBW4=" />
+			<table:column id="c_com_stgo_taostyle_domain_Service_c2"
+				property="c2" z="ANI+rxuhS7lTYhdrXZ7rvykFNFs=" />
+			<table:column id="c_com_stgo_taostyle_domain_Service_c3"
+				property="c3" z="IKSgNTm9ndyp2kcogcnC+rOmMIc=" />
+		</table:table_catalog>
+	</page:list_catalog>
+</div>

@@ -1,0 +1,322 @@
+<div id="header" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<style type="text/css">
+		a {color: #${foreground_menu};
+		text-decoration:none;}
+		a:hover {color: #${link_mouseover} !important;
+			text-decoration: underline}
+		.search-box-shell {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 6px 8px;
+			border: 1px solid #${foreground_leftbar};
+			border-radius: ${statusbar_border_radius}px;
+			background: #${background_leftbar};
+			color: #${foreground_leftbar};
+			box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+		}
+		.search-box-shell input {
+			border: 0;
+			outline: none;
+			background: #ffffff;
+			color: #333333;
+			box-shadow: none;
+		}
+		.search-box-shell input::placeholder {
+			color: #777777;
+			opacity: 0.82;
+		}
+		.search-box-shell button {
+			border: 0;
+			background: transparent;
+			color: #${foreground_leftbar};
+			padding: 0;
+			width: 24px;
+			height: 24px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+		.search-host {
+			position: relative;
+		}
+		.navbar-search-mobile {
+			position: absolute;
+			left: 50%;
+			top: 2px;
+			transform: translateX(-50%);
+			width: 58%;
+			max-width: 320px;
+			min-width: 180px;
+			z-index: 3;
+		}
+		.navbar-search-mobile .search-box-shell {
+			width: 100%;
+		}
+		.navbar-search-mobile .search-box-shell input {
+			width: 100%;
+			min-width: 0;
+		}
+		.navbar-search-desktop {
+			position: absolute;
+			right: 14px;
+			top: 2px;
+		}
+		.navbar-collapse.search-box-active {
+			position: relative;
+            padding-right: 220px;
+		}
+		.navbar-nav.search-box-active {
+            margin-right: 205px;
+		}
+        .navbar-nav > li.navbar-spacer {
+            width: 200px;
+        }
+        .navbar-nav.search-box-active > li.navbar-spacer {
+            width: 110px;
+        }
+		.navbar-search-desktop .search-box-shell input {
+			width: 170px;
+		}
+	</style>
+
+	<c:if test="${not empty show_AboveMenu}">
+		<!-- logo above menu -->
+		<form method="get" action="https://www.google.com/search"
+			target="_blank" style="text-align: right; padding-right: 50px"> <!-- leave some space because the check box might displayed there -->
+			<c:if test="${not empty showFacebookOnTop}">
+				<a href="${showFacebookOnTop}" style="padding-right: 25px"> 
+					<spring:url value="/resources/images/facebook1.png" var="facebook1_img_url" />
+					<img alt="facebook |" src="${facebook1_img_url}" /> <!--  title="Click here to modify my account information."  -->
+				</a>
+			</c:if>
+			<c:if test="${not empty showTwitterOnTop}">
+				<a href="${showTwitterOnTop}" style="padding-right: 25px"> <spring:url
+						value="/resources/images/twitter1.png" var="twitter1_img_url" />
+					<img alt="twitter |" src="${twitter1_img_url}" />
+				</a>
+			</c:if>
+			<c:if test="${not empty showGooglePlusOnTop}">
+				<a href="${showGooglePlusOnTop}" style="padding-right: 25px"> <spring:url
+						value="/resources/images/google1.png" var="google1_img_url" /> <img
+					alt="google+ |" src="${google1_img_url}" />
+				</a>
+			</c:if>
+			<c:if test="${not empty showRssOnTop}">
+				<a href="${showRssOnTop}" style="padding-right: 25px"> <spring:url
+						value="/resources/images/rss1.png" var="rss1_img_url" /> <img
+					alt="rss |" src="${rss1_img_url}" />
+				</a>
+			</c:if>
+			<c:if test="${not empty showGoogleSearchOnTop}">
+				<!-- <img src="getImage/logoTop" vspace="3"/><util:changeImg position="logoTop"/> -->
+				<input type="search" value="" placeholder="search"
+					style="background: url(http://webdesignerwall.com/wp-content/themes/wall/images/nav-icons.png) no-repeat scroll 168px -497px; border: 1px solid #bebdaa; border-radius: 2px; color: #86856f; font: italic 105%/110% 'Times New Roman', Times, serif; padding: 3px 20px 3px 3px; transition: all 0.7s ease 0s; width: 200px;" />
+				<input type="hidden" name="ie" value="UTF-8">
+				<!-- xxx -->
+				</input>
+				<input type="hidden" name="oe" value="UTF-8">
+				<!-- xxx -->
+				</input>
+				<input type="hidden" name="hl" value="zh-CN">
+				<!-- xxx -->
+				</input>
+				<input type="hidden" name="domains" value="${showGoogleSearchOnTop}">
+				<!-- xxx -->
+				</input>
+				<input type="hidden" name="sitesearch"
+					value="${showGoogleSearchOnTop}">
+				<!-- xxx -->
+				</input>
+			</c:if>
+
+			<!-- language bar -->
+			
+			<c:if test="${lang1 != null and fn:length(lang1) == 2}">
+				<util:language locale="${lang1}" />
+			</c:if>
+			<c:if test="${lang2 != null and fn:length(lang2) == 2}">
+				<c:out value=" | " />
+				<util:language locale="${lang2}" />
+			</c:if>
+			<c:if test="${lang3 != null and fn:length(lang3) == 2}">
+				<c:out value=" | " />
+				<util:language locale="${lang3}" />
+			</c:if>
+			<c:if test="${lang4 != null and fn:length(lang4) == 2}">
+				<c:out value=" | " />
+				<util:language locale="${lang4}" />
+			</c:if>
+			<c:if test="${lang5 != null and fn:length(lang5) == 2}">
+				<c:out value=" | " />
+				<util:language locale="${lang5}" />
+			</c:if>
+		</form>
+	</c:if>
+
+	<!-- Menu Bar -->
+	<c:if test="${not empty show_Menu}">
+		<nav class="navbar navbar-inverse"
+			style="margin-bottom: ${show_Menu}px; border-radius: 0px; background-color:#${background_menu}; color:#${foreground_menu};">
+
+			<!-- icon inside menu bar -->
+			<div class="navbar-header search-host">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+					<span class="sr-only"><!--*_--></span> 
+					<span class="icon-bar"><!--*_--></span> 
+					<span class="icon-bar"><!--*_--></span>
+					<!-- the icon when screen small enough -->
+					<span class="icon-bar"><!--*_--></span>
+				</button>
+				<!-- logo -->
+				<spring:url value="/menu_1" var="logo_url" />
+				<c:if test="${user_role eq '[ROLE_ADMIN]'}">
+					<spring:url value="/customizes" var="logo_url" />
+				</c:if>
+				<a class="navbar-brand" style="margin-left: ${margin_left}px; padding-top: ${margin_top_logo}px" href="${logo_url}"> 
+					<img src="getImage/logo" vspace="3" style="max-width:45px" />
+				</a>
+				<util:changeImg position="logo"/>
+				<c:if test="${not empty show_SearchBox}">
+					<spring:url value="/searchServiceUrl" var="searchServiceUrl" />
+					<div class="visible-xs-block navbar-search-mobile">
+						<form action="${searchServiceUrl}" method="POST" class="search-box-shell" style="margin: 0;">
+							<input type="text" id="searchContentMobile" name="searchContent"
+								class="form-control" placeholder="Search services" />
+							<button id="searchServiceButtonMobile" type="submit" title="Click to search services.">
+								<span class="glyphicon glyphicon-search"><!-- *_* --></span>
+							</button>
+						</form>
+					</div>
+				</c:if>
+				<c:if test="${not empty showSearchOnHomePage}">
+					<!-- the product search tool -->
+					<spring:url value="/searchProductUrl" var="searchProductUrl">
+						<spring:param name="searchProducts" />
+						<spring:param name="position" value="${menuIdx}" />
+					</spring:url>
+					<form class="navbar-form navbar-left" action="${searchProductUrl}"
+						method="POST" style="padding-bottom: 10px; padding-left: 20px;">
+						<span class="form-group"> <input type="text"
+							id="searchContent" name="searchContent" class="form-control"
+							style="width: 120px;" placeholder="Search" />
+							<button id="proceed" type="submit"
+								style="width: 22px; height: 22px; cursor: pointer; background-color: transparent; border: 0px;">
+								<spring:url value="resources/images/search2.png"
+									var="add_img_url" />
+								<img src="${add_img_url}" title="click me to Search." />
+							</button>
+						</span>
+					</form>
+				</c:if>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse pull-left ${not empty show_SearchBox ? 'search-box-active' : ''}" id="navbarCollapse">
+				<ul class="nav navbar-nav ${not empty show_SearchBox ? 'search-box-active' : ''}" style="color:#${foreground_menu}">
+					<li class="navbar-spacer">
+						<a href="#" title="${fn:escapeXml(lang_label)}"> </a>
+					</li>
+					<c:if test="${not empty menuContent or user_role == '[ROLE_ADMIN]'}">
+						<c:set var="lastNonEmptyMenu" value="0"/>
+						<c:forEach var="i" begin="0" end="${fn:length(menuContent)}" step="1">
+							<c:set var="lastNonEmptyMenu" value="${lastNonEmptyMenu + 1}"/>
+							<spring:url var="menu_URL" value="menu_${i+1}" />
+							<c:choose>
+								<!-- if has no sub menu and not logged in, or, not support submenu at all-->
+								<c:when test="${((fn:length(menuContent[i]) lt 2) and (user_role != '[ROLE_ADMIN]')) or 'true' ne support_subMenu}">
+										<li><!-- if no content, no display, if has content(including spaces), then display -->
+											<c:if test="${fn:length(menuContent[i][0]) gt 0}" >
+												<c:choose>
+													<!-- if all space, the link use the same one as previous -->
+													<c:when test="${fn:trim(menuContent[i][0]) == ''}" > 
+														<c:set var="lastNonEmptyMenu" value="${lastNonEmptyMenu - 1}"/>
+														<a href="/menu_${lastNonEmptyMenu}">${menuContent[i][0]}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="/${menu_URL}">${menuContent[i][0]}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+											<util:changeText position="${menu_URL}" content="${menuContent[i][0]}" />
+										</li>
+								</c:when>
+								<c:otherwise>
+									<li class="dropdown">
+									  <c:choose>
+										<c:when test="${fn:length(menuContent[i]) lt 2}" >
+										  <a href="/${menu_URL}" onclick ="javascript:checkMenu('/${menu_URL}')" class="dropdown-toggle" data-toggle="dropdown" role="menuitem">${menuContent[i][0]}</a>
+										</c:when>
+										<c:otherwise>
+										  <a href="/${menu_URL}" class="dropdown-toggle" data-toggle="dropdown" role="menuitem">${menuContent[i][0]}</a>
+										</c:otherwise>
+									  </c:choose>
+
+										<util:changeText position="${menu_URL}" content="${menuContent[i][0]}" />
+										
+										<ul class="dropdown-menu" role="menu" aria-labelledby="menu${i+1}">
+											<c:set value="${fn:length(menuContent[i])}" var="subMenu_length" />
+											<c:forEach var="j" begin="1" end="${subMenu_length}" step="1">
+												<c:if test="${(menuContent[i][j] != null and menuContent[i][j] != '') or user_role == '[ROLE_ADMIN]'}">
+													<spring:url var="submenu_Url" value="menu_${i+1}_${j}" />
+													<li role="presentation">
+														<a href="/${submenu_Url}" onclick ="javascript:checkMenu('/${menu_URL}_${j}')" tabindex="${j}" role="menuitem">${menuContent[i][j]}</a>
+														<util:changeText position="${submenu_Url}" content="${menuContent[i][j]}" />
+														<!-- if has third level menu 
+														<ul class="dropdown-menu sub-menu">
+															<li><a href="#">Action</a></li>
+															<li class="divider"></li>
+															<li class="nav-header">Nav header</li>
+															<li><a href="#">One more separated link</a></li>
+														</ul>-->
+													</li>
+												</c:if>
+											</c:forEach>
+										</ul></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+				</ul>
+				<c:if test="${not empty show_SearchBox}">
+					<spring:url value="/searchServiceUrl" var="searchServiceUrl" />
+					<div class="hidden-xs navbar-search-desktop">
+						<form action="${searchServiceUrl}" method="POST" class="search-box-shell" style="margin: 0;">
+							<input type="text" id="searchContentDesktop" name="searchContent"
+								class="form-control" placeholder="Search services" />
+							<button id="searchServiceButtonDesktop" type="submit" title="Click to search services.">
+								<span class="glyphicon glyphicon-search"><!-- *_* --></span>
+							</button>
+						</form>
+					</div>
+				</c:if>
+			</div>
+		</nav>
+		<script type="text/javascript">
+		function checkMenu(value) {
+			//alert(window.location.href);
+			//alert(value);
+			if(!window.location.href.endsWith(value)){
+				var p = window.location.href.indexOf('taostyle');
+				if(p > 0){
+					window.location.href = window.location.href.substring(0, p+8) + value;
+				}else{
+					p = window.location.href.indexOf('/customizes/');
+					if(p > 0){
+						window.location.href = window.location.href.substring(0, p) + value;
+					}
+				}
+			}
+		}
+		</script>
+	</c:if>
+	<!-- /Navigation -->
+</div>

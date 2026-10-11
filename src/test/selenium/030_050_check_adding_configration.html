@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>020_050_check_adding_configration</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">020_050_check_adding_configration</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/taostyle/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a.navbar-brand &gt; img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTable</td>
+	<td>//div[@id='main']/div/div/table.1.0</td>
+	<td>app_name</td>
+</tr>
+<tr>
+	<td>verifyTable</td>
+	<td>//div[@id='main']/div/div/table.1.1</td>
+	<td>000clientForTest</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=img.btn.btn-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_cusKey_id</td>
+	<td>000_fortest_cusKey</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_cusValue_id</td>
+	<td>000_fortest_keyValue</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=dd</td>
+	<td>000_fortest_cusKey</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#_s_com_stgo_taostyle_domain_Customize_cusValue_id &gt; dd</td>
+	<td>000_fortest_keyValue</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//img[@alt='Customizes']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=td</td>
+	<td>000_fortest_cusKey</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div/table/tbody/tr/td[2]</td>
+	<td>000_fortest_keyValue</td>
+</tr>
+<tr>
+	<td>assertTable</td>
+	<td>//div[@id='main']/div/div/table.1.0</td>
+	<td>000_fortest_cusKey</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.btn.btn-danger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Are you sure want to delete this item?</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

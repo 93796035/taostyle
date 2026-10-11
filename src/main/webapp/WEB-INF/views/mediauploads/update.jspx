@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<form:update id="fu_com_stgo_taostyle_domain_MediaUpload"
+		modelAttribute="mediaupload" path="/mediauploads"
+		versionField="Version" z="user-managed">
+		<!-- if it's GE, display also the dispatch dropbox -->
+		<c:if
+			test="${fn:toLowerCase(pageContext['request'].userPrincipal.name) eq fn:toLowerCase(app_ContentManager)}">
+			<field:select field="audient" label="Distribute to"
+				id="c_com_stgo_taostyle_domain_Cart_audient" items="${revisers}"
+				path="/useraccounts" z="user-managed" />
+		</c:if>
+		<field:display field="filepath" label="File Name"
+			id="s_com_stgo_taostyle_domain_MediaUpload_filepath"
+			object="${mediaupload}" z="user-managed" />
+		<field:display field="filesize"
+			id="s_com_stgo_taostyle_domain_MediaUpload_filesize"
+			object="${mediaupload}" z="user-managed" />
+		<field:display field="contentType"
+			id="s_com_stgo_taostyle_domain_MediaUpload_contentType"
+			object="${mediaupload}" z="user-managed" />
+		<field:textarea field="filepath" label="Comment"
+			id="c_com_stgo_taostyle_domain_MediaUpload_filepath" required="true"
+			z="user-managed" />
+		<!-- <field:input field="filesize" id="c_com_stgo_taostyle_domain_MediaUpload_filesize" z="user-managed"/>
+        <field:input field="contentType" id="c_com_stgo_taostyle_domain_MediaUpload_contentType" z="user-managed"/>
+        <field:input field="content" id="c_com_stgo_taostyle_domain_MediaUpload_content" z="user-managed"/> -->
+		<a class="btn btn-sm col-sm-4 btn-black" style="margin-left: 180px"
+			href="javascript:showUpload()" title="upload new documents.">
+			Upload a revised vdersion </a>
+	</form:update>
+
+	<script type="text/javascript">
+		function showUpload() {
+			$('#windowTitleDialog').modal('show');
+		}
+	</script>
+
+	<!-- the pop up window! -->
+	<div class="modal fade" style="display: none" id="windowTitleDialog"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">X</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<b>Please click the 'Browse...' button</b>: to select a file from
+						disk!
+					</h4>
+				</div>
+				<spring:url value="/mediauploads" var="form_url" />
+				<springform:form action="${form_url}" method="POST"
+					modelAttribute="mediaUpload" enctype="multipart/form-data">
+					<div class="modal-body col-xs-4 padding-top-5px"
+						style="vertical-align: middle;">
+						<input type="file" name="content" /> 
+						<input type="hidden" name="position" value="personalDocument" /> 
+						<input name="returnPath" type="hidden" value="${returnPath}" />
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" type="submit">Upload</button>
+					</div>
+				</springform:form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>

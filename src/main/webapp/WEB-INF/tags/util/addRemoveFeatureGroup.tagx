@@ -1,0 +1,55 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:springform="http://www.springframework.org/tags/form"
+	version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="if not null then the role will also be allowed to modify." />
+
+	<c:if test="${empty render or render}">
+		<c:if test="${user_role == '[ROLE_ADMIN]' or (not empty allowedLevel and user_role eq allowedLevel)}">
+			<div class="span1" align="center" style="z-index: 1000;">
+			
+				<c:set var="length" value="${fn:length(refForDelete)}"/>
+				<c:if test="${length > 0}">
+					<spring:url value="/deleteFeatureGroup" var="form_url_delete" />
+					<form action="${form_url_delete}" method="POST">
+						<select name="refMenuIdxForDelete" id = "refMenuIdxForDelete">
+							<c:forEach var="i" begin="0" end="${length - 1}" step="1">
+								<option value="${refForDelete[i]}" >menu_${refForDelete[i]}</option>
+							</c:forEach>
+						</select>
+						<button type="submit">
+							<spring:url value="/resources/images/delete.png" var="content_img_url" />
+							<img src="${content_img_url}" title="click me to remove a selected group from above area." />
+						</button>
+					</form>
+				</c:if>
+				
+				<c:set var="length" value="${fn:length(menusForRef)}"/>
+				<c:if test="${length > 0}">
+					<spring:url value="/feature" var="form_url" />
+					<form action="${form_url}" method="POST">
+						<select name="refMenuIdx" id = "refMenuIdx">
+							<c:forEach var="i" begin="0" end="${length - 1}" step="1">
+								<option value="${menusForRef[i]}" >menu_${menusForRef[i]}</option>
+							</c:forEach>
+						</select>
+						<button type="submit">
+							<spring:url value="/resources/images/add.png" var="content_img_url" />
+							<img src="${content_img_url}" title="click me to add a new group into this area." />
+						</button>
+					</form>
+				</c:if>
+			</div>
+		</c:if>
+	</c:if>
+</jsp:root>

@@ -1,0 +1,52 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="position" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="Indicate where the contents will be pu onto" />
+	<jsp:directive.attribute name="content" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="Indicate current content" />
+	<jsp:directive.attribute name="richText" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="Indicate if rich editor needed" />
+	<jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="if not null then the role will also be allowed to modify." />
+
+	<c:if test="${empty render or render}">
+		<c:if test="${user_role == '[ROLE_ADMIN]' or (not empty allowedLevel and user_role eq allowedLevel)}">
+			<div class="span1" style="position: absolute; z-index: 1000">
+				<c:if test="${richText eq 'true'}">
+					<spring:url var="form_url" value="/changeContentForm">
+						<spring:param name="position" value="${position}" />
+					</spring:url>
+					
+					<a type="submit" href="${fn:escapeXml(form_url)}" style="display:inline-block; line-height:1;"> 
+						<spring:url value="/resources/images/changeText.png" var="content_img_url" /> 
+						<img src="${content_img_url}" style="display:block;" title="click me to modify the text of this area." />
+					</a>
+				</c:if>
+				<c:if test="${richText ne 'true' }">
+					<spring:url value="/changeTextForm" var="form_url" />
+					<form action="${fn:escapeXml(form_url)}" method="POST">
+						<input type="hidden" name="position" value="${position}" /> 
+						<input type="hidden" name="content" value="${content}" />
+						<!--because complex content may cause the display error. ${fn:length(content) > 1000 ? '' : content} -->
+
+						<button type="submit" style="padding:0; border:0; background:transparent; line-height:1; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+							<spring:url value="/resources/images/changeText.png" var="content_img_url" />
+							<img src="${content_img_url}" style="display:block;" title="click me to modify the text of this area." />
+						</button>
+					</form>
+				</c:if>
+			</div>
+		</c:if>
+	</c:if>
+</jsp:root>

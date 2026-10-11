@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/taostyle" />
+<title>login in with client user</title>
+</head>
+<body>
+	<table cellpadding="1" cellspacing="1" border="1">
+		<thead>
+			<tr>
+				<td rowspan="1" colspan="3">login in with client user</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>open</td>
+				<td>/taostyle/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>css=a &gt; span</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_username</td>
+				<td>seleniumClient</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>id=j_password</td>
+				<td>1234</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>id=proceed</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=PRODUCT</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=TEST FOR PDF</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;image&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]/div</td>
+				<td>exact:N:nokia</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr/td</td>
+				<td>exact:PK:japan</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr[2]/td</td>
+				<td>exact:P:</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr[3]/td</td>
+				<td>exact:W:</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]/div[2]</td>
+				<td>exact:C:123</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;3d barcode&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;2d barcode&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=SERVICE</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]</td>
+				<td>exact:used to test when pop up contains a image, will it be
+					able to chang again?</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;image&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>css=img[alt=&quot;image&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=×</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=TEST FOR PDF</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>selectWindow</td>
+				<td>null</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>css=td</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=PRODUCT</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=TEST FOR PDF</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=SERVICE</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Service One</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='gridview']/table/tbody/tr/td/table/tbody/tr/td[2]</td>
+				<td>exact:used to test when pop up contains a image, will it be
+					able to chang again?</td>
+			</tr>
+			<tr>
+				<td>click</td>
+				<td>link=GALLERY</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=new jersey</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=img[alt=&quot;Image&quot;]</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=ABOUT US</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div[2]/div/div/div[2]/font</td>
+				<td>this is the sub title</td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>//div[@id='main']/div[2]/div/div/div[2]</td>
+				<td>this is the sub title<br />this is the content, I am
+					making it longger, so it looks more like some real stuff.<br />this
+					is another sub title<br />again this is content. I am tired to
+					make it longer to make it looks nice.\<br />--- this is mama's
+					favorite color
+				</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=FORUM</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=CONTACT US</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>assertText</td>
+				<td>css=div.span3 &gt; table &gt; tbody &gt; tr &gt; td &gt;
+					div</td>
+				<td>open hours:</td>
+			</tr>
+			<tr>
+				<td>clickAndWait</td>
+				<td>link=Logout</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

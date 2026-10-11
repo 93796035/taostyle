@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="020_011_login_as_new_client.html">020_011_login_as_new_client</a></td></tr>
+<tr><td><a href="030_030_give_basic_text_to_client.html">030_030_give_basic_text_to_client</a></td></tr>
+<tr><td><a href="030_040_give_basic_image_to_client.html">030_040_give_basic_image_to_client</a></td></tr>
+<tr><td><a href="030_050_check_adding_configration.html">030_050_check_adding_configration</a></td></tr>
+<tr><td><a href="030_070_adding_img_for_menu4.html">030_060_testing_style2</a></td></tr>
+<tr><td><a href="030_061_adding_img_for_menu4.html">030_061_adding_img_for_menu4</a></td></tr>
+<tr><td><a href="030_062_setting_feature_of_the_day.html">030_062_setting_feature_of_the_day</a></td></tr>
+<tr><td><a href="030_070_adding_img_for_menu4.html">030_070_testing_style3</a></td></tr>
+<tr><td><a href="030_071_adding_img_for_submenu.html">030_071_adding_img_for_submenu</a></td></tr>
+<tr><td><a href="030_080_generate_qrcode.html">030_080_generate_qrcode</a></td></tr>
+<tr><td><a href="020_100_logout_as_new_client.html">020_100_logout_as_new_client</a></td></tr>
+</tbody></table>
+</body>
+</html>

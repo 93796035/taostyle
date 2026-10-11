@@ -1,0 +1,102 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<spring:url var="music" value="/resources/images/MountainStream.wma" />
+	<bgsound src="${music}" />
+
+
+	<table align="center">
+		<c:if test="${flashpage_w > 0}">
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="getImage/game_congratulations" width="200"
+					height="300" border="0" usemap="#Map" />
+				<util:changeImg position="game_congratulations" /> <!-- the status bar and the input field -->
+					<div id="inputArea"
+						style="background: black; top: 600px; width: 1380px; height: 38px; left: 0px; position: absolute;">
+						<label id="status"
+							style="left: 0px; top: 5px; position: absolute;">Status:</label>
+						<input id="inputfield" type="input"
+							style="color: black; left: 600px; top: 5px; position: absolute;" />
+					</div> <script>
+				var timerForContinue;
+				var startTime;
+				var frameTime = 500;
+				var dur = 20 * 1000;
+			
+				findDimensions();
+				window.onresize=findDimensions;
+				
+				start();
+				
+				var winWidth=0;
+				var winHeight=0;
+				
+				function findDimensions(){
+					if(window.innerWidth)
+						winWidth=window.innerWidth;
+					else if((document.body) &amp; (document.body.clientWidth))
+						winWidth=document.body.clientWidth;
+					//get height.
+					if(window.innerHeight)
+						winHeight=window.innerHeight;
+					else if((document.body) &amp; (document.body.clientHeight))
+						winHeight=document.body.clientHeight;
+					//nasty hack to deal with doctype swith in IE
+					if(document.documentElement &amp; document.documentElement.clientHeight &amp; document.documentElement.clientWidth){
+						winHeight=document.documentElement.clientHeight;
+						winWidth=document.documentElement.clientWidth;
+					}
+					document.getElementById("inputArea").style.top = (winHeight - 50) + "px";
+				}
+				
+				
+		        //run the animation from beginning, the fox start moving from left, the work start moving from left.
+		        //set the content of the content every time.
+				function start() {
+					//reset the time and start chase and run.
+					startTime = new Date;
+					timerForContinue = setInterval(checkinput, frameTime);
+				}
+		        
+				function checkinput(time) {
+					//for debug (quik jump over)
+					if(document.getElementById("inputfield").value.length != 0){
+						document.getElementById("inputfield").value = '';
+				        //stop chasing.
+						clearTimeout(timerForContinue);
+						//start hitting.
+						window.location.href="http://play-rightnow.rhcloud.com";
+					}
+					//if not matching, then check if has reached end, if not, keep moving; if reached, show smile.
+					else{
+						var per = (new Date - startTime) / dur;
+						
+						//go on moving.
+						if(per > 1.2) {
+							clearTimeout(timerForContinue);
+							window.location.href="http://play-rightnow.rhcloud.com/";
+						}else{
+							document.getElementById("inputfield").focus();
+						}
+					}
+				}
+ 			</script></td>
+			</tr>
+		</c:if>
+	</table>
+
+</div>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<form:update id="fu_com_stgo_taostyle_domain_TaxonomyMaterial"
+		modelAttribute="taxonomyMaterial" path="/taxonomymaterials"
+		versionField="Version" z="5DLzx0rdRF2lzILCdIratHHZ3Q0=">
+		<field:select field="mainOrder"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_mainOrder"
+			itemValue="id" items="${mainorders}" path="/mainorders"
+			required="true" z="o00rNJeVayVBjy2JqNKSKlQvqvc=" />
+		<field:input field="itemName"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_itemName"
+			required="true" z="CFSq6SIPuDq21tqVLBmOO7fuYlY=" />
+		<field:input field="quality"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_quality"
+			z="KTPu2WMCIAkOYIx9jxSVGH4g5IE=" />
+		<field:input field="specification"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_specification"
+			z="UU1TqKGp7WFNeub5q/I98d7iUnE=" />
+		<field:input field="color"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_color"
+			z="frzMg3a5pi18jth1+yToNdusIDU=" />
+		<field:input field="quantity"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_quantity"
+			z="UlV9XmKJWceumu5Fan1nLYskb40=" />
+		<field:input field="location"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_location"
+			z="VhM6cpPSrXR8w9I/ax3Gkl/Ak+Y=" />
+		<field:input field="remark"
+			id="c_com_stgo_taostyle_domain_TaxonomyMaterial_remark"
+			z="NXXUWjzV1HcR8I4U5WsqUhJ9/lw=" />
+	</form:update>
+</div>

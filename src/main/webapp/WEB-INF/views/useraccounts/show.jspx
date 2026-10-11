@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:show id="ps_com_stgo_taostyle_domain_UserAccount"
+		object="${useraccount}" path="/useraccounts" z="user-managed">
+		<field:display field="loginname"
+			id="s_com_stgo_taostyle_domain_UserAccount_loginname"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="tel"
+			id="s_com_stgo_taostyle_domain_UserAccount_tel"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="fax"
+			id="s_com_stgo_taostyle_domain_UserAccount_fax"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="email"
+			id="s_com_stgo_taostyle_domain_UserAccount_email"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="companyname"
+			id="s_com_stgo_taostyle_domain_UserAccount_companyname"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="cel"
+			id="s_com_stgo_taostyle_domain_UserAccount_cel"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="address"
+			id="s_com_stgo_taostyle_domain_UserAccount_address"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="city"
+			id="s_com_stgo_taostyle_domain_UserAccount_city"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="postcode"
+			id="s_com_stgo_taostyle_domain_UserAccount_postcode"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="credit"
+			id="s_com_stgo_taostyle_domain_UserAccount_credit"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="balance"
+			id="s_com_stgo_taostyle_domain_UserAccount_balance"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="description"
+			id="s_com_stgo_taostyle_domain_UserAccount_description"
+			object="${useraccount}" z="user-managed" />
+		<field:display field="securitylevel"
+			id="s_com_stgo_taostyle_domain_UserAccount_securitylevel"
+			object="${useraccount}" z="user-managed" />
+	</page:show>
+</div>

@@ -1,0 +1,52 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<div style="margin: 50px;" align="center">${subpageContent}</div>
+	<util:edit position="location_${menuIdx}_content" content="${subpageContent}" richText="true" />
+	<br/>
+	<div class="row" style="margin-left:${margin_left}px; margin-right: ${margin_right}px; margin-top: ${show_4_Object}px; margin-bottom: ${show_4_Object}px">
+		<c:set var="length" value="${fn:length(text_Contact_Contents)}"/>
+		<c:if test="${user_role == '[ROLE_ADMIN]'}">
+			<c:set var="length" value="${MAP_NUM}"/>
+		</c:if>
+		<c:forEach var="i" begin="1" end="${length}" step="1">
+			<div class="col-xs-${MAP_NUM_XS} col-sm-${MAP_NUM_SM} col-md-${MAP_NUM_MD} col-lg-${MAP_NUM_LG}" style="text-align: center;">
+				<c:if test="${not empty text_Contact_Titles[i] or user_role == '[ROLE_ADMIN]'}" >
+		        	<div>${text_Contact_Titles[i]}</div> 
+		        	<util:edit position="text_Contact_Titles_${i}" content="${text_Contact_Titles[i]}" richText="true"/>
+		        	<br/>
+		        </c:if>
+		        <c:if test="${not empty MAP_POS_X[i] and not empty MAP_POS_Y[i]}">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2795.7625427245293!2d${MAP_POS_Y[i]}!3d${MAP_POS_X[i]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sca!4v1557717858487!5m2!1sen!2sca"
+					 width="${MAP_w}" height="450" frameborder="4" style="border:4px solid black;">
+					 <!-- for firefox and chrome -->
+					 </iframe>
+				</c:if>
+				<c:if test="${not empty MAP_POS[i] or user_role == '[ROLE_ADMIN]'}">
+					  <iframe src="https://www.google.com/maps/embed?pb=${MAP_POS[i]}"
+					   width="${MAP_w}" height="450" style="border:0;" allowfullscreen="" loading="lazy">					 <!-- for firefox and chrome -->
+					   </iframe>
+				</c:if>
+				<c:if test="${not empty text_Contact_Contents[i] or user_role == '[ROLE_ADMIN]'}" >
+		          	<div align="left">${text_Contact_Contents[i]}</div> 
+		          	<util:edit position="text_Contact_Contents_${i}" content="${text_Contact_Contents[i]}" richText="true"/>
+		        </c:if>
+			</div>
+		</c:forEach>	
+		
+		<c:if test="${client != null and (client.name eq 'for_demo' or client.name eq 'stgo') and not empty hosted_button_id}">
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<input type="hidden" name="cmd" value="_s-xclick"/>
+				<input type="hidden" name="hosted_button_id" value="${hosted_button_id}"/>
+				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
+				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"/>
+			</form>
+		</c:if>
+	</div>
+
+</div>

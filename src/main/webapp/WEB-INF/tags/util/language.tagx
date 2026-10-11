@@ -1,0 +1,46 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="locale" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="The locale for the language to be added." />
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+
+	<c:if test="${empty render or render}">
+		<spring:url var="url" value="">
+			<c:if test="${null ne param.form}">
+				<spring:param name="form" />
+			</c:if>
+			<c:if test="${not empty param.find}">
+				<spring:param name="find" value="${param.find}" />
+			</c:if>
+			<spring:param name="lang" value="${locale}" />
+			<c:if test="${not empty param.page}">
+				<spring:param name="page" value="${param.page}" />
+			</c:if>
+			<c:if test="${not empty param.size}">
+				<spring:param name="size" value="${param.size}" />
+			</c:if>
+		</spring:url>
+		<a href="${url}" style="color: #${background_menu}; padding-right: 25px; padding-left: 25px"> 
+			<c:if test="${true eq indicate_language_with_img}">
+				<spring:url var="img" value="/resources/images/${locale}.png" />
+				<img class="flag" src="${img}" alt="${fn:toUpperCase(locale)}" />
+			</c:if>
+			<c:if test="${true ne indicate_language_with_img}">
+      			<c:if test="${'ZH' eq fn:toUpperCase(locale)}">
+      				<spring:message  code="lang_ZH" htmlEscape="false" />
+      			</c:if>
+      			<c:if test="${'ZH' ne fn:toUpperCase(locale)}">
+      				${fn:toUpperCase(locale)}
+      			</c:if>
+	    	</c:if>
+		</a>
+		<c:out value=" " />
+	</c:if>
+</jsp:root>

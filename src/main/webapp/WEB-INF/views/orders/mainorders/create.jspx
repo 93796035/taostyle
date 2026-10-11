@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:springform="http://www.springframework.org/tags/form"
+	version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<div class="gallery"
+		style="background:#${background_subpage}; opacity:${subpage_opacity}; padding: 20px">
+		<spring:message arguments="Main Order" code="entity_create"
+			var="title_msg" htmlEscape="false" />
+		<legend>${title_msg}</legend>
+		<table>
+			<tbody>
+				<tr>
+					<td align="center" style="width: 350px;"><c:if
+							test="${not empty Update_ErrorMessage}">
+							<div style="color: red">${Update_ErrorMessage}</div>
+						</c:if> <spring:url value="/mainorders" var="form_url" /> <springform:form
+							modelAttribute="mainOrder" action="${form_url}" method="POST">
+							<table>
+								<tr>
+									<td>Client :</td>
+									<td><springform:select path="client" name="client"
+											style="width:164px">
+											<c:forEach items="${clients}" var="item">
+												<springform:option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</springform:option>
+											</c:forEach>
+										</springform:select></td>
+								</tr>
+								<tr>
+									<td>clientSideOrderNumber :</td>
+									<td><input id="clientSideOrderNumber"
+										name="clientSideOrderNumber" style="width: 150px" type="text"
+										value="${mainOrder['clientSideOrderNumber']}" /></td>
+								</tr>
+								<tr>
+									<td>clientSideModelNumber :</td>
+									<td><input id="clientSideModelNumber"
+										name="clientSideModelNumber" style="width: 150px" type="text"
+										value="${mainOrder['clientSideModelNumber']}" /></td>
+								</tr>
+								<tr>
+									<td>Model :</td>
+									<td><input id="model" name="model" style="width: 150px"
+										type="text" value="${mainOrder['model']}" /></td>
+								</tr>
+								<tr>
+									<td>productName :</td>
+									<td><input id="productName" name="productName"
+										style="width: 150px" type="text"
+										value="${mainOrder['productName']}" /></td>
+								</tr>
+								<tr>
+									<td>contactPerson :</td>
+									<td><springform:select path="contactPerson"
+											name="contactPerson" style="width:164px">
+											<c:forEach items="${useraccounts}" var="item">
+												<springform:option value="${item}">
+													<spring:eval expression="item.toString()" />
+												</springform:option>
+											</c:forEach>
+										</springform:select></td>
+								</tr>
+
+								<tr>
+									<td>quantity :</td>
+									<td><input id="quantity" name="quantity"
+										style="width: 150px" type="text"
+										value="${mainOrder['quantity']}" /></td>
+								</tr>
+								<tr>
+									<td>payCondition :</td>
+									<td><input id="payCondition" name="payCondition"
+										style="width: 150px" type="text"
+										value="${mainOrder['payCondition']}" /></td>
+								</tr>
+
+								<c:if
+									test="${user_role eq '[ROLE_EMPLOYEE]' or user_role eq '[ROLE_ADMIN]'}">
+								</c:if>
+								<tr>
+									<td style="width: 200px;">ColorProportionReceived :</td>
+									<td><input id="colorProportionReceived"
+										name="colorProportionReceived" style="width: 150px"
+										type="text" value="${mainOrder['colorProportionReceived']}" /></td>
+								</tr>
+								<tr>
+									<td>delieverdate :</td>
+									<td><input id="delieverdate" name="delieverdate"
+										style="width: 150px" type="text" value="${deliverdate}" /></td>
+								</tr>
+								<script>
+						$(function(){
+							$('#delieverdate').datepicker();
+						});
+					</script>
+
+
+								<tr>
+									<td>sizeTable :</td>
+									<td><input id="sizeTable" name="sizeTable"
+										style="width: 150px" type="text"
+										value="${mainOrder['sizeTable']}" /></td>
+								</tr>
+								<tr>
+									<td>colorCard :</td>
+									<td><input id="colorCard" name="colorCard"
+										style="width: 150px" type="text"
+										value="${mainOrder['colorCard']}" /></td>
+								</tr>
+								<tr>
+									<td>testRequirement :</td>
+									<td><input id="testRequirement" name="testRequirement"
+										style="width: 150px" type="text"
+										value="${mainOrder['testRequirement']}" /></td>
+								</tr>
+								<tr>
+									<td>sampleRequirement :</td>
+									<td><input id="sampleRequirement" name="sampleRequirement"
+										style="width: 150px" type="text"
+										value="${mainOrder['sampleRequirement']}" /></td>
+								</tr>
+								<tr>
+									<td>Remark :</td>
+									<td><input id="remark" name="remark" style="width: 150px"
+										type="text" value="${mainOrder['remark']}" /></td>
+								</tr>
+
+								<tr>
+									<td colspan="2"><hr /></td>
+								</tr>
+								<tr>
+									<td align="center" colspan="2">
+										<spring:message code="button_submit" htmlEscape="false"
+											var="submit_label" /> <input
+										class="btn btn-sm col-sm-4 btn btn-primary move-right"
+										id="proceed" type="submit"
+										value="${fn:escapeXml(submit_label)}" /></td>
+								</tr>
+							</table>
+						</springform:form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 
+    <form:create id="fc_com_stgo_taostyle_domain_MainOrder" modelAttribute="mainOrder" path="/mainorders" render="${empty dependencies}" z="GagTIzkIZXOSIjXVMvEDQO1LZAY=">
+        <field:select field="client" id="c_com_stgo_taostyle_domain_MainOrder_client" itemValue="id" items="${clients}" path="/useraccounts" required="true" z="vAXi5mM+XQEcAZ3lzysixS/x5oo="/>
+        <field:input field="clientSideOrderNumber" id="c_com_stgo_taostyle_domain_MainOrder_clientSideOrderNumber" z="CA5eMQHS9kTh2qTzrqpUwKJsnSc="/>
+        <field:input field="clientSideModelNumber" id="c_com_stgo_taostyle_domain_MainOrder_clientSideModelNumber" z="l95scG0nep3d/onJKhJ0/oolBE0="/>
+        <field:input field="model" id="c_com_stgo_taostyle_domain_MainOrder_model" z="hTj45nriHE8cw4Pa3IM0IR+yIE0="/>
+        <field:input field="productName" id="c_com_stgo_taostyle_domain_MainOrder_productName" z="yW8vJO7hJ1V45E+4qtxne5T7pec="/>
+        <field:select field="contactPerson" id="c_com_stgo_taostyle_domain_MainOrder_contactPerson" itemValue="id" items="${useraccounts}" path="/useraccounts" z="yfwS7Or/fK2oGRYUxkh1PTdmIXk="/>
+        <field:input field="quantity" id="c_com_stgo_taostyle_domain_MainOrder_quantity" z="qU0uzdJP+WWgCfcBwB27wCKnmhs="/>
+        <field:input field="payCondition" id="c_com_stgo_taostyle_domain_MainOrder_payCondition" z="kx3/yzqFow2waDy9aKfsSaVG+mA="/>
+        <field:checkbox field="colorProportionReceived" id="c_com_stgo_taostyle_domain_MainOrder_colorProportionReceived" z="zuOY1wCa6NlYXDILBLEfsgi7pq0="/>
+        <field:datetime dateTimePattern="${mainOrder_delieverdate_date_format}" field="delieverdate" id="c_com_stgo_taostyle_domain_MainOrder_delieverdate" z="R5Qsw+j6NoLDk+WqvKvE007fw4k="/>
+        <field:input field="sizeTable" id="c_com_stgo_taostyle_domain_MainOrder_sizeTable" z="sTRwPZU33hjNW5hKc+ahbMgDYP4="/>
+        <field:input field="colorCard" id="c_com_stgo_taostyle_domain_MainOrder_colorCard" z="ZECKOpMditLqmOSVacQ/YITyiUA="/>
+        <field:input field="testRequirement" id="c_com_stgo_taostyle_domain_MainOrder_testRequirement" z="8FzM92wKKmnkqQB5dYWXhlZ9/mM="/>
+        <field:input field="sampleRequirement" id="c_com_stgo_taostyle_domain_MainOrder_sampleRequirement" z="de17guJ9t8qifSvFG3uhU+wxcV4="/>
+        <field:input field="Remark" id="c_com_stgo_taostyle_domain_MainOrder_Remark" z="QbkGtTizLiRL/pPYa/Ow+56VW2c="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_com_stgo_taostyle_domain_MainOrder" render="${not empty dependencies}" z="WzP6ht8jQS1uy2Zr1iKPvY7xawc="/>
+     -->
+
+</div>

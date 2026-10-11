@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>030_090_adding_img_for_menu_3_2</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">030_090_adding_img_for_menu_3_2</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/taostyle/menu_3_2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[18]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\6.JPG</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[18]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\0403_2.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[18]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\0403_4.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=img[alt=&quot;image&quot;]</td>
+	<td></td>
+</tr>
+<!--add sub menus for menu_3-->
+<tr>
+	<td>click</td>
+	<td>link=CATALOGUE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=li.dropdown.open &gt; ul.dropdown-menu &gt; li &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeTextBox &gt; div.modal-dialog &gt; div.modal-content &gt; form &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CATALOGUE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[9]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>点心</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeTextBox &gt; div.modal-dialog &gt; div.modal-content &gt; form &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CATALOGUE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[10]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>主食</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeTextBox &gt; div.modal-dialog &gt; div.modal-content &gt; form &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CATALOGUE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[11]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>套餐</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeTextBox &gt; div.modal-dialog &gt; div.modal-content &gt; form &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=a.accordion-toggle</td>
+	<td>今日推荐</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'点心')])[2]</td>
+	<td>点心</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'主食')])[2]</td>
+	<td>主食</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'套餐')])[2]</td>
+	<td>套餐</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'主食')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[27]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\second course\B2.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[27]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\second course\B1.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[27]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\second course\B6.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'套餐')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[27]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\first course\2.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[@name='content'])[27]</td>
+	<td>C:\Users\admin\Dropbox\BK\clientsInfo\menu picture\first course\4.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeImgBox &gt; div.modal-dialog &gt; div.modal-content &gt; #mediaUpload &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a.accordion-toggle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=refMenuIdx</td>
+	<td>label=menu_3_2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#main &gt; div &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=refMenuIdx</td>
+	<td>label=menu_3_3</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[29]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=refMenuIdx</td>
+	<td>label=menu_3_4</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[29]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=refMenuIdx</td>
+	<td>label=menu_3_4</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[29]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=refMenuIdxForDelete</td>
+	<td>label=menu_3_4</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#main &gt; div &gt; div.span1 &gt; form &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[type=&quot;submit&quot;] &gt; img[title=&quot;click me to modify the text of this area.&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=editor</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//form[@id='richEditorForm']/div/div/div[6]/a[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#33-gridview &gt; div &gt; div</td>
+	<td>once tried, never forget.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#34-gridview &gt; div.span1 &gt; a[type=&quot;submit&quot;] &gt; img[title=&quot;click me to modify the text of this area.&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=i.icon-align-center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#35-gridview &gt; div.span1 &gt; a[type=&quot;submit&quot;] &gt; img[title=&quot;click me to modify the text of this area.&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//form[@id='richEditorForm']/div/div/div[6]/a[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#editor &gt; div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#editor &gt; div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

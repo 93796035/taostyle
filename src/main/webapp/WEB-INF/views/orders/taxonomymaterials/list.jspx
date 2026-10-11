@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:list id="pl_com_stgo_taostyle_domain_TaxonomyMaterial"
+		items="${taxonomymaterials}" z="1KaQTYKVQn7zx7IAPN7N+CW6Pyc=">
+		<table:table data="${taxonomymaterials}" delete="false"
+			id="l_com_stgo_taostyle_domain_TaxonomyMaterial"
+			parentItemId="${mainOrderId}" path="/taxonomymaterials"
+			z="user-managed">
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterial_mainOrder"
+				property="mainOrder" z="O3b55ieFyHPftb/Cvh74AvfhI6k=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterial_itemName"
+				property="itemName" z="OHX8j3Vmvo5uXClB5ISgpwB6TlA=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterial_quality"
+				property="quality" z="y6VITjwEx45BPLXb7YcaPaeJNmo=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterial_specification"
+				property="specification" z="kHDUXvw7UzlQjvgB8kNK0xqavSk=" />
+			<table:column id="c_com_stgo_taostyle_domain_TaxonomyMaterial_color"
+				property="color" z="ckuUjIxmyqtjsyEbTW0MKpwnR+Y=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterial_quantity"
+				property="quantity" z="k9Br7kDDis3Xvgci+bl9V/qmaeA=" />
+		</table:table>
+	</page:list>
+</div>

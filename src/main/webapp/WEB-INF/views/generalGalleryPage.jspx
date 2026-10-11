@@ -1,0 +1,87 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/css/blueimp-gallery.min.css"
+		var="blueimp_gallery" />
+	<link rel="stylesheet" href="${blueimp_gallery}" />
+
+	<!-- don't display by default -->
+	<c:set value=" col-xs-12 col-sm-12 col-md-12 col-lg-12" var="span" />
+	<c:set value="0px" var="leftmargin" />
+	
+	<!-- if have menu, then display -->
+	<c:if test="${not empty subMenu}">
+		<c:set value="col-xs-12 col-sm-8 col-md-9 col-lg-9" var="span" />
+		<c:set value="0px" var="leftmargin" />
+	</c:if>
+	
+	<!-- Main Content -->
+	<div id="links" class="gallery ${span}" align="center" style="color:#${background_foot}; 
+		margin-left:${leftmargin}; padding-top:30px; padding-bottom:30px; 
+   		background:#${background_subpage}; opacity:${subpage_opacity}; float:right">
+		<c:forEach var="i" begin="1" end="${pictureAmount}" step="1">
+			<a href="getImage/gallery_${menuIdx}_${i}" data-gallery="_">
+				<img src="getImage/gallery_${menuIdx}_${i}_thum" alt="Image" />
+			</a>
+		</c:forEach>
+	</div>
+	
+	<util:adjustImages position="gallery_${menuIdx}" allowedLevel="[ROLE_EMPLOYEE]"/>
+	
+	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+	<div id="blueimp-gallery" class="blueimp-gallery">
+		<!-- The container for the modal slides -->
+		<div class="slides">
+			<!-- required for FF3 and Opera -->
+		</div>
+		<!-- Controls for the borderless lightbox -->
+		<h3 class="title">
+			<!-- required for FF3 and Opera -->
+		</h3>
+		<a class="prev">‹</a> <a class="next">›</a> <a>X</a> <a
+			class="play-pause">
+			<!-- required for FF3 and Opera -->
+		</a>
+		<ol class="indicator">
+			<!-- required for FF3 and Opera -->
+		</ol>
+
+		<!-- The modal dialog, which will be used to wrap the lightbox content -->
+		<div class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" aria-hidden="true">X</button>
+						<h4 class="modal-title">
+							<!-- required for FF3 and Opera -->
+						</h4>
+					</div>
+					<div class="modal-body next">
+						<!-- required for FF3 and Opera -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default pull-left prev">
+							<i class="glyphicon glyphicon-chevron-left">
+								<!-- required for FF3 and Opera -->
+							</i> Previous
+						</button>
+						<button type="button" class="btn btn-primary next">
+							Next <i class="glyphicon glyphicon-chevron-right">
+								<!-- required for FF3 and Opera -->
+							</i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<spring:url value="/resources/js-lib/jquery.blueimp-gallery.min.js"
+			var="blueimpjs" />
+		<script src="${blueimpjs}"><!-- required for FF3 and Opera --></script>
+
+	</div>
+</div>

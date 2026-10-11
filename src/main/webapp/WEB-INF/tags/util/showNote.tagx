@@ -1,0 +1,225 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="Indicate the level of user who could add note for a selected item." />
+	
+	<c:if test="${'true' == support_note}">
+		<a id="luanchNoteDlg" class="hide" href="#windowNoteDialog" data-toggle="modal" />
+	
+		<div id="windowNoteDialog" class="gallery modal hide fade in col-xs-12 col-sm-10 col-md-8 col-lg-6"
+			aria-hidden="true" aria-labelledby="windowTitleLabel" role="dialog" tabindex="-1"
+			style="background:#${background_pop}; opacity:${pop_opacity};">
+			
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal" href="#">
+					<spring:url value="/resources/images/close.png" var="close_img_url" />
+					<img alt="X" src="${close_img_url}" />
+				</a>
+			</div>
+			<div id="div_service_text" class="modal-body"
+				style="max-height: 600px; color: #ffffff">
+				<!-- firefox -->
+			</div>
+			
+			<c:set var="isAboveManager"  value="false" />
+			<c:if test="${user_role == '[ROLE_ADMIN]'  or user_role == '[ROLE_MANAGER]'}">
+				<c:set var="isAboveManager"  value="true" />
+			</c:if>
+	
+			<div class="row" style="margin-left:10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px">
+			
+				<c:if test="${availableNotes ne null}">
+					<c:set var="subLength" value="${fn:length(availableNotes)}"/> <!-- this page is first initialized when initializing the service page and the feature page. -->
+				</c:if>
+				
+				<c:if test="${subLength > 0 }">
+	 	 
+				  	<c:forEach var="i" begin="0" end="${subLength-1}" step="1">
+				        
+				 	    <c:set var="noteIdx"  value="${i}" /> <!-- we need to prepare the key for each note(public + private), when they get together, it's hard to give them an ID, because the length of public note might 
+				 	    increase..........so how about 1~99 are for public, 100+ for private? no..........seems have to foget the public notes all private note!  -->
+				  		
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						 
+					  		<c:set var="opacity" value="1"/>
+
+							<!-- note text -->
+							<c:if test="${not empty availableNotes[i]}" >
+					          	<span id="des_note-${noteIdx}" align="left" style="opacity:${opacity}">${fn:trim(availableNotes[i])}</span> 
+					        </c:if>
+					        <Span>------------</Span>					        
+					        <!-- selection controllers -->
+					        <c:if test="${'true' eq show_note_cBox or 'true' eq isAboveManager}">
+					        	<!-- visibility control -->
+						    	<c:set var="visibility" value="${(empty visibleNoteList[i] or visibleNoteList[i] eq '1') ? 'visible' : 'hidden'}" />
+						    	<c:choose>
+						    	  <c:when test = "${support_times_note ne true or 'true' eq isAboveManager}">
+							    	<c:choose>
+										<c:when test="${not empty visibleNoteList and not empty visibleNoteList[i]}">
+											<input id="check_note-${noteIdx}" type="checkbox" name="${noteIdx}" style="width:80px; height:20px;"
+											 checked="checked" onclick="javascript:updateNoteStatus('${noteIdx}','${user_role}','check', xxx, ${tax_rate})" />
+								       	</c:when>
+								        <c:otherwise>
+											<input id="check_note-${noteIdx}" type="checkbox" name="${noteIdx}" style="width:80px; height:20px; "
+											                   onclick="javascript:updateNoteStatus('${noteIdx}','${user_role}','check', ${tax_rate})" />
+								        </c:otherwise>
+							  		</c:choose>
+						  		  </c:when>
+						  		  <c:otherwise>
+							  		<span style="display: inline-block; vertical-align: top; border-style:none; font-size: ${fontsize_operator}px; color:#${color_operator}">
+							  			<c:set var="aboveTwo" value="${not empty visibleNoteList and not empty visibleNoteList[i] and visibleNoteList[i] != '1'}" />
+							  			
+										<a id="decrease_noter-${noteIdx}" onclick="javascript:updateNoteStatus('${noteIdx}','${user_role}','down1', ${tax_rate})" 
+										style="color:#${color_operator}; border-radius:${statusbar_border_radius}px; background:#${background_leftbar}; display:inline-block; width:${touchButtonWidth}px">&#160;-&#160;</a>
+							     		
+							     		<input id="txt_note-${noteIdx}" type="text" name="${noteIdx}" value="${visibleNoteList[i] == null ? '0' : visibleNoteList[i]}" readonly="readonly" 
+										style="padding:2px; text-align:center; width:40px; border-style:none; background:none; font-size: ${fontsize_num}px;"/>
+									 	
+									 	<a id="increaser_note-${noteIdx}" onclick="javascript:updateNoteStatus('${noteIdx}','${user_role}','up1', ${tax_rate})"
+									 	 style="color:#${color_operator}; border-radius:${statusbar_border_radius}px; background:#${background_leftbar}; display:inline-block; width:${touchButtonWidth}px">&#160;+&#160;</a>
+								 	</span>
+						    	  </c:otherwise>
+						    	</c:choose>
+						    </c:if>
+						</div>
+					</c:forEach>
+					
+					<input id="serviceIdx" type="hidden" name="position" value="${serviceIdx}" />
+				</c:if>
+			</div>
+		</div>
+			
+		<script type="text/javascript">
+		function showNote(value,index) {
+			
+		    $.ajax({
+		    	headers: "Accept=application/json",
+		        type: "GET",
+		        url: "showNotes/"+value,
+		        async:false,
+		        success:function(serviceJson){
+		        	
+		        	var noteList = serviceJson.c2.split(";");//@note:when it's clicked by manager, the content in c2 will be all note. 
+		        	var visibleNoteList = serviceJson.c3 != null &amp;&amp; serviceJson.c3.length &gt; 0 ? serviceJson.c3.split(";") : new Array("0");
+		        	
+		        	// replace all content base on c2
+		        	var nodes = document.all;
+		        	for(var i = 0; i &lt; 100; i++){ //use &lt; to replace less than mark.
+		        		var o = document.getElementById("des_note-" + i);
+		        		if(o != null){
+			        		o.innerText = i &lt; noteList.length ? noteList[i] : "";
+		        		}else{
+		        			break;
+		        		}
+		        	}
+		        	
+		        	// replace content with the the array from c3
+		        	var nodes = document.all;
+		        	for(var i = 0; i &lt; 100; i++){ //use &lt; to replace less than mark.
+		        		var o = document.getElementById("check_note-" + i);
+		        		if(o != null){
+			        		o.checked=(visibleNoteList != null &amp; visibleNoteList[i] == 1) ? "true" : "";
+		        		}else{
+		        			break;
+		        		}
+		        	}
+		        	//TODO: reinit the status (if it's clicked by manager, then only the check box will appear.
+	        		document.getElementById("serviceIdx").value=serviceJson.c1;
+		        	//todo: reset the check properties.
+		    		$("#luanchNoteDlg").click();
+		        }
+		    });
+		}
+		
+		function updateNoteStatus(nodeId, user_role, change, taxRate) {
+			
+			var curObj = document.getElementById("serviceIdx").value;
+			
+			if('[ROLE_ADMIN]' == user_role || user_role == '[ROLE_MANAGER]'){
+				//if logged in as Manager or admin, then ajax to back end.
+			    $.ajax({
+			    	headers: "Accept=application/json",
+			        type: "POST",
+			        url: "updateNotes/"+curObj,
+			        data: "nodeId=" + nodeId,
+			        async:false,
+			        success:function(serviceJson){
+			        	
+			        	var noteList = serviceJson.c2.split(";");//@note:when it's clicked by manager, the content in c2 will be all note. 
+			        	var visibleNoteList = serviceJson.c3 != null &amp;&amp; serviceJson.c3.length &gt; 0 ? serviceJson.c3.split(";") : new Array("0");
+			        	
+			        	// replace all content base on c2
+			        	var nodes = document.all;
+			        	for(var i = 0; i &lt; 100; i++){ //use &lt; to replace less than mark.
+			        		var o = document.getElementById("des_note-" + i);
+			        		if(o != null){
+				        		o.innerText = i &lt; noteList.length ? noteList[i] : "";
+			        		}else{
+			        			break;
+			        		}
+			        		
+			        	}
+			        	
+			        	// replace content with the the array from c3
+			        	var nodes = document.all;
+			        	for(var i = 0; i &lt; 100; i++){ //use &lt; to replace less than mark.
+			        		var o = document.getElementById("check_note-" + i);
+			        		if(o != null){
+				        		o.checked=(visibleNoteList != null &amp; visibleNoteList[i] == 1) ? "true" : "";
+			        		}
+			        	}
+			        }
+			    });
+			}else{
+				
+				//NOTE: first step, I want to just support simple note and print. withoug number, without price.....
+				//1, clicked, go to back end update selection, in back end, foun the selected item.
+				//if the note has price properties, then need to updat the total. but it's better to adjust it after back end is done.....
+				//selected checkbox
+				 $.ajax({
+				    	headers: "Accept=application/json",
+				        type: "POST",
+				        url: "updateNotes/"+curObj,
+				        data: "nodeId=" + nodeId,
+				        async:false,
+				        success:function(serviceJson){
+				        	
+				        	var noteList = serviceJson.c2.split(";");//@note:when it's clicked by manager, the content in c2 will be all note. 
+				        	var visibleNoteList = serviceJson.c3 != null &amp;&amp; serviceJson.c3.length &gt; 0 ? serviceJson.c3.split(";") : new Array("0");
+				        	
+				        	// replace all content base on c2
+				        	var nodes = document.all;
+				        	for(var i = 0; i &lt; 100; i++){ //use &lt; to replace less than mark.
+				        		var o = document.getElementById("des_note-" + i);
+				        		if(o != null){
+					        		o.innerText = i &lt; noteList.length ? noteList[i] : "";
+				        		}else{
+				        			break;
+				        		}
+				        		
+				        	}
+				        	
+				        	// replace content with the the array from c3
+				        	var nodes = document.all;
+				        	for(var i = 0; i &lt; 100; i++){ //use &lt; to replace less than mark.
+				        		var o = document.getElementById("check_note-" + i);
+				        		if(o != null){
+					        		o.checked=(visibleNoteList != null &amp; visibleNoteList[i] == 1) ? "true" : "";
+				        		}
+				        	}
+				        }
+				  });
+			}
+		}
+		
+		</script>
+	</c:if>
+</jsp:root>
+

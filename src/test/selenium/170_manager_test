@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="050_010_manager_regiester.html">050_010_manager_regiester</a></td></tr>
+<tr><td><a href="020_011_login_as_new_client.html">020_011_login_as_new_client</a></td></tr>
+<tr><td><a href="050_020_give_manager_authentication.html">050_020_give_manager_authentication</a></td></tr>
+<tr><td><a href="020_100_logout_as_new_client.html">020_100_logout_as_new_client</a></td></tr>
+<tr><td><a href="050_030_manger_login.html">050_030_manger_login</a></td></tr>
+<tr><td><a href="050_040_manager_add_service.html">050_040_manager_add_service</a></td></tr>
+<tr><td><a href="050_040_manager_add_feature.html">050_040_manager_add_feature</a></td></tr>
+<tr><td><a href="050_050_manager_logout.html">050_050_manager_logout</a></td></tr>
+</tbody></table>
+</body>
+</html>

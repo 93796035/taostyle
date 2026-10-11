@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition name="flashpage" extends="flash">
+		<put-attribute name="body" value="/WEB-INF/views/flashpage.jspx" />
+	</definition>
+	
+	<definition name="test" extends="flash">
+		<put-attribute name="body" value="/WEB-INF/views/test.jspx" />
+	</definition>
+
+	<definition name="learnAlphabet" extends="game">
+		<put-attribute name="body" value="/WEB-INF/views/learnAlphabet.jspx" />
+	</definition>
+
+	<definition name="index" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/index.jspx" />
+	</definition>
+
+	<definition name="richEditor" extends="editor">
+		<put-attribute name="body" value="/WEB-INF/views/richEditor.jspx" />
+	</definition>
+
+	<definition name="careerApply" extends="editor">
+		<put-attribute name="body" value="/WEB-INF/views/careerApply.jspx" />
+	</definition>
+
+	<definition name="sendEmail" extends="editor">
+		<put-attribute name="body" value="/WEB-INF/views/sendEmail.jspx" />
+	</definition>
+
+	<definition name="dataAccessFailure" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/dataAccessFailure.jspx" />
+	</definition>
+
+	<definition name="resourceNotFound" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/resourceNotFound.jspx" />
+	</definition>
+
+	<definition name="uncaughtException" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/uncaughtException.jspx" />
+	</definition>
+	
+	<definition name="login" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/login.jspx" />
+	</definition>
+
+	<definition name="signup" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/signup.jspx" />
+	</definition>
+
+	<definition name="dashboard" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/dashboard.jspx" />
+	</definition>
+
+	<definition name="printpreview" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/printpreview.jspx" />
+	</definition>
+
+	<definition name="/contactus" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/contactus.jspx" />
+	</definition>
+
+	<definition name="/tableSelection" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/tableSelection.jspx" />
+	</definition>
+	
+	<definition name="/generealConfirmPage" extends="content">
+		<put-attribute name="body" value="/WEB-INF/views/generealConfirmPage.jspx" />
+	</definition>
+	
+	<definition name="/generalGalleryPage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalGalleryPage.jspx" />
+	</definition>
+
+	<definition name="/generalHTMLPage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalHTMLPage.jspx" />
+	</definition>
+
+	<definition name="/generalCatalogPage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalCatalogPage.jspx" />
+	</definition>
+
+	<definition name="/generalServicePage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalServicePage.jspx" />
+	</definition>
+	
+	<definition name="/generalHtmlServicePage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalHtmlServicePage.jspx" />
+	</definition>
+	
+	<definition name="/generalFormPage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalFormPage.jspx" />
+	</definition>
+	
+	<definition name="/generalResearchPage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalResearchPage.jspx" />
+	</definition>
+
+	<definition name="/generalProductPage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalProductPage.jspx" />
+	</definition>
+	
+	<definition name="/generalFeaturePage" extends="content">
+		<put-attribute name="body"
+			value="/WEB-INF/views/generalFeaturePage.jspx" />
+	</definition>
+	
+	<!-- debug -->
+	<definition name="printer_debug" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/printer_debug.jspx" />
+	</definition>
+	<definition name="ui_debug" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/ui_debug.jspx" />
+	</definition>
+</tiles-definitions>

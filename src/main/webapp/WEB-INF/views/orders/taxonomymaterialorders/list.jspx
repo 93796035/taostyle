@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:list id="pl_com_stgo_taostyle_domain_TaxonomyMaterialOrder"
+		items="${taxonomymaterialorders}" z="vbT+hVEmNewAeLX+dMnGVKZo+Gg=">
+		<table:table data="${taxonomymaterialorders}"
+			id="l_com_stgo_taostyle_domain_TaxonomyMaterialOrder" delete="false"
+			path="/taxonomymaterialorders" z="r2UkErM7lVRds6uTkXAgHvW3rN4=">
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_mainOrder"
+				property="mainOrderStr" z="SLKLDLiI0+eTk9E0eSo+8pGYAx4=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_factory"
+				property="factory" z="yh5/EPWtEjCMD1BXMWHvuZnpnJI=" />
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_produceFormat"
+				property="produceFormat" z="jgV7LBKq2fip58hYtQE3qj8/OSQ=" />
+			<table:column date="true"
+				dateTimePattern="${taxonomyMaterialOrder_orderdate_date_format}"
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_orderDate"
+				property="orderDate" z="8lgLdO5Xuv4zAXZzD/M46p9YmmU=" />
+			<!-- <table:column id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_employee" property="employee" z="irbNp68BvtWTDHbovCuW2e/nf9E="/> -->
+			<table:column
+				id="c_com_stgo_taostyle_domain_TaxonomyMaterialOrder_itemName"
+				property="itemName" z="78oHYLQy9zVc/UYGItKDOD6kxsA=" />
+		</table:table>
+	</page:list>
+</div>

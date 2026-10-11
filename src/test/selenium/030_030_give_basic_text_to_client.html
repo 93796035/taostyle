@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>020_030_give_basic_text_to_client</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">020_030_give_basic_text_to_client</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/taostyle/000clientForTest</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=content</td>
+	<td>HOME</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#displayChangeTextBox &gt; div.modal-dialog &gt; div.modal-content &gt; form &gt; div.modal-footer &gt; button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=HOME</td>
+	<td>HOME</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=font</td>
+	<td>About</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[type=&quot;submit&quot;] &gt; img[title=&quot;click me to modify the text of this area.&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=editor</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<!--the action in rich editor can not be recored, actually I inputted "About(under testing...)"-->
+<tr>
+	<td>verifyText</td>
+	<td>css=font</td>
+	<td>About</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.row &gt; div.span1 &gt; a[type=&quot;submit&quot;] &gt; img[title=&quot;click me to modify the text of this area.&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-primary</td>
+	<td></td>
+</tr>
+<!--the action in rich editor can not be recorded.....-->
+<tr>
+	<td>verifyText</td>
+	<td>css=div.row &gt; span</td>
+	<td>© 2017 000clientForTest. powered by ShareTheGoodOnes.com</td>
+</tr>
+</tbody></table>
+</body>
+</html>

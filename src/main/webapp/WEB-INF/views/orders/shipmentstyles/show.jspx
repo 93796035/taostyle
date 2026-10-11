@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:show id="ps_com_stgo_taostyle_domain_ShipmentStyle"
+		object="${shipmentstyle}" path="/shipmentstyles"
+		z="S+LpuOOcFxiHUWtByhcM8dUBnKM=">
+		<field:display field="mainOrderStr"
+			id="s_com_stgo_taostyle_domain_ShipmentStyle_mainOrder"
+			object="${shipmentstyle}" z="BG+18wKkvtxJ0VkJMBjgn+G03CY=" />
+		<field:display field="quantity"
+			id="s_com_stgo_taostyle_domain_ShipmentStyle_quantity"
+			object="${shipmentstyle}" z="bEn2Q/rHqJK3lzwj380/mcsd0hU=" />
+		<field:display field="shipment"
+			id="s_com_stgo_taostyle_domain_ShipmentStyle_shipment"
+			object="${shipmentstyle}" z="p14IpTIW3bfpPp2gpi0T8HXczZA=" />
+		<field:display date="true"
+			dateTimePattern="${shipmentStyle_outdoordate_date_format}"
+			field="outdoorDate"
+			id="s_com_stgo_taostyle_domain_ShipmentStyle_outdoorDate"
+			object="${shipmentstyle}" z="eaHZsSsAjZK1ytuVJiTfG6jFICE=" />
+		<field:display date="true"
+			dateTimePattern="${shipmentStyle_onboarddate_date_format}"
+			field="onboardDate"
+			id="s_com_stgo_taostyle_domain_ShipmentStyle_onboardDate"
+			object="${shipmentstyle}" z="gQcTdK+H5IG6t/QJ6q9w0CmYgQ0=" />
+		<field:display field="remark"
+			id="s_com_stgo_taostyle_domain_ShipmentStyle_remark"
+			object="${shipmentstyle}" z="x+zaRG4GFW8+nU+dPE2CNRve5F4=" />
+	</page:show>
+</div>

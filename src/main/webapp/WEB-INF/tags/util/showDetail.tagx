@@ -1,0 +1,634 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="Indicate the level of user who could change the image and text on detail panel." />
+
+	<a id="luanchDetailDlg" class="hide" href="#windowTitleDialog" data-toggle="modal" />
+
+	<style>
+		#windowTitleDialog {
+			position: fixed;
+			top: 2vh;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 95vw;
+			max-width: 95vw;
+			height: 95vh;
+			max-height: 95vh;
+			overflow-y: auto;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+
+		/* 让 radio 按钮隐藏 */
+		#service_options input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		/* 设置 label 按钮样式 */
+		#service_options label {
+			display: inline-block;
+			padding: 5px 10px;
+			margin: 5px;
+			font-size: 12px;
+			font-weight: 400;  /* 细字体 */
+			color: #333;
+			border: 1px solid #ccc;
+			border-radius: 16px; /* 圆角 */
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+
+		/* 选中时的样式 */
+		#service_options input[type="radio"]:checked + label {
+			background-color: black;
+			color: white;
+			border-color: black;
+		}
+		#thumContainer {
+			display: flex;
+			flex-wrap: nowrap; /* 不换行，超出部分滚动 */
+			overflow-x: auto; /* 横向滚动 */
+			gap: 8px; /* 图片间距 */
+			padding: 10px;
+			max-width: 100%; /* 防止超出父容器 */
+		}
+
+		/* 让滚动条在 WebKit 浏览器（Chrome、Safari）下更美观 */
+		#thumContainer::-webkit-scrollbar {
+			height: 6px;
+		}
+		#thumContainer::-webkit-scrollbar-thumb {
+			background-color: #aaa; /* 滚动条颜色 */
+			border-radius: 3px;
+		}
+		@media (max-width: 768px) {
+			#imageDisplay, #detail_service_description, #service_option_name, #service_options {
+				padding-left: 20px; /* 小屏幕上间距稍小 */
+			}
+			.modal-dialog {
+				width: 100%;
+				margin: 0;
+			}
+			.modal-content {
+				height: 100vh;
+				border-radius: 0;
+			}
+		}
+		.quantity-selector {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 120px;  /* 控制整体宽度 */
+			background: #f5f5f5;
+			border-radius: 10px;
+			padding: 5px;
+		}
+
+		.quantity-selector button {
+			width: 35px;
+			height: 35px;
+			border: none;
+			background-color: black;
+			color: white;
+			font-size: 18px;
+			font-weight: bold;
+			border-radius: 50%;  /* 让按钮变圆 */
+			cursor: pointer;
+			transition: background 0.3s ease-in-out;
+		}
+
+		.quantity-selector button:hover {
+			background-color: #444; /* 悬停时颜色变深 */
+		}
+
+		.quantity-selector input {
+			width: 40px;
+			text-align: center;
+			font-size: 18px;
+			border: none;
+			background: transparent;
+			outline: none;
+		}
+
+		#imageDisplay {
+			overflow: hidden;
+			position: relative;
+		}
+
+		#mainImage {
+			transition: transform 0.12s ease-out;
+			transform-origin: center center;
+			will-change: transform;
+			cursor: zoom-in;
+		}
+	</style>
+
+	<div id="windowTitleDialog" class="gallery modal hide fade in container-fluid"
+		 aria-hidden="true" aria-labelledby="windowTitleLabel" role="dialog" tabindex="-1"
+		 style="background:#${background_subpage}; opacity:${pop_opacity}; padding: 20px;
+           max-width: 95vw;
+			width: 95vw;
+			max-height: 95vh">
+
+		<!-- 关闭按钮 -->
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal" href="#">
+				<spring:url value="/resources/images/close.png" var="close_img_url" />
+				<img alt="X" src="${close_img_url}" />
+			</a>
+		</div>
+
+		<input id="serviceItemIdx" type="hidden" value="" />
+		<input id="serviceDetailBottomTxt" type="hidden" name="position" value="" />
+		<!-- Bootstrap 网格系统 -->
+		<div class="row">
+			<!-- 左侧：大图 + 小图 -->
+			<div class="col-md-7 col-12">
+				<!-- 大图 -->
+				<div id="imageDisplay" class="text-center mb-3">
+					<img id="mainImage" src="getImage/${imageList[0].big}"
+						 style="width: 100%; max-height: 70vh; object-fit: contain; border: 1px solid #ccc;" />
+				</div>
+
+				<!-- 小图缩略图（默认隐藏，JS控制显示） -->
+				<div id="thumContainer" class="d-none d-md-flex justify-content-center gap-2 overflow-auto p-2">
+					<c:forEach var="img" items="${imageList}" varStatus="status">
+						<img src="getImage/${img.thum}" class="thumImg"
+							 style="width: 80px; height: 80px; cursor: pointer; object-fit: cover;
+                                border-radius: 5px; border: 1px solid #ccc;"
+							 onclick="updateMainImage('getImage/${img.big}')" />
+					</c:forEach>
+				</div>
+			</div>
+			<div  class="col-md-5 col-12 mt-3 mt-md-0">
+				<!-- 右侧：文字描述（大屏幕时） -->
+				<div id="detail_service_name" style="text-align: left;"> <!--xxxx--></div>
+				<div id="detail_service_description" style="color:#${foreground_menu}; text-align: left;"> <!--xxxx--></div>
+				<!-- display the edit button, this button must not reuse the tags, because we need to use it's uniq id to set value into it when service clicked. -->
+				<c:if test="${user_role == '[ROLE_ADMIN]' or (not empty allowedLevel and user_role eq allowedLevel)}">
+					<div class="span1">
+						<spring:url value="/changeContentForm" var="form_url" />
+						<form action="${fn:escapeXml(form_url)}" method="GET">
+							<!-- have to use GET, because the controller is using get, that's because the edit.tagx is using a instead of form. -->
+							<input id="serviceDetailTxt" type="hidden" name="position" value="" />
+							<!-- the value of this element can be too large when the content contains image, so remove it. <input id="servicedetailContent" type="hidden" name="content" value=""/> -->
+							<!--because complex content may cause the display error. ${fn:length(content) > 1000 ? '' : content} -->
+
+							<button type="submit" style="padding:0; border:0; background:transparent; line-height:1; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+								<spring:url value="/resources/images/changeText.png" var="content_txt_url" />
+								<img src="${content_txt_url}" style="display:block;" title="click me to modify the text of this area." />
+							</button>
+						</form>
+					</div>
+				</c:if>
+				<c:if test="${'true' eq moneyShow}" >
+					<div id="detail_service_price" style="text-align: center; opacity:${opacity};font-weight:${moneyWeight};color:#${moneyColor}; font-size:${moneySize}pt;"> ${moneyLetter}${prices[j][i]}</div>
+					<div id="detail_service_metrics" style="display:none; text-align:left; margin-top:10px;"></div>
+					<hr/>
+					<c:if test="${supportTimesOnDetail eq 'true'}">
+
+						<div id="service_option_name" style="color:#${foreground_menu}"><!--xxx--></div>
+						<!-- 尺寸选项 -->
+						<fieldset id="service_options" class="js product-form__input product-form__input--pill" ><!--xxx--></fieldset>
+						<div style="display: flex; justify-content: center;">
+							<span id="quantitySetter" style="display: inline-block; align-items: center; border: 1px solid #${color_operator};
+							  border-radius: ${statusbar_border_radius}px; padding: 2px; font-size: ${fontsize_operator}px; color:#${color_operator}">
+								<a id="decreaser" onclick="javascript:updateTxtNumber(-1)"
+								   style="color:#${color_operator}; background:#${background_operator};
+								   display: inline-flex; align-items: center; justify-content: center;
+								   width:${touchButtonWidth}px; height:${touchButtonWidth}px; text-align: center;">-</a>
+
+								<input id="txtNumber" type="text" value="0" readonly="readonly"
+									   style="padding:2px; text-align:center; width:40px; border-style:none; background:none; font-size: ${fontsize_num}px;"/>
+
+								<a id="increaser" onclick="javascript:updateTxtNumber(1)"
+								   style="color:#${color_operator}; background:#${background_operator};
+								   display:inline-flex; align-items: center; justify-content: center;
+									width:${touchButtonWidth}px; height:${touchButtonWidth}px; text-align: center;">+</a>
+							</span>
+						</div>
+						<hr/>
+						<!-- 统一按钮样式 -->
+						<style>
+							.full-width-button {
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								width: 100%;
+								height: 50px;
+								font-size: ${fontsize_operator}px;
+								border: 1px solid #${color_operator};
+								border-radius: ${statusbar_border_radius}px;
+								padding: 5px;
+								margin-top: 10px;
+								text-align: center;
+								background-color: #${background_operator};
+								color: #${foreground_operator};
+								cursor: pointer;
+								transition: all 0.3s ease-in-out;
+							}
+							.full-width-button:hover {
+								background-color: #${hover_background_operator}; /* 鼠标悬停颜色 */
+							}
+						</style>
+
+						<!-- 购物车按钮 -->
+						<div>
+							<input id="addToCart" type="button" value="Add to cart" onclick="submitAddToCart();"
+							  style="display: block; width: 250px; height: 50px; margin: 10px auto;
+							  border: 1px solid #bebdaa; border-radius: ${statusbar_border_radius}px;
+							  background: #f8f8f8; color: #333; font-size: 16px;
+							  cursor: pointer; text-align: center;" />
+						</div>
+
+						<!-- PayPal 和 Pay on Pickup 按钮 -->
+						<c:if test="${not empty client_secret}">
+							<spring:url value="/showSelection" var="showSelection" />
+							<input id="checkOut" type="button" value="Check out"
+							  style="display: block; width: 250px; height: 50px; margin: 10px auto;
+							  border: 1px solid #bebdaa; border-radius: ${statusbar_border_radius}px;
+							  background: #f8f8f8; color: #333; font-size: 16px;
+							  cursor: pointer; text-align: center;" />
+						</c:if>
+					</c:if>
+				</c:if>
+			</div>
+		</div>
+
+		<!-- 小屏幕：小图排列（仅在 `md` 以下显示） -->
+		<div id="thumContainerMobile" class="d-md-none d-flex justify-content-center gap-2 overflow-auto p-2">
+			<c:forEach var="img" items="${imageList}" varStatus="status">
+				<img src="getImage/${img.thum}" class="thumImg"
+					 style="width: 80px; height: 80px; cursor: pointer; object-fit: cover;
+                        border-radius: 5px; border: 1px solid #ccc;"
+					 onclick="updateMainImage('getImage/${img.big}')" />
+			</c:forEach>
+		</div>
+
+		<div id="detail_service_bottom_wrapper" style="margin-top: 20px; width: 100%;">
+			<div id="detail_service_bottom"
+				 style="color:#${foreground_menu}; text-align: left; width: 100%;">
+				<!-- bottom detail content -->
+			</div>
+
+			<c:if test="${user_role == '[ROLE_ADMIN]' or (not empty allowedLevel and user_role eq allowedLevel)}">
+				<div style="margin-top: 10px; text-align: left;">
+					<spring:url value="/changeContentForm" var="form_url_bottom" />
+					<form action="${fn:escapeXml(form_url_bottom)}" method="GET" style="margin: 0;">
+						<input id="serviceDetailBottomTxtForm" type="hidden" name="position" value="" />
+						<button type="submit" style="padding:0; border:0; background:transparent; line-height:1; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+							<spring:url value="/resources/images/changeText.png" var="content_txt_bottom_url" />
+							<img src="${content_txt_bottom_url}" style="display:block;" title="click me to modify the bottom detail area." />
+						</button>
+					</form>
+				</div>
+			</c:if>
+		</div>
+	</div>
+
+	<!-- JavaScript -->
+	<script type="text/javascript">
+		<![CDATA[
+		var checkOutBtn = document.getElementById("checkOut");
+		if (checkOutBtn) {
+			checkOutBtn.addEventListener("click", function() {
+				submitAddToCart().then(result => {
+					console.log("submitAddToCart() result:", result);
+					if (result) {
+						setTimeout(() => {
+							let showSelection = "${showSelection}";
+							console.log("Redirecting to:", showSelection);
+							window.location.href = showSelection;
+						}, 200);
+					}
+				}).catch(error => {
+					console.error("Error in submitAddToCart():", error);
+				});
+			});
+		}
+
+		function updateTxtNumber(change) {
+			const txtNumber = document.getElementById('txtNumber');
+			let currentValue = parseInt(txtNumber.value, 10);
+			if (isNaN(currentValue)) {
+				currentValue = 0;
+			}
+			currentValue += change;
+			if (currentValue < 0) {
+				currentValue = 0; // 防止数字变为负数
+			}
+			txtNumber.value = currentValue;
+		}
+		function submitAddToCart() {
+			return new Promise((resolve, reject) => {
+				let serviceItemIdx = document.getElementById("serviceItemIdx").value;
+				let serviceName = document.getElementById("detail_service_name").innerHTML;
+
+				let selectedOption = document.querySelector("input[name='option']:checked")?.value || "";
+				if (document.querySelector("input[name='option']") && !selectedOption) {
+					showToast("Please select an option before proceeding!");
+					let optionContainer = document.getElementById("service_options");
+					if (optionContainer) {
+						optionContainer.style.border = "2px solid orange";
+						setTimeout(() => { optionContainer.style.border = ""; }, 2000);
+					}
+					resolve(false); // 这里要 `resolve(false)`，防止 `undefined`
+					return;
+				}
+
+				let quantity = document.getElementById("txtNumber").value;
+				if (quantity <= 0) {
+					showToast("Please select a valid quantity before proceeding!");
+					let quantityInput = document.getElementById("quantitySetter");
+					if (quantityInput) {
+						quantityInput.style.border = "1px solid orange";
+						setTimeout(() => { quantityInput.style.border = "1px solid #${color_operator}"; }, 2000);
+					}
+					resolve(false);
+					return;
+				}
+
+				let postData = {
+					menuIdx: serviceItemIdx,
+					serviceName: serviceName,
+					selectedOption: selectedOption,
+					quantity: quantity
+				};
+
+				fetch("services/addToCart", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(postData)
+				})
+						.then(response => response.json())
+						.then(data => {
+							console.log("Response:", data);
+							closeDetail();
+							showToast("Added to cart successfully!");
+							resolve(true); // 成功时返回 `true`
+						})
+						.catch(error => {
+							console.error("Error:", error);
+							resolve(false); // 失败时返回 `false`
+						});
+			});
+		}
+		function addToShoppingcar(size) {
+			// //get the number and option info.
+			// var note = document.getElementById("note-" + imageKey);
+			// if(note){
+			// 	note.style.visibility = 'visible'
+			// 	if(selected &lt; 2 &amp; change.indexOf('up') != 0) {
+			// 		note.style.visibility = 'hidden';
+			// 	}
+			// }
+			//
+			// //save a copy into the session. the selectedItems in session is not only helped to displaying page with an "already selected" status,
+			// //but also used to calculate toltal price. when user switch between other web site in sharethegoodones.com, the selectedItem be clean up.
+			// $.ajax({
+			// 	headers: "Accept=application/json",
+			// 	type: "POST",
+			// 	url: "createOrder/"+imageKey,
+			// 	data:"change=" + change,
+			// 	async:true,
+			// 	success:function(textContent){
+			// 		//location.reload();
+			// 		if(textField != null){
+			// 			textField.value = change == 'up1' ? selected + 1 : selected -1;
+			// 		}
+			//
+			// 		var selectedItem = document.getElementById("selectedItem"); //who will need this guy?
+			// 		if(selectedItem != null){
+			// 			var currentValue = Number(selectedItem.innerText); // 将文本内容转换为数字
+			// 			selectedItem.innerText = (change == 'up1' || (curObj != null &amp;&amp; curObj.checked)) ? currentValue + 1 : currentValue - 1;
+			// 		}
+			//
+			// 		var totalPrice = document.getElementById("totalPrice");
+			// 		if(totalPrice != null){
+			// 			totalPrice.innerText = textContent;
+			// 		}
+			// 	}
+			// });
+		}
+		function showToast(message) {
+			let toast = document.createElement("div");
+			toast.textContent = message;
+			toast.style.position = "fixed";
+			toast.style.bottom = "20px";
+			toast.style.right = "20px";
+			toast.style.background = "rgba(0, 0, 0, 0.8)";
+			toast.style.color = "white";
+			toast.style.padding = "10px 20px";
+			toast.style.borderRadius = "5px";
+			toast.style.zIndex = "9999";
+			document.body.appendChild(toast);
+
+			setTimeout(() => {
+				toast.style.opacity = "0";
+				setTimeout(() => document.body.removeChild(toast), 500);
+			}, 2000);
+		}
+
+		function resetMainImageZoom() {
+			let mainImage = document.getElementById("mainImage");
+			if (!mainImage) {
+				return;
+			}
+			mainImage.style.transform = "scale(1)";
+			mainImage.style.transformOrigin = "center center";
+		}
+
+		function bindMainImageZoom() {
+			let imageDisplay = document.getElementById("imageDisplay");
+			let mainImage = document.getElementById("mainImage");
+
+			if (!imageDisplay || !mainImage) {
+				return;
+			}
+
+			imageDisplay.onmousemove = function(e) {
+				let rect = imageDisplay.getBoundingClientRect();
+				let x = ((e.clientX - rect.left) / rect.width) * 100;
+				let y = ((e.clientY - rect.top) / rect.height) * 100;
+
+				if (x < 0) x = 0;
+				if (x > 100) x = 100;
+				if (y < 0) y = 0;
+				if (y > 100) y = 100;
+
+				mainImage.style.transformOrigin = x + "% " + y + "%";
+				mainImage.style.transform = "scale(2)";
+			};
+
+			imageDisplay.onmouseleave = function() {
+				resetMainImageZoom();
+			};
+		}
+
+		function updateMainImage(imageSrc) {
+			let mainImage = document.getElementById("mainImage");
+			if (!mainImage) {
+				return;
+			}
+			mainImage.src = imageSrc;
+			resetMainImageZoom();
+		}
+
+		function showDetail(value) {
+			$.ajax({
+				headers: { "Accept": "application/json" },
+				type: "GET",
+				url: "serviceDetailJSon/" + value,
+				async: false,
+				success: function(response) {
+					let serviceName = response.serviceName;
+					let serviceDescription = response.serviceDescription;
+					let servicePrice = response.servicePrice ? "$" + response.servicePrice : "";
+					let imageList = response.imageList;
+					let optionName = response.serviceOptionName;
+					// **更新文本内容**
+					if (optionName) {
+						document.getElementById("service_option_name").innerHTML = optionName;
+					}
+					if(response.serviceOptions) {
+						let options = response.serviceOptions.split(';');
+						// **动态生成尺寸选项**
+						let optionContainer = document.getElementById("service_options");
+						optionContainer.innerHTML = "";
+						options.forEach((option, index) => {
+							let input = document.createElement("input");
+							input.type = "radio";
+							input.id = "option-" + option;
+							input.name = "option";
+							input.value = option;
+
+							let label = document.createElement("label");
+							label.setAttribute("for", "option-" + option);
+							label.style.color = `#${foreground_menu}`; // 动态设置颜色
+							label.textContent = option;
+
+							optionContainer.appendChild(input);
+							optionContainer.appendChild(label);
+						});
+					}
+					if(document.getElementById('txtNumber') != null){
+						document.getElementById('txtNumber').value = 0;
+					}
+					document.getElementById("detail_service_name").innerHTML = serviceName.content;
+					document.getElementById("detail_service_description").innerHTML = serviceDescription.content;
+
+					let serviceBottomDescription = response.serviceBottomDescription;
+					if (document.getElementById("detail_service_bottom") !== null) {
+						document.getElementById("detail_service_bottom").innerHTML =
+								(serviceBottomDescription && serviceBottomDescription.content) ? serviceBottomDescription.content : "";
+					}
+
+					if (document.getElementById("serviceItemIdx") !== null) {
+						document.getElementById("serviceItemIdx").value = serviceDescription.posInPage;
+					}
+					if (document.getElementById("serviceDetailTxt") !== null) {
+						document.getElementById("serviceDetailTxt").value = serviceDescription.posInPage;
+					}
+					if (document.getElementById("serviceDetailBottomTxtForm") !== null) {
+						if (serviceBottomDescription && serviceBottomDescription.posInPage) {
+							document.getElementById("serviceDetailBottomTxtForm").value = serviceBottomDescription.posInPage;
+						} else {
+							document.getElementById("serviceDetailBottomTxtForm").value = serviceDescription.posInPage + "_bottom";
+						}
+					}
+					if(document.getElementById("detail_service_price") !== null) {
+						document.getElementById("detail_service_price").innerHTML = servicePrice;
+					}
+					let metricsBox = document.getElementById("detail_service_metrics");
+					if(metricsBox !== null) {
+						if (response.showManagerMetrics) {
+							let metrics = [];
+							if (response.serviceCost) metrics.push("Cost: $" + response.serviceCost);
+							if (response.serviceStock) metrics.push("Stock In: " + response.serviceStock);
+							if (response.serviceWeeklySalesQty) metrics.push("WQty: " + response.serviceWeeklySalesQty);
+							if (response.serviceMonthlySalesQty) metrics.push("MQty: " + response.serviceMonthlySalesQty);
+							metricsBox.innerHTML = metrics.join("<br/>");
+							metricsBox.style.display = metrics.length > 0 ? "block" : "none";
+						} else {
+							metricsBox.innerHTML = "";
+							metricsBox.style.display = "none";
+						}
+					}
+					// **更新图片**
+					let thumContainer = document.getElementById("thumContainer");
+					let mainImage = document.getElementById("mainImage");
+
+					// **清空旧的 thumContainer 内容**
+					thumContainer.innerHTML = '';
+
+					// **如果小图片数量大于 1，显示缩略图区域**
+					if (imageList.length > 1) {
+						thumContainer.style.display = "flex";
+
+						// **循环添加所有缩略图**
+						imageList.forEach((img, index) => {
+							let thumImg = document.createElement("img");
+							thumImg.src = "getImage/" + img.thum;
+							thumImg.classList.add("thumImg");
+							thumImg.style.width = "80px";
+							thumImg.style.height = "80px";
+							thumImg.style.cursor = "pointer";
+							thumImg.style.objectFit = "cover";
+							thumImg.style.borderRadius = "5px";
+							thumImg.style.margin = "5px";
+
+							// **点击缩略图更新大图**
+							thumImg.onclick = function () {
+								updateMainImage("getImage/" + img.big);
+							};
+
+							// **将缩略图添加到容器**
+							thumContainer.appendChild(thumImg);
+						});
+					} else {
+						// **只有一张图片，隐藏缩略图区域**
+						thumContainer.style.display = "none";
+					}
+
+					// **默认显示第一张图的大图**
+					if (imageList.length > 0) {
+						mainImage.src = "getImage/" + imageList[0].big;
+						resetMainImageZoom();
+					}
+
+					bindMainImageZoom();
+
+					// **显示模态框**
+					$("#luanchDetailDlg").click();
+				}
+			});
+		}
+		function closeDetail() {
+			let popup = document.getElementById('windowTitleDialog');
+			if (popup) {
+				popup.style.display = "none";
+			}
+			let modalBackdrop = document.querySelector(".modal-backdrop");
+			if (modalBackdrop) {
+				modalBackdrop.parentNode.removeChild(modalBackdrop);
+			}
+
+			// 确保页面可以正常交互
+			document.body.classList.remove("modal-open");
+			document.body.style.overflow = "auto";
+		}
+		]]>
+	</script>
+
+</jsp:root>

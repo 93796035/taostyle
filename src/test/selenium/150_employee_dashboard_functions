@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="060_020_login_as_tao.html">060_020_login_as_tao</a></td></tr>
+<tr><td><a href="070_010_add_an_order.html">070_010_add_an_order</a></td></tr>
+<tr><td><a href="070_020_open_an_order.html">070_020_open_an_order</a></td></tr>
+<tr><td><a href="070_030_change_status_to_printed.html">070_030_change_status_to_printed</a></td></tr>
+<tr><td><a href="070_040_change_status_to_served.html">070_040_change_status_to_served</a></td></tr>
+<tr><td><a href="070_010_add_an_order.html">070_010_add_an_order</a></td></tr>
+<tr><td><a href="070_010_add_an_order.html">070_010_add_an_order</a></td></tr>
+<tr><td><a href="070_050_combine_2_orders.html">070_050_combine_2_orders</a></td></tr>
+<tr><td><a href="070_060_clean_an_order.html">070_060_clean_an_order</a></td></tr>
+</tbody></table>
+</body>
+</html>

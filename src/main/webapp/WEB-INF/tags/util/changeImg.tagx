@@ -1,0 +1,42 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="render" type="java.lang.Boolean"
+		required="false" rtexprvalue="true"
+		description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+	<jsp:directive.attribute name="position" type="java.lang.String"
+		required="true" rtexprvalue="true"
+		description="Indicate where the contents will be pu onto" />
+	<jsp:directive.attribute name="returnPath" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="Indicate where will return to when uploading image finished" />
+	<jsp:directive.attribute name="allowedLevel" type="java.lang.String"
+		required="false" rtexprvalue="true"
+		description="if not null then the role will also be allowed to modify." />
+
+	<c:if test="${empty render or render}">
+		<c:if
+			test="${user_role == '[ROLE_ADMIN]' or (not empty allowedLevel and user_role eq allowedLevel)}">
+			<div class="span1" style="z-index: 1000;">
+				<!--  position: absolute; top:0px -->
+				<spring:url value="/changeImgForm" var="form_url">
+					<spring:param name="returnPath" value="${returnPath}" />
+				</spring:url>
+				<form action="${fn:escapeXml(form_url)}" method="POST">
+					<input type="hidden" name="position" value="${position}" />
+					<button type="submit" style="padding:0; border:0; background:transparent; line-height:1; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+						<spring:url value="/resources/images/changeImg.png"
+							var="content_img_url" />
+						<img src="${content_img_url}" style="display:block;"
+							title="click me to modify the Image of this area." />
+					</button>
+				</form>
+			</div>
+		</c:if>
+	</c:if>
+
+</jsp:root>
+

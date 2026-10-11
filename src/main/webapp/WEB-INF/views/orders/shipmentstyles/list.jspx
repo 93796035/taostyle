@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<page:list id="pl_com_stgo_taostyle_domain_ShipmentStyle"
+		items="${shipmentstyles}" z="FfpchhQKbhR0kANqSAbsrAWxhaI=">
+		<table:table data="${shipmentstyles}" delete="false"
+			id="l_com_stgo_taostyle_domain_ShipmentStyle"
+			parentItemId="${mainOrderId}" path="/shipmentstyles" z="user-managed">
+			<table:column
+				id="c_com_stgo_taostyle_domain_ShipmentStyle_mainOrderStr"
+				property="mainOrderStr" z="mhNUubtmJabFmZFY8bJstCMCrrc=" />
+			<table:column id="c_com_stgo_taostyle_domain_ShipmentStyle_quantity"
+				property="quantity" z="ryUb1SXhbZetqbVg4Qa4PLDFm+E=" />
+			<table:column id="c_com_stgo_taostyle_domain_ShipmentStyle_shipment"
+				property="shipment" z="VfoAWn9+NlzdslZzFcwumBMoHY0=" />
+			<table:column date="true"
+				dateTimePattern="${shipmentStyle_outdoordate_date_format}"
+				id="c_com_stgo_taostyle_domain_ShipmentStyle_outdoorDate"
+				property="outdoorDate" z="1E0J8OM8ioH5V3fq0UgiCTtwq/Y=" />
+			<table:column date="true"
+				dateTimePattern="${shipmentStyle_onboarddate_date_format}"
+				id="c_com_stgo_taostyle_domain_ShipmentStyle_onboardDate"
+				property="onboardDate" z="RlhAX47uloJcjBXom/JgCKlYono=" />
+			<table:column id="c_com_stgo_taostyle_domain_ShipmentStyle_remark"
+				property="remark" z="/LamnJZD5B+lW3D2m1jOLz51TnE=" />
+		</table:table>
+	</page:list>
+</div>
